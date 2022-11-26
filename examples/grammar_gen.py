@@ -52,7 +52,7 @@ def generate_from_grammar_as_str(logic="QF_BV", incremental=False) -> str:
            '--difftest', '1',
            '--logic', logic]
 
-    print(cmd)
+    # print(cmd)
 
     p_gene = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     is_timeout_gene = [False]

@@ -14,8 +14,9 @@ Just type `python fuzzlib/generators/smtfuzz.py`, and you will see an SMT-LIB2 f
 For more advanced options, please try `python fuzzlib/generators/smtfuzz.py -h`
 
 ### Use the generator as a library
-See `examples/grammar_gen.py` for an example.
 
+We have provided an examples in `examples`:
+- `examples/grammar_gen.py`: generate an SMT-LIB2 string (which can be assigned to a Python variable)
 
 
 ## 2. Build a fuzzer on top of the generator
@@ -23,7 +24,7 @@ See `examples/grammar_gen.py` for an example.
 Here, we provide an example of using the formula generator.
 Suppose we need to test an SMT solver `solver_name`
 
-You may use a bash script to invoke the generator and run the SMT solver under test.
+We may use a bash script to invoke the generator and run the SMT solver under test.
 ~~~~
 #!/bin/bash
 #Generate 1000 files in /tmp. The log file records STDERR
@@ -43,5 +44,3 @@ for j in $(seq 1 1000); do
   timeout -s SIGKILL 5s /somepath/solver_name $tmpfile >>$logfile 2>&1
 done
 ~~~~
-
-
