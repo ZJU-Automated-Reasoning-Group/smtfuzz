@@ -1,0 +1,72 @@
+black_list*
+clean.sh
+*.ini
+!test/smt2/*
+.DS_Store
+venv
+core*
+*.sl
+*.sy
+stdout*
+core
+ctest/status
+*.dot
+*.dat
+*.txt
+.externalToolBuilders
+.settings
+.project
+
+
+*.wcnf
+*.dimacs
+*.backup
+*.backup*
+*.trace
+*.swp
+*.smt2
+
+
+# produced by ddSMT
+
+*.log
+*~
+*.pyc
+*.pyo
+# Ignore callgrind files
+callgrind.out.*
+# .hpp files are automatically generated
+*.hpp
+.z3-trace
+# OCaml generated files
+*.a
+*.cma
+*.cmo
+*.cmi
+*.cmxa
+ocamlz3
+# Java generated files
+*.class
+# Emacs temp files
+\#*\#
+# Directories with generated code and documentation
+release/*
+build/*
+build-dist/*
+dist/*
+doc/html/*
+# GTAGS generated files
+# CEDET files
+.cproject
+.project
+# Commonly used directories for code
+bld_dbg/*
+bld_rel/*
+bld_dbg_x64/*
+bld_rel_x64/*
+# Auto generated files.
+config.log
+config.status
+.idea/
+.idea/*.xml
+black_lists
