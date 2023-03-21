@@ -1,7 +1,7 @@
+smtfuzz.egg-info/
 black_list*
 clean.sh
 *.ini
-!test/smt2/*
 .DS_Store
 venv
 core*
