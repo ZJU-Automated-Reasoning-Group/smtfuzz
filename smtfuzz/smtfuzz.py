@@ -252,22 +252,22 @@ class Op:
         self.node = newnode
 
 
-class Ite_Op(Op):
+class IteOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Regular_Op(Op):  # regular exp
+class RegularOp(Op):  # regular exp
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Quantifier_Op(Op):
+class QuantifierOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Bool_Op(Op):
+class BoolOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
@@ -317,7 +317,7 @@ class Seq_Op(Op):
         Op.__init__(self, node, expr)
 
 
-class BV_Op(Op):
+class BVOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
@@ -438,7 +438,7 @@ class Var_UnIntSort(Var):
         return hash((self.sort, self.n))
 
 
-class Var_BV(Var):
+class VarBV(Var):
     def __init__(self, sort, n):
         Var.__init__(self, sort, n)
 
@@ -446,13 +446,13 @@ class Var_BV(Var):
         return 'bv_{}-{}'.format(self.sort, self.n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_BV) and self.n == other.n and self.sort == other.sort
+        return isinstance(other, VarBV) and self.n == other.n and self.sort == other.sort
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_Arr(Var):
+class VarArr(Var):
     def __init__(self, sort_index, sort_element, n):
         Var.__init__(self, sort_index, n)
         self.sort_element = sort_element
@@ -462,19 +462,19 @@ class Var_Arr(Var):
 
     def __eq__(self, other):
         return isinstance(other,
-                          Var_Arr) and self.n == other.n and self.sort == other.sort and \
+                          VarArr) and self.n == other.n and self.sort == other.sort and \
             self.sort_element == other.sort_element
 
     def __hash__(self):
         return hash((self.sort, self.sort_element, self.n))
 
 
-class Var_Quant(Var):
+class VarQuant(Var):
     def __init__(self, n):
         Var.__init__(self, 'q', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_Quant) and self.n == other.n
+        return isinstance(other, VarQuant) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
@@ -743,17 +743,10 @@ def get_random_unicode(length):
     return ''.join(random.choice(alphabet) for _ in range(length))
 
 
-def random_string(string_length=6):
+def random_string():
     """
-    Generate a random string of the specified length.
-
-    Args:
-        string_length (int): The length of the generated string.
-
-    Returns:
-        str: A random string of the specified length.
+    Generate a random string
     """
-
     letters = string.ascii_uppercase
     letters += string.ascii_lowercase
     letters += string.digits  # number
@@ -1655,7 +1648,7 @@ class SimpleNodes:
             operands = str(par)
             par = random.choice(self.d[String()])
             operands += (" " + str(par))
-            new_bool = Bool_Op(random.choice(StringBinBoolOp), operands)
+            new_bool = BoolOp(random.choice(StringBinBoolOp), operands)
             self.d[Bool()].append(new_bool)
         else:
             par = random.choice(self.d[String()])
@@ -1673,7 +1666,7 @@ class SimpleNodes:
                     else:
                         par = random.choice(self.d[String()])
                         operands += (" " + str(par))
-            new_bool = Bool_Op(op_to_use, operands)
+            new_bool = BoolOp(op_to_use, operands)
             self.d[Bool()].append(new_bool)
 
     def int_from_int(self):
@@ -1706,7 +1699,7 @@ class SimpleNodes:
             operand = str(par)
             par = random.choice(self.d[Int()])
             operand += (" " + str(par))
-            new_bool = Bool_Op(random.choice(IRNBoolOp), operand)
+            new_bool = BoolOp(random.choice(IRNBoolOp), operand)
             self.d[Bool()].append(new_bool)
             return  # stop here
         par = random.choice(self.d[Int()])
@@ -1715,7 +1708,7 @@ class SimpleNodes:
         for _ in range(n_operands):
             par = random.choice(self.d[Int()])
             operands += (" " + str(par))
-        new_bool = Bool_Op(random.choice(IRNBoolOp), operands)
+        new_bool = BoolOp(random.choice(IRNBoolOp), operands)
         self.d[Bool()].append(new_bool)
 
     def real_from_real(self):
@@ -1748,7 +1741,7 @@ class SimpleNodes:
         for _ in range(n_operands):
             par = random.choice(self.d[Real()])
             operands += (" " + str(par))
-        new_bool = Bool_Op(random.choice(IRNBoolOp), operands)
+        new_bool = BoolOp(random.choice(IRNBoolOp), operands)
         self.d[Bool()].append(new_bool)
 
 
@@ -1954,7 +1947,7 @@ class Nodes:
                     if bv_sort not in self.d.keys():
                         self.d[bv_sort] = []
                         self.dict[bv_sort] = 0
-                    const = Var_BV(width, len(self.d[bv_sort]))
+                    const = VarBV(width, len(self.d[bv_sort]))
                     print('(declare-fun {} () {})'.format(const, bv_sort))
                     self.d[bv_sort].append(const)
                     self.dict[bv_sort] += 1
@@ -2032,9 +2025,9 @@ class Nodes:
                     if random.random() < 0.65:
                         par = random.choice(self.d[String()])
                     else:
-                        par = "\"" + random_string(10) + "\""
+                        par = "\"" + random_string() + "\""
                     operands = str(par)
-                    new_re = Regular_Op('str.to_re', operands)
+                    new_re = RegularOp('str.to_re', operands)
                     self.d[Regular()].append(new_re)
 
                     self.d[Regular()].append("re.allchar")
@@ -2103,7 +2096,7 @@ class Nodes:
         sorted_var = '('
         n = random.randint(0, m_test_datalog_chc_var_bound)
         for _ in range(n):
-            ovar = Var_Quant(self.nq)
+            ovar = VarQuant(self.nq)
             self.nq += 1
             # osort = random.choice(list(self.d))
             osort = None
@@ -2129,7 +2122,7 @@ class Nodes:
             osv = '({} {}) '.format(ovar, osort)
             sorted_var += osv
 
-        ovar = Var_Quant(self.nq)
+        ovar = VarQuant(self.nq)
         self.nq += 1
         osort = random.choice(list(self.d))
         if osort not in self.qdict:
@@ -2170,7 +2163,7 @@ class Nodes:
         # n = random.randint(0, 3)
         n = random.randint(0, 7)
         for _ in range(n):
-            ovar = Var_Quant(self.nq)
+            ovar = VarQuant(self.nq)
             self.nq += 1
             osort = random.choice(list(self.d))
             if osort not in self.qdict:
@@ -2179,7 +2172,7 @@ class Nodes:
             osv = '({} {}) '.format(ovar, osort)
             sorted_var += osv
             var_list.append(osv)
-        ovar = Var_Quant(self.nq)
+        ovar = VarQuant(self.nq)
         self.nq += 1
         osort = random.choice(list(self.d))
         if osort not in self.qdict:
@@ -2302,7 +2295,7 @@ class Nodes:
                 par1 = random.choice(self.qdict[s])
                 par2 = random.choice(self.qdict[s2])
                 operand = str(par1) + " " + str(par2)
-                new_bv = BV_Op("concat", operand)
+                new_bv = BVOp("concat", operand)
                 bv_sort = BV(width)
                 if bv_sort not in qkeys:
                     self.qdict[bv_sort] = []
@@ -2313,7 +2306,7 @@ class Nodes:
                 width = ii * s.w
                 operator = '(_ repeat {})'.format(ii)
                 par = random.choice(self.qdict[s])
-                new_bv = BV_Op(operator, par)
+                new_bv = BVOp(operator, par)
                 bv_sort = BV(width)
                 if bv_sort not in qkeys:
                     self.qdict[bv_sort] = []
@@ -2322,7 +2315,7 @@ class Nodes:
             elif prob < 0.2:  # unary, extract
                 if random.random() < 0.5:  # unary
                     par = random.choice(self.qdict[s])
-                    new_bv = BV_Op(random.choice(Un_BV_BV), par)
+                    new_bv = BVOp(random.choice(Un_BV_BV), par)
                     self.qdict[s].append(new_bv)
                 else:  # extract
                     width = s.w
@@ -2331,7 +2324,7 @@ class Nodes:
                     operator = "(_ extract {} {})".format(parameter1, parameter2)
                     new_width = parameter1 - parameter2 + 1
                     par = random.choice(self.qdict[s])
-                    new_bv = BV_Op(operator, par)
+                    new_bv = BVOp(operator, par)
                     bv_sort = BV(new_width)
                     if bv_sort not in qkeys:
                         self.qdict[bv_sort] = []
@@ -2346,7 +2339,7 @@ class Nodes:
                         operator = "(_ sign_extend {})".format(ii)
                     width = s.w + ii
                     par = random.choice(self.qdict[s])
-                    new_bv = BV_Op(operator, par)
+                    new_bv = BVOp(operator, par)
                     bv_sort = BV(width)
                     if bv_sort not in qkeys:
                         self.qdict[bv_sort] = []
@@ -2357,7 +2350,7 @@ class Nodes:
                     else:
                         operator = "(_ rotate_right {})".format(ii)
                     par = random.choice(self.qdict[s])
-                    new_bv = BV_Op(operator, par)
+                    new_bv = BVOp(operator, par)
                     self.qdict[s].append(new_bv)
 
             elif prob < 0.4 and not m_test_eldarica:  # n-array
@@ -2367,7 +2360,7 @@ class Nodes:
                 for ii in range(a):
                     par = random.choice(self.qdict[s])
                     operand += (" " + str(par))
-                new_bv = BV_Op(random.choice(N_BV_BV), operand)
+                new_bv = BVOp(random.choice(N_BV_BV), operand)
                 self.qdict[s].append(new_bv)
 
             else:  # binary
@@ -2375,7 +2368,7 @@ class Nodes:
                 par2 = random.choice(self.qdict[s])
                 operand = str(par1) + " " + str(par2)
                 operator = random.choice(Bin_BV_BV)
-                new_bv = BV_Op(operator, operand)
+                new_bv = BVOp(operator, operand)
                 if operator == "bvcomp":
                     if BV(1) not in qkeys:
                         self.qdict[BV(1)] = []
@@ -2508,13 +2501,13 @@ class Nodes:
             p = random.randint(1, 6)
             if p == 1:
                 par = random.choice(self.qdict[sort])
-                subexpr = Bool_Op(random.choice(UnOp), par)
+                subexpr = BoolOp(random.choice(UnOp), par)
             elif p == 2:
                 par1 = random.choice(self.qdict[sort])
                 par2 = random.choice(self.qdict[sort])
                 operand = str(par1)
                 operand += (" " + str(par2))
-                subexpr = Bool_Op(random.choice(BiOp), operand)
+                subexpr = BoolOp(random.choice(BiOp), operand)
             else:
                 n_operands = random.randint(1, 8)
                 par = random.choice(self.qdict[sort])
@@ -2522,7 +2515,7 @@ class Nodes:
                 for _ in range(n_operands):
                     par = random.choice(self.qdict[sort])
                     operands += (" " + str(par))
-                subexpr = Bool_Op(random.choice(NarOp), operands)
+                subexpr = BoolOp(random.choice(NarOp), operands)
                 # TODO: Can use fancy Boolean for CHC??
                 # do we need the following restriction?
                 # if m_test_datalog_chc:
@@ -2542,7 +2535,7 @@ class Nodes:
             for _ in range(n_operands):
                 par = random.choice(self.qdict[sort])
                 operands += (" " + str(par))
-            subexpr = Bool_Op(random.choice(IRNBoolOp), operands)
+            subexpr = BoolOp(random.choice(IRNBoolOp), operands)
 
         if type(sort) is Real:
             par = random.choice(self.qdict[sort])
@@ -2551,21 +2544,21 @@ class Nodes:
             for _ in range(n_operands):
                 par = random.choice(self.qdict[sort])
                 operands += (" " + str(par))
-            subexpr = Bool_Op(random.choice(IRNBoolOp), operands)
+            subexpr = BoolOp(random.choice(IRNBoolOp), operands)
 
         if type(sort) is BV:
             if random.random() < 0.33:
                 par1 = random.choice(self.qdict[sort])
                 par2 = random.choice(self.qdict[sort])
                 operand = str(par1) + " " + str(par2)
-                subexpr = Bool_Op(random.choice(Bin_BV_Bool), operand)
+                subexpr = BoolOp(random.choice(Bin_BV_Bool), operand)
             else:
                 par = random.choice(self.qdict[sort])
                 operand = str(par)
                 # n = random.randint(1, 4)
                 par = random.choice(self.qdict[sort])
                 operand += (" " + str(par))
-                subexpr = Bool_Op(random.choice(N_BV_Bool), operand)
+                subexpr = BoolOp(random.choice(N_BV_Bool), operand)
 
         if type(sort) is Arr:
             isort = sort.sort_index
@@ -2578,7 +2571,7 @@ class Nodes:
 
                 if par2 != "Empty":
                     expression = '{} {}'.format(par, par2)
-                    subexpr = Bool_Op('select', expression)
+                    subexpr = BoolOp('select', expression)
             else:
                 par = random.choice(self.qdict[sort])
                 operand = str(par)
@@ -2587,9 +2580,9 @@ class Nodes:
                     par = random.choice(self.qdict[sort])
                     operand += (" " + str(par))
                 if random.random() < 0.5:
-                    subexpr = Bool_Op('=', operand)
+                    subexpr = BoolOp('=', operand)
                 else:
-                    subexpr = Bool_Op('distinct', operand)
+                    subexpr = BoolOp('distinct', operand)
         # if subexpr != None:
         return subexpr
 
@@ -2606,7 +2599,7 @@ class Nodes:
                     par = random.choice(self.qdict[sort])
                 else:
                     par = random.choice(self.d[Bool()])
-                subexpr = Bool_Op(random.choice(UnOp), par)
+                subexpr = BoolOp(random.choice(UnOp), par)
             elif p == 2:
                 if random.random() < 0.5:
                     par1 = random.choice(self.qdict[sort])
@@ -2618,7 +2611,7 @@ class Nodes:
                     par2 = random.choice(self.d[Bool()])
                 operand = str(par1)
                 operand += (" " + str(par2))
-                subexpr = Bool_Op(random.choice(BiOp), operand)
+                subexpr = BoolOp(random.choice(BiOp), operand)
             else:
                 n_operands = random.randint(1, 10)
                 if random.random() < 0.5:
@@ -2635,7 +2628,7 @@ class Nodes:
                     operands += (" " + str(par))
 
                 op_to_use = random.choice(NarOp)
-                subexpr = Bool_Op(op_to_use, operands)
+                subexpr = BoolOp(op_to_use, operands)
 
         if type(sort) is Int:
             if random.random() < 0.5:
@@ -2648,7 +2641,7 @@ class Nodes:
             else:
                 par = random.choice(self.qdict[sort])
             operand += (" " + str(par))
-            subexpr = Bool_Op(random.choice(IRNBoolOp), operand)
+            subexpr = BoolOp(random.choice(IRNBoolOp), operand)
 
         if type(sort) is Real:
             if random.random() < 0.5:
@@ -2663,7 +2656,7 @@ class Nodes:
                 else:
                     par = random.choice(self.qdict[sort])
                 operands += (" " + str(par))
-            subexpr = Bool_Op(random.choice(IRNBoolOp), operands)
+            subexpr = BoolOp(random.choice(IRNBoolOp), operands)
 
         if type(sort) is FP:
             if random.random() < 0.5:
@@ -2678,7 +2671,7 @@ class Nodes:
                 else:
                     par = random.choice(self.qdict[sort])
                 operands += (" " + str(par))
-            subexpr = Bool_Op(random.choice(IRNFPBoolOp), operands)
+            subexpr = BoolOp(random.choice(IRNFPBoolOp), operands)
 
         if type(sort) is BV:
             if random.random() < 0.33:
@@ -2691,7 +2684,7 @@ class Nodes:
                 else:
                     par2 = random.choice(self.qdict[sort])
                 operand = str(par1) + " " + str(par2)
-                subexpr = Bool_Op(random.choice(Bin_BV_Bool), operand)
+                subexpr = BoolOp(random.choice(Bin_BV_Bool), operand)
             else:
                 if random.random() < 0.5 and len(self.d[sort]) > 0:
                     par = random.choice(self.d[sort])
@@ -2705,7 +2698,7 @@ class Nodes:
                     else:
                         par = random.choice(self.qdict[sort])
                     operand += (" " + str(par))
-                subexpr = Bool_Op(random.choice(N_BV_Bool), operand)
+                subexpr = BoolOp(random.choice(N_BV_Bool), operand)
 
         if type(sort) is Arr:
             # TODO: do we need the following restrictions for bv logics??? (need test)
@@ -2723,7 +2716,7 @@ class Nodes:
                     else:
                         par2 = random.choice(self.d[isort])
                     expression = '{} {}'.format(par, par2)
-                    subexpr = Bool_Op('select', expression)
+                    subexpr = BoolOp('select', expression)
                 else:
                     par = random.choice(self.qdict[sort])
                     operand = str(par)
@@ -2732,9 +2725,9 @@ class Nodes:
                         par = random.choice(self.qdict[sort])
                         operand += (" " + str(par))
                     if random.random() < 0.5:
-                        subexpr = Bool_Op('=', operand)
+                        subexpr = BoolOp('=', operand)
                     else:
-                        subexpr = Bool_Op('distinct', operand)
+                        subexpr = BoolOp('distinct', operand)
                 return subexpr
 
             isort = sort.sort_index
@@ -2748,7 +2741,7 @@ class Nodes:
                 else:
                     par2 = random.choice(self.d[isort])
                 expression = '{} {}'.format(par, par2)
-                subexpr = Bool_Op('select', expression)
+                subexpr = BoolOp('select', expression)
             else:
                 if random.random() < 0.5 and len(self.d[sort]) > 0:
                     par = random.choice(self.d[sort])
@@ -2763,9 +2756,9 @@ class Nodes:
                         par = random.choice(self.qdict[sort])
                     operand += (" " + str(par))
                 if random.random() < 0.5:
-                    subexpr = Bool_Op('=', operand)
+                    subexpr = BoolOp('=', operand)
                 else:
-                    subexpr = Bool_Op('distinct', operand)
+                    subexpr = BoolOp('distinct', operand)
 
         if type(sort) is UnIntSort:
             n_items = random.randrange(1, 5)
@@ -2781,9 +2774,9 @@ class Nodes:
                     par = random.choice(self.qdict[sort])
                 items += (" " + str(par))
             if random.random() < 0.5:
-                subexpr = Bool_Op('=', items)
+                subexpr = BoolOp('=', items)
             else:
-                subexpr = Bool_Op('distinct', items)
+                subexpr = BoolOp('distinct', items)
 
                 # if subexpr != None:
         return subexpr
@@ -2831,9 +2824,9 @@ class Nodes:
                 par = random.choice(self.d[current_sort])
                 items += (" " + str(par))
             if random.random() < 0.5:
-                new_bool = Bool_Op('=', items)
+                new_bool = BoolOp('=', items)
             else:
-                new_bool = Bool_Op('distinct', items)
+                new_bool = BoolOp('distinct', items)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
 
@@ -3024,7 +3017,7 @@ class Nodes:
             operand += (" " + str(par1))
             par2 = random.choice(self.d[Int()])
             operand += (" " + str(par2))
-            new_int = Ite_Op('ite', operand)
+            new_int = IteOp('ite', operand)
             self.d[Int()].append(new_int)
 
     def set_from_set(self):
@@ -3048,7 +3041,7 @@ class Nodes:
             operand += (" " + str(par1))
             par2 = random.choice(self.d[Set()])
             operand += (" " + str(par2))
-            new_set = Ite_Op('ite', operand)
+            new_set = IteOp('ite', operand)
             self.d[Set()].append(new_set)
 
     def bag_from_bag(self):
@@ -3192,7 +3185,7 @@ class Nodes:
             operand += (" " + str(par1))
             par2 = random.choice(self.d[String()])
             operand += (" " + str(par2))
-            new_str = Ite_Op('ite', operand)
+            new_str = IteOp('ite', operand)
             self.d[String()].append(new_str)
 
         if m_test_string_re:
@@ -3200,7 +3193,7 @@ class Nodes:
             if reop < 0.35:
                 rea = random.choice(self.d[Regular()])
                 operands = str(rea)
-                new_re = Regular_Op(random.choice(ReUnOp), operands)
+                new_re = RegularOp(random.choice(ReUnOp), operands)
                 self.d[Regular()].append(new_re)
             elif reop < 0.65:
                 par = random.choice(self.d[Regular()])
@@ -3210,7 +3203,7 @@ class Nodes:
                     par = random.choice(self.d[Regular()])
                     operands += (" " + str(par))
                 op_to_use = random.choice(ReBinOp)
-                new_re = Regular_Op(op_to_use, operands)
+                new_re = RegularOp(op_to_use, operands)
                 self.d[Regular()].append(new_re)
             else:
                 str1 = random.choice(self.d[String()])
@@ -3272,7 +3265,7 @@ class Nodes:
             operand = str(par)
             par = random.choice(self.d[Int()])
             operand += (" " + str(par))
-            new_bool = Bool_Op(random.choice(IRNBoolOp), operand)
+            new_bool = BoolOp(random.choice(IRNBoolOp), operand)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
             return  # stop here
@@ -3286,18 +3279,18 @@ class Nodes:
         for _ in range(n_operands):
             par = random.choice(self.d[Int()])
             operands += (" " + str(par))
-        new_bool = Bool_Op(random.choice(IRNBoolOp), operands)
+        new_bool = BoolOp(random.choice(IRNBoolOp), operands)
         if m_test_my_uf and random.random() < 0.1:
             if n_operands == 2:
-                new_bool = Bool_Op('ufib3', operands)
+                new_bool = BoolOp('ufib3', operands)
             elif n_operands == 3:
-                new_bool = Bool_Op('ufib4', operands)
+                new_bool = BoolOp('ufib4', operands)
             elif n_operands == 4:
-                new_bool = Bool_Op('ufib5', operands)
+                new_bool = BoolOp('ufib5', operands)
             elif n_operands == 5:
-                new_bool = Bool_Op('ufib6', operands)
+                new_bool = BoolOp('ufib6', operands)
             elif n_operands == 6:
-                new_bool = Bool_Op('ufib7', operands)
+                new_bool = BoolOp('ufib7', operands)
 
         self.d[Bool()].append(new_bool)
         # give possibility of asserting this new bool here?
@@ -3312,7 +3305,7 @@ class Nodes:
         par2 = random.choice(self.d[Set()])
         operands += (" " + str(par2))
         bool_op_use = random.choice(IRNSetBoolOp)
-        new_bool = Bool_Op(bool_op_use, operands)
+        new_bool = BoolOp(bool_op_use, operands)
         self.d[Bool()].append(new_bool)
         IRNSetBoolOp = ["subset"]
 
@@ -3324,14 +3317,14 @@ class Nodes:
             par2 = random.choice(self.d[Bag()])
             operands += (" " + str(par2))
             bool_op_use = random.choice(IRNBagBoolOp)
-            new_bool = Bool_Op(bool_op_use, operands)
+            new_bool = BoolOp(bool_op_use, operands)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
         elif set_pred < 0.8:
             par1 = random.choice(self.d[Bag()])
             operands = str(par1)
             bool_op_use = 'bag.is_singleton'
-            new_bool = Bool_Op(bool_op_use, operands)
+            new_bool = BoolOp(bool_op_use, operands)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
         elif True:
@@ -3350,7 +3343,7 @@ class Nodes:
                 operand = str(par)
                 par = random.choice(self.d[Int()])
                 operand += (" " + str(par))
-                new_bool = Bool_Op(random.choice(SeplogBinOp), operand)
+                new_bool = BoolOp(random.choice(SeplogBinOp), operand)
                 self.d[Bool()].append(new_bool)
                 self.dict[Bool()] += 1
             else:
@@ -3358,7 +3351,7 @@ class Nodes:
                 par2 = random.choice(self.d[Bool()])
                 operand = str(par1)
                 operand += (" " + str(par2))
-                new_bool = Bool_Op(random.choice(SeplogNBoolOp), operand)
+                new_bool = BoolOp(random.choice(SeplogNBoolOp), operand)
                 self.d[Bool()].append(new_bool)
 
     def bool_from_string(self):
@@ -3377,7 +3370,7 @@ class Nodes:
             operands = str(par)
             par = random.choice(self.d[String()])
             operands += (" " + str(par))
-            new_bool = Bool_Op(random.choice(StringBinBoolOp), operands)
+            new_bool = BoolOp(random.choice(StringBinBoolOp), operands)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
         else:
@@ -3397,7 +3390,7 @@ class Nodes:
                         par = random.choice(self.d[String()])
                         operands += (" " + str(par))
 
-            new_bool = Bool_Op(op_to_use, operands)
+            new_bool = BoolOp(op_to_use, operands)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
 
@@ -3558,7 +3551,7 @@ class Nodes:
             operand += (" " + str(par1))
             par2 = random.choice(self.d[Real()])
             operand += (" " + str(par2))
-            new_real = Ite_Op('ite', operand)
+            new_real = IteOp('ite', operand)
             self.d[Real()].append(new_real)
 
     def bool_from_real(self):
@@ -3568,7 +3561,7 @@ class Nodes:
             operand = str(par)
             par = random.choice(self.d[Real()])
             operand += (" " + str(par))
-            new_bool = Bool_Op(random.choice(IRNBoolOp), operand)
+            new_bool = BoolOp(random.choice(IRNBoolOp), operand)
             self.d[Bool()].append(new_bool)
             return  # stop here
 
@@ -3580,19 +3573,19 @@ class Nodes:
         for _ in range(n_operands):
             par = random.choice(self.d[Real()])
             operands += (" " + str(par))
-        new_bool = Bool_Op(random.choice(IRNBoolOp), operands)
+        new_bool = BoolOp(random.choice(IRNBoolOp), operands)
 
         if m_test_my_uf and random.random() < 0.1:
             if n_operands == 2:
-                new_bool = Bool_Op('ufrb3', operands)
+                new_bool = BoolOp('ufrb3', operands)
             elif n_operands == 3:
-                new_bool = Bool_Op('ufrb4', operands)
+                new_bool = BoolOp('ufrb4', operands)
             elif n_operands == 4:
-                new_bool = Bool_Op('ufrb5', operands)
+                new_bool = BoolOp('ufrb5', operands)
             elif n_operands == 5:
-                new_bool = Bool_Op('ufrb6', operands)
+                new_bool = BoolOp('ufrb6', operands)
             elif n_operands == 6:
-                new_bool = Bool_Op('ufrb7', operands)
+                new_bool = BoolOp('ufrb7', operands)
 
         self.d[Bool()].append(new_bool)
         self.dict[Bool()] += 1
@@ -3616,7 +3609,7 @@ class Nodes:
         if random.random() < 0.15:
             par = random.choice(self.d[FP()])
             operand = str(par)
-            new_bool = Bool_Op(random.choice(UnFPBoolOp), operand)
+            new_bool = BoolOp(random.choice(UnFPBoolOp), operand)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
             return
@@ -3627,7 +3620,7 @@ class Nodes:
         for _ in range(n_operands):
             par = random.choice(self.d[FP()])
             operands += (" " + str(par))
-        new_bool = Bool_Op(random.choice(IRNFPBoolOp), operands)
+        new_bool = BoolOp(random.choice(IRNFPBoolOp), operands)
         self.d[Bool()].append(new_bool)
         # give possibility of asserting this new bool here?
         self.dict[Bool()] += 1
@@ -3644,7 +3637,7 @@ class Nodes:
             self.dict[Int()] += 1
         else:
             par = random.choice(self.d[Real()])
-            self.d[Bool()].append(Bool_Op("is_int", par))
+            self.d[Bool()].append(BoolOp("is_int", par))
             self.dict[Bool()] += 1
 
     def init_BV(self):
@@ -3655,7 +3648,7 @@ class Nodes:
             if bv_sort not in self.d.keys():
                 self.d[bv_sort] = []
                 self.dict[bv_sort] = 0
-            const = Var_BV(width, len(self.d[bv_sort]))
+            const = VarBV(width, len(self.d[bv_sort]))
             print('(declare-fun {} () {})'.format(const, bv_sort))
             self.d[bv_sort].append(const)
             self.dict[bv_sort] += 1
@@ -3668,7 +3661,7 @@ class Nodes:
             if bv_sort not in self.d.keys():
                 self.d[bv_sort] = []
                 self.dict[bv_sort] = 0
-            const = Var_BV(width, len(self.d[bv_sort]))
+            const = VarBV(width, len(self.d[bv_sort]))
             print('(declare-fun {} () {})'.format(const, bv_sort))
             self.d[bv_sort].append(const)
             self.dict[bv_sort] += 1
@@ -3703,7 +3696,7 @@ class Nodes:
                 par1 = random.choice(self.d[s])
                 par2 = random.choice(self.d[s2])
                 operand = str(par1) + " " + str(par2)
-                new_bv = BV_Op("concat", operand)
+                new_bv = BVOp("concat", operand)
                 bv_sort = BV(width)
                 if bv_sort not in self.d.keys():
                     self.d[bv_sort] = []
@@ -3717,7 +3710,7 @@ class Nodes:
                 width = ii * s.w
                 operator = '(_ repeat {})'.format(ii)
                 par = random.choice(self.d[s])
-                new_bv = BV_Op(operator, par)
+                new_bv = BVOp(operator, par)
                 bv_sort = BV(width)
                 if bv_sort not in self.d.keys():
                     self.d[bv_sort] = []
@@ -3728,7 +3721,7 @@ class Nodes:
             elif prob < 0.2:  # unary, extract
                 if random.random() < 0.5:  # unary
                     par = random.choice(self.d[s])
-                    new_bv = BV_Op(random.choice(Un_BV_BV), par)
+                    new_bv = BVOp(random.choice(Un_BV_BV), par)
                     self.d[s].append(new_bv)
                     self.dict[s] += 1
                 else:  # extract
@@ -3738,7 +3731,7 @@ class Nodes:
                     operator = "(_ extract {} {})".format(parameter1, parameter2)
                     new_width = parameter1 - parameter2 + 1
                     par = random.choice(self.d[s])
-                    new_bv = BV_Op(operator, par)
+                    new_bv = BVOp(operator, par)
                     bv_sort = BV(new_width)
                     if bv_sort not in self.d.keys():
                         self.d[bv_sort] = []
@@ -3755,7 +3748,7 @@ class Nodes:
                         operator = "(_ sign_extend {})".format(ii)
                     width = s.w + ii
                     par = random.choice(self.d[s])
-                    new_bv = BV_Op(operator, par)
+                    new_bv = BVOp(operator, par)
                     bv_sort = BV(width)
                     if bv_sort not in self.d.keys():
                         self.d[bv_sort] = []
@@ -3768,7 +3761,7 @@ class Nodes:
                     else:
                         operator = "(_ rotate_right {})".format(ii)
                     par = random.choice(self.d[s])
-                    new_bv = BV_Op(operator, par)
+                    new_bv = BVOp(operator, par)
                     self.d[s].append(new_bv)
                     self.dict[s] += 1
 
@@ -3779,7 +3772,7 @@ class Nodes:
                 for _ in range(a):
                     par = random.choice(self.d[s])
                     operand += (" " + str(par))
-                new_bv = BV_Op(random.choice(N_BV_BV), operand)
+                new_bv = BVOp(random.choice(N_BV_BV), operand)
                 self.d[s].append(new_bv)
                 self.dict[s] += 1
 
@@ -3788,7 +3781,7 @@ class Nodes:
                 par2 = random.choice(self.d[s])
                 operand = str(par1) + " " + str(par2)
                 operator = random.choice(Bin_BV_BV)
-                new_bv = BV_Op(operator, operand)
+                new_bv = BVOp(operator, operand)
                 if operator == "bvcomp":
                     if BV(1) not in self.d.keys():
                         self.d[BV(1)] = []
@@ -3810,7 +3803,7 @@ class Nodes:
                 par1 = random.choice(self.d[s])
                 par2 = random.choice(self.d[s])
                 operand = str(par1) + " " + str(par2)
-                new_bool = Bool_Op(random.choice(Bin_BV_Bool), operand)
+                new_bool = BoolOp(random.choice(Bin_BV_Bool), operand)
             else:
                 par = random.choice(self.d[s])
                 operand = str(par)
@@ -3818,7 +3811,7 @@ class Nodes:
                 for _ in range(n):
                     par = random.choice(self.d[s])
                     operand += (" " + str(par))
-                new_bool = Bool_Op(random.choice(N_BV_Bool), operand)
+                new_bool = BoolOp(random.choice(N_BV_Bool), operand)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
 
@@ -3843,7 +3836,7 @@ class Nodes:
                 self.d[arrsort] = []
                 self.dict[arrsort] = 0
             n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
+            new_arr = VarArr(isort, esort, n)
             print('(declare-fun {} () {})'.format(new_arr, arrsort))
             self.d[arrsort].append(new_arr)
             self.dict[arrsort] += 1
@@ -3869,7 +3862,7 @@ class Nodes:
                 self.d[arrsort] = []
                 self.dict[arrsort] = 0
             n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
+            new_arr = VarArr(isort, esort, n)
             print('(declare-fun {} () {})'.format(new_arr, arrsort))
             self.d[arrsort].append(new_arr)
             self.dict[arrsort] += 1
@@ -3890,7 +3883,7 @@ class Nodes:
                 self.d[arrsort] = []
                 self.dict[arrsort] = 0
             n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
+            new_arr = VarArr(isort, esort, n)
             print('(declare-fun {} () {})'.format(new_arr, arrsort))
             self.d[arrsort].append(new_arr)
             self.dict[arrsort] += 1
@@ -3956,9 +3949,9 @@ class Nodes:
                     par = random.choice(self.d[current_sort])
                     operand += (" " + str(par))
                 if random.random() < 0.5:
-                    new_bool = Bool_Op('=', operand)
+                    new_bool = BoolOp('=', operand)
                 else:
-                    new_bool = Bool_Op('distinct', operand)
+                    new_bool = BoolOp('distinct', operand)
                 self.d[Bool()].append(new_bool)
                 self.dict[Bool()] += 1
 
@@ -3971,7 +3964,7 @@ class Nodes:
                     operand += (" " + str(par2))
                     operand += (" " + str(random.randint(1, 5)))
                     operand += (" " + str(random.randint(6, 15)))
-                    new_bool = Bool_Op('eqrange', operand)
+                    new_bool = BoolOp('eqrange', operand)
                     self.d[Bool()].append(new_bool)
 
     def bool_from_bool(self):
@@ -3979,14 +3972,14 @@ class Nodes:
         if p == 1:
             # pick Unary
             par = random.choice(self.d[Bool()])
-            new_bool = Bool_Op(random.choice(UnOp), par)
+            new_bool = BoolOp(random.choice(UnOp), par)
         elif p == 2:
             # pick Binary
             par1 = random.choice(self.d[Bool()])
             par2 = random.choice(self.d[Bool()])
             operand = str(par1)
             operand += (" " + str(par2))
-            new_bool = Bool_Op(random.choice(BiOp), operand)
+            new_bool = BoolOp(random.choice(BiOp), operand)
         else:
             n_operands = random.randint(1, 6)
             par = random.choice(self.d[Bool()])
@@ -3995,38 +3988,38 @@ class Nodes:
                 par = random.choice(self.d[Bool()])
                 operands += (" " + str(par))
 
-            new_bool = Bool_Op(random.choice(NarOp), operands)
+            new_bool = BoolOp(random.choice(NarOp), operands)
             if m_test_my_uf and random.random() < 0.1:
                 ufpr = random.random()
                 if n_operands == 2:
                     if ufpr < 0.5:
-                        new_bool = Bool_Op('uf3', operands)
+                        new_bool = BoolOp('uf3', operands)
                     else:
-                        new_bool = Bool_Op('uf3_2', operands)
+                        new_bool = BoolOp('uf3_2', operands)
                     # else: new_bool = Bool_Op('uf3_3', operands)
                 elif n_operands == 3:
                     if ufpr < 0.5:
-                        new_bool = Bool_Op('uf4', operands)
+                        new_bool = BoolOp('uf4', operands)
                     else:
-                        new_bool = Bool_Op('uf4_2', operands)
+                        new_bool = BoolOp('uf4_2', operands)
                     # else: new_bool = Bool_Op('uf4_3', operands)
                 elif n_operands == 4:
                     if ufpr < 0.5:
-                        new_bool = Bool_Op('uf5', operands)
+                        new_bool = BoolOp('uf5', operands)
                     else:
-                        new_bool = Bool_Op('uf5_2', operands)
+                        new_bool = BoolOp('uf5_2', operands)
                     # else: new_bool = Bool_Op('uf5_3', operands)
                 elif n_operands == 5:
                     if ufpr < 0.5:
-                        new_bool = Bool_Op('uf6', operands)
+                        new_bool = BoolOp('uf6', operands)
                     else:
-                        new_bool = Bool_Op('uf6_2', operands)
+                        new_bool = BoolOp('uf6_2', operands)
                     # else: new_bool = Bool_Op('uf6_3', operands)
                 elif n_operands == 6:
                     if ufpr < 0.5:
-                        new_bool = Bool_Op('uf7', operands)
+                        new_bool = BoolOp('uf7', operands)
                     else:
-                        new_bool = Bool_Op('uf7_2', operands)
+                        new_bool = BoolOp('uf7_2', operands)
                     # else: new_bool = Bool_Op('uf7_3', operands)
 
         self.d[Bool()].append(new_bool)
@@ -4039,7 +4032,7 @@ class Nodes:
             operand += (" " + str(par1))
             par2 = random.choice(self.d[Bool()])
             operand += (" " + str(par2))
-            new_bb2 = Ite_Op('ite', operand)
+            new_bb2 = IteOp('ite', operand)
             self.d[Bool()].append(new_bb2)
 
         return new_bool
@@ -4201,7 +4194,7 @@ def add_smt_opt_cmd(nodes, logic):
                 bv_sort = BV(width)
                 if bv_sort not in nodes.d.keys(): continue
                 for rv in nodes.d[bv_sort]:
-                    if isinstance(rv, Var_BV) and random.random() < 0.98:
+                    if isinstance(rv, VarBV) and random.random() < 0.98:
                         nodes_bv_vars.append(rv)
                         if random.random() < 0.6:
                             print('(minimize {})'.format(rv))
@@ -4249,7 +4242,7 @@ def add_smt_opt_cmd(nodes, logic):
                     bv_sort = BV(width)
                     if bv_sort not in nodes.d.keys(): continue
                     for rv in nodes.d[bv_sort]:
-                        if isinstance(rv, Var_BV):
+                        if isinstance(rv, VarBV):
                             continue
                         else:
                             if random.random() < 0.6:
@@ -4513,7 +4506,7 @@ def strict_cnf_fuz(logic, vcratio, cntsize):
                     par2 = random.choice(nodes.d[Bool()])
                     operand = str(par1)
                     operand += (" " + str(par2))
-                    new_node = Bool_Op("or", operand)
+                    new_node = BoolOp("or", operand)
                 else:
                     n_operands = random.randint(1, 15)
                     par = random.choice(nodes.d[Bool()])
@@ -4524,9 +4517,9 @@ def strict_cnf_fuz(logic, vcratio, cntsize):
                             operands += (" " + str(par))
                         else:
                             par = random.choice(nodes.d[Bool()])
-                            new_par = Bool_Op("not", par)
+                            new_par = BoolOp("not", par)
                             operands += (" " + str(new_par))
-                    new_node = Bool_Op("or", operands)
+                    new_node = BoolOp("or", operands)
 
                 if m_test_max_smt or m_test_max_sat:
                     if random.random() < m_max_smt_rate:
@@ -5697,9 +5690,9 @@ def CNFexp_fuzz(logic, vcratio, cntsize):
                 tmp_num_goal = 0
                 cur_all_ass = m_all_assertions
                 if len(cur_all_ass) >= 2:
-                    octele_cnts = list(itertools.combinations(cur_all_ass, 2))
-                    random.shuffle(octele_cnts)
-                    for cnt_a, cnt_b in octele_cnts:
+                    octetcents = list(itertools.combinations(cur_all_ass, 2))
+                    random.shuffle(octetcents)
+                    for cnt_a, cnt_b in octetcents:
                         print("(check-sat-assuming (" + cnt_a + " " + cnt_b + "))")
                         if m_test_unsat_core:
                             print("(get-unsat-core)")
@@ -5734,13 +5727,13 @@ def main():
     parser.add_argument('--cnfratio', dest='ratio', default=5, type=int, help="Ratio of variables to clauses in CNF generation (default: 5)")
     parser.add_argument('--cntsize', dest='cntsize', default=66, type=int,
                     help="The maximal number of assertions per query (default: 66)")
-    parser.add_argument('--smtopt', dest='smtopt', default=0, type=int, help="Test SMT optimization (default: 0)")
-    parser.add_argument('--maxsmt', dest='maxsmt', default=0, type=int, help="Test Max-SMT (default: 0)")
-    parser.add_argument('--qbf', dest='qbf', default=0, type=int, help="Test QBF solving (default: 0)")
+    parser.add_argument('--smtopt', dest='smtopt', default=0, type=int, help="Test SMT optimization (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--maxsmt', dest='maxsmt', default=0, type=int, help="Test Max-SMT (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--qbf', dest='qbf', default=0, type=int, help="Test QBF solving (default: 0. use 1 to enable this feature)")
     parser.add_argument('--maxsat', dest='maxsat', default=0, type=int, help="Test Max-SAT (default: 0)")
-    parser.add_argument('--qe', dest='qe', default=0, type=int, help="Test quantifier elimination (default: 0)")
-    parser.add_argument('--unsat_core', dest='unsat_core', default=0, type=int, help="Test unsat_core (default: 0)")
-    parser.add_argument('--proof', dest='proof', default=0, type=int, help="Test proof (default: 0)")
+    parser.add_argument('--qe', dest='qe', default=0, type=int, help="Test quantifier elimination (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--unsat_core', dest='unsat_core', default=0, type=int, help="Test unsat_core (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--proof', dest='proof', default=0, type=int, help="Test proof (default: 0. use 1 to enable this feature)")
 
 
     args = parser.parse_args()
@@ -5749,7 +5742,14 @@ def main():
     total_strategies = ['noinc', 'bool', 'cnf', 'bool', 'ncnf', 'noinc', 'CNFexp', 'strictcnf']
 
     m_global_logic = args.logic
-    if m_global_logic == 'random': m_global_logic = random.choice(total_logic_options)
+    if m_global_logic == 'random':
+        m_global_logic = random.choice(total_logic_options)
+    else:
+        if m_global_logic not in total_logic_options:
+            print("Error, the logic is not supported: ", m_global_logic)
+            print("You may try the following logics: ")
+            print(total_logic_options)
+            exit(0)
 
     if args.strategy == "random":
         m_global_strategy = random.choice(total_strategies)
@@ -5759,7 +5759,8 @@ def main():
     if m_global_strategy == 'noinc':
         m_noinc_mode = True
 
-    if not args.seed: random.seed(args.seed)
+    if not args.seed:
+        random.seed(args.seed)
 
     # the option --qbf seems meaninless, because QBF is jus a quantified theory
     # if args.qbf == 1 and m_global_logic == "QBF": m_test_qbf = True
@@ -5810,9 +5811,11 @@ def main():
         m_test_max_sat = True
     # can we use maxsat for QBF??
 
-    if args.qe == 1: m_test_qe = True
+    if args.qe == 1:
+        m_test_qe = True
 
-    if args.unsat_core == 1: m_test_unsat_core = True
+    if args.unsat_core == 1:
+        m_test_unsat_core = True
 
     if args.smtopt == 1 and m_global_logic.startswith("QF"):
         m_test_smt_opt = True
@@ -5840,8 +5843,10 @@ def main():
         non_inc_fuzz(m_global_logic, args.ratio, args.cntsize)
 
     print("(check-sat)")
-    if m_test_unsat_core: print("(get-unsat-core)")
-    if m_test_proof: print("(get-proof)")
+    if m_test_unsat_core:
+        print("(get-unsat-core)")
+    if m_test_proof:
+        print("(get-proof)")
 
 
 if __name__ == "__main__":
