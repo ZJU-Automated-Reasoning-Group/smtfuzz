@@ -1,8 +1,7 @@
 # coding: utf-8
 """
 This file generates SMT-LIB2 formulas for fuzz testing SMT solvers.
-It includes various options and configurations to control the generation process,
-such as the types of formulas, the use of quantifiers, and the selection of specific theories.
+It includes various options and configurations to control the generation process
 """
 
 import argparse
@@ -229,6 +228,10 @@ total_logic_options += string_logic_options
 
 
 class Op:
+    """
+    The Op class represents an operation in the SMT-LIB2 formula.
+    It contains the node type and the expression associated with the operation.
+    """
     def __init__(self, node, expr):
         self.expr = expr
         self.node = node
@@ -702,6 +705,16 @@ def random_real():
 
 
 def get_random_unicode(length):
+    """
+    Generate a random Unicode string of the specified length.
+
+    Args:
+        length (int): The length of the generated Unicode string.
+
+    Returns:
+        str: A random Unicode string of the specified length.
+    """
+
     try:
         get_char = unichr
     except NameError:
@@ -730,8 +743,17 @@ def get_random_unicode(length):
     return ''.join(random.choice(alphabet) for _ in range(length))
 
 
-def random_string(stringLength=6):
-    """Generate a random string of fixed length """
+def random_string(string_length=6):
+    """
+    Generate a random string of the specified length.
+
+    Args:
+        string_length (int): The length of the generated string.
+
+    Returns:
+        str: A random string of the specified length.
+    """
+
     letters = string.ascii_uppercase
     letters += string.ascii_lowercase
     letters += string.digits  # number
@@ -1117,11 +1139,6 @@ def set_logic(logic_choice):
         g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_ints = 1
 
-    # elif logic_choice == 'QF_AX':
-    #    if m_set_logic: print('(set-logic QF_AX)')
-    #    set_options(option_fuzzing)
-    #    add_reals = -1
-    #    add_ints = -1
     elif logic_choice == 'QF_ABV':
         if m_set_logic: print('(set-logic QF_ABV)')
         set_options()
@@ -1480,28 +1497,28 @@ class Clauses:
         for x in spaces:
             tmp_string = replace_idx(tmp_string, x, ' ')
         partitions = find(tmp_string, '$')
-        CNFs = []
+        cnf_s = []
         for x in partitions:
             c = tmp_string[:x]
             q = c.rfind('$')
             if q >= 0:
                 c = c[q + 1:]
-            CNFs.append(c)
-        for items in CNFs:
-            new_CNF = '(or {} false)'.format(items)  # corrent?
+            cnf_s.append(c)
+        for items in cnf_s:
+            new_cnf = '(or {} false)'.format(items)  # corrent?
             # print("; new_dist_cnfs")
-            self.clauses.append(new_CNF)
+            self.clauses.append(new_cnf)
             if m_test_max_smt or m_test_max_sat:
                 if random.random() < m_max_smt_rate:
-                    print('(assert {})'.format(new_CNF))
+                    print('(assert {})'.format(new_cnf))
                 else:
-                    print('(assert-soft {} :weight {})'.format(new_CNF, str(random.randint(1, 20))))
+                    print('(assert-soft {} :weight {})'.format(new_cnf, str(random.randint(1, 20))))
             elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                 m_assert_id += 1
-                print('(assert (! ' + format(new_CNF) + ' :named IP_' + str(m_assert_id) + '))')
+                print('(assert (! ' + format(new_cnf) + ' :named IP_' + str(m_assert_id) + '))')
                 m_all_assertions.append('IP_' + str(m_assert_id))
             else:
-                print('(assert {})'.format(new_CNF))
+                print('(assert {})'.format(new_cnf))
 
     def cnf_choice(self):
         return random.choice(self.clauses)
@@ -2285,28 +2302,28 @@ class Nodes:
                 par1 = random.choice(self.qdict[s])
                 par2 = random.choice(self.qdict[s2])
                 operand = str(par1) + " " + str(par2)
-                new_BV = BV_Op("concat", operand)
+                new_bv = BV_Op("concat", operand)
                 bv_sort = BV(width)
                 if bv_sort not in qkeys:
                     self.qdict[bv_sort] = []
-                self.qdict[bv_sort].append(new_BV)
+                self.qdict[bv_sort].append(new_bv)
 
             elif prob < 0.1 and (not m_test_eldarica):  # repeat
                 ii = random.randint(1, 10)
                 width = ii * s.w
                 operator = '(_ repeat {})'.format(ii)
                 par = random.choice(self.qdict[s])
-                new_BV = BV_Op(operator, par)
+                new_bv = BV_Op(operator, par)
                 bv_sort = BV(width)
                 if bv_sort not in qkeys:
                     self.qdict[bv_sort] = []
-                self.qdict[bv_sort].append(new_BV)
+                self.qdict[bv_sort].append(new_bv)
 
             elif prob < 0.2:  # unary, extract
                 if random.random() < 0.5:  # unary
                     par = random.choice(self.qdict[s])
-                    new_BV = BV_Op(random.choice(Un_BV_BV), par)
-                    self.qdict[s].append(new_BV)
+                    new_bv = BV_Op(random.choice(Un_BV_BV), par)
+                    self.qdict[s].append(new_bv)
                 else:  # extract
                     width = s.w
                     parameter1 = random.randrange(0, width)
@@ -2314,11 +2331,11 @@ class Nodes:
                     operator = "(_ extract {} {})".format(parameter1, parameter2)
                     new_width = parameter1 - parameter2 + 1
                     par = random.choice(self.qdict[s])
-                    new_BV = BV_Op(operator, par)
+                    new_bv = BV_Op(operator, par)
                     bv_sort = BV(new_width)
                     if bv_sort not in qkeys:
                         self.qdict[bv_sort] = []
-                    self.qdict[bv_sort].append(new_BV)
+                    self.qdict[bv_sort].append(new_bv)
 
             elif prob < 0.3:
                 ii = random.randint(0, 10)
@@ -2329,19 +2346,19 @@ class Nodes:
                         operator = "(_ sign_extend {})".format(ii)
                     width = s.w + ii
                     par = random.choice(self.qdict[s])
-                    new_BV = BV_Op(operator, par)
+                    new_bv = BV_Op(operator, par)
                     bv_sort = BV(width)
                     if bv_sort not in qkeys:
                         self.qdict[bv_sort] = []
-                    self.qdict[bv_sort].append(new_BV)
+                    self.qdict[bv_sort].append(new_bv)
                 elif not m_test_eldarica:  # for Eldarica CHC
                     if random.random() < 0.5:
                         operator = "(_ rotate_left {})".format(ii)
                     else:
                         operator = "(_ rotate_right {})".format(ii)
                     par = random.choice(self.qdict[s])
-                    new_BV = BV_Op(operator, par)
-                    self.qdict[s].append(new_BV)
+                    new_bv = BV_Op(operator, par)
+                    self.qdict[s].append(new_bv)
 
             elif prob < 0.4 and not m_test_eldarica:  # n-array
                 a = random.randint(1, 3)
@@ -2350,21 +2367,21 @@ class Nodes:
                 for ii in range(a):
                     par = random.choice(self.qdict[s])
                     operand += (" " + str(par))
-                new_BV = BV_Op(random.choice(N_BV_BV), operand)
-                self.qdict[s].append(new_BV)
+                new_bv = BV_Op(random.choice(N_BV_BV), operand)
+                self.qdict[s].append(new_bv)
 
             else:  # binary
                 par1 = random.choice(self.qdict[s])
                 par2 = random.choice(self.qdict[s])
                 operand = str(par1) + " " + str(par2)
                 operator = random.choice(Bin_BV_BV)
-                new_BV = BV_Op(operator, operand)
+                new_bv = BV_Op(operator, operand)
                 if operator == "bvcomp":
                     if BV(1) not in qkeys:
                         self.qdict[BV(1)] = []
-                    self.qdict[BV(1)].append(new_BV)
+                    self.qdict[BV(1)].append(new_bv)
                 else:
-                    self.qdict[s].append(new_BV)
+                    self.qdict[s].append(new_bv)
 
     def extend_qdict(self):
         # Make the qterm for CHC more fancy!!!!
@@ -3686,12 +3703,12 @@ class Nodes:
                 par1 = random.choice(self.d[s])
                 par2 = random.choice(self.d[s2])
                 operand = str(par1) + " " + str(par2)
-                new_BV = BV_Op("concat", operand)
+                new_bv = BV_Op("concat", operand)
                 bv_sort = BV(width)
                 if bv_sort not in self.d.keys():
                     self.d[bv_sort] = []
                     self.dict[bv_sort] = 0
-                self.d[bv_sort].append(new_BV)
+                self.d[bv_sort].append(new_bv)
                 self.dict[bv_sort] += 1
 
             elif prob < 0.1:  # repeat
@@ -3700,19 +3717,19 @@ class Nodes:
                 width = ii * s.w
                 operator = '(_ repeat {})'.format(ii)
                 par = random.choice(self.d[s])
-                new_BV = BV_Op(operator, par)
+                new_bv = BV_Op(operator, par)
                 bv_sort = BV(width)
                 if bv_sort not in self.d.keys():
                     self.d[bv_sort] = []
                     self.dict[bv_sort] = 0
-                self.d[bv_sort].append(new_BV)
+                self.d[bv_sort].append(new_bv)
                 self.dict[bv_sort] += 1
 
             elif prob < 0.2:  # unary, extract
                 if random.random() < 0.5:  # unary
                     par = random.choice(self.d[s])
-                    new_BV = BV_Op(random.choice(Un_BV_BV), par)
-                    self.d[s].append(new_BV)
+                    new_bv = BV_Op(random.choice(Un_BV_BV), par)
+                    self.d[s].append(new_bv)
                     self.dict[s] += 1
                 else:  # extract
                     width = s.w
@@ -3721,12 +3738,12 @@ class Nodes:
                     operator = "(_ extract {} {})".format(parameter1, parameter2)
                     new_width = parameter1 - parameter2 + 1
                     par = random.choice(self.d[s])
-                    new_BV = BV_Op(operator, par)
+                    new_bv = BV_Op(operator, par)
                     bv_sort = BV(new_width)
                     if bv_sort not in self.d.keys():
                         self.d[bv_sort] = []
                         self.dict[bv_sort] = 0
-                    self.d[bv_sort].append(new_BV)
+                    self.d[bv_sort].append(new_bv)
                     self.dict[bv_sort] += 1
 
             elif prob < 0.3:
@@ -3738,12 +3755,12 @@ class Nodes:
                         operator = "(_ sign_extend {})".format(ii)
                     width = s.w + ii
                     par = random.choice(self.d[s])
-                    new_BV = BV_Op(operator, par)
+                    new_bv = BV_Op(operator, par)
                     bv_sort = BV(width)
                     if bv_sort not in self.d.keys():
                         self.d[bv_sort] = []
                         self.dict[bv_sort] = 0
-                    self.d[bv_sort].append(new_BV)
+                    self.d[bv_sort].append(new_bv)
                     self.dict[bv_sort] += 1
                 else:
                     if random.random() < 0.5:
@@ -3751,8 +3768,8 @@ class Nodes:
                     else:
                         operator = "(_ rotate_right {})".format(ii)
                     par = random.choice(self.d[s])
-                    new_BV = BV_Op(operator, par)
-                    self.d[s].append(new_BV)
+                    new_bv = BV_Op(operator, par)
+                    self.d[s].append(new_bv)
                     self.dict[s] += 1
 
             elif prob < 0.4:  # n-array
@@ -3762,8 +3779,8 @@ class Nodes:
                 for _ in range(a):
                     par = random.choice(self.d[s])
                     operand += (" " + str(par))
-                new_BV = BV_Op(random.choice(N_BV_BV), operand)
-                self.d[s].append(new_BV)
+                new_bv = BV_Op(random.choice(N_BV_BV), operand)
+                self.d[s].append(new_bv)
                 self.dict[s] += 1
 
             else:  # binary
@@ -3771,15 +3788,15 @@ class Nodes:
                 par2 = random.choice(self.d[s])
                 operand = str(par1) + " " + str(par2)
                 operator = random.choice(Bin_BV_BV)
-                new_BV = BV_Op(operator, operand)
+                new_bv = BV_Op(operator, operand)
                 if operator == "bvcomp":
                     if BV(1) not in self.d.keys():
                         self.d[BV(1)] = []
                         self.dict[BV(1)] = 0
-                    self.d[BV(1)].append(new_BV)
+                    self.d[BV(1)].append(new_bv)
                     self.dict[BV(1)] += 1
                 else:
-                    self.d[s].append(new_BV)
+                    self.d[s].append(new_bv)
                     self.dict[s] += 1
 
     def bool_from_BV(self):
@@ -4165,12 +4182,6 @@ Bin_BV_Bool = ["bvult", "bvule", "bvugt", "bvuge", "bvslt", "bvsle", "bvsgt", "b
 N_BV_Bool = ["=", "distinct"]
 
 
-# no seq.validate
-
-#########################################
-
-##########################################
-
 
 def add_smt_opt_cmd(nodes, logic):
     if m_test_smt_opt:
@@ -4292,7 +4303,7 @@ def add_additional_cmds(nodes, logic):
     return
 
 
-def datalog_chc_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
+def datalog_chc_fuzz(logic, vcratio, cntsize):
     assert m_test_datalog_chc
     global m_test_datalog_chc_logic
 
@@ -4386,9 +4397,9 @@ Generate formulas in strint CNF form
 '''
 
 
-def strict_cnf_fuz(logic, vcratio, option_fuzzing_mode, cntsize):
+def strict_cnf_fuz(logic, vcratio, cntsize):
     a, b, c, ni, e, f, g, h, m, v, r, t, u, gen_arr, add_ints, add_reals, add_quantifiers = \
-        set_logic(logic, option_fuzzing_mode)
+        set_logic(logic)
 
     global m_assert_id, m_all_assertions
     global n_push, n_pop
@@ -4568,7 +4579,7 @@ def non_inc_fuzz(logic, vcratio, cntsize):
     monic_tactic = random.random()
     # monic_tactic = 0.2
     # integrate bool, cnf, ncnf, CNFexp into non_inc_fuzz
-    # CNFexp is mem and time consuming
+    # CNFexp is mem and time-consuming
     if monic_tactic < 0.25:  # bool
         assertions = random.randrange(0, cntsize)
         while assertions > 0:
@@ -5023,7 +5034,7 @@ def non_inc_fuzz(logic, vcratio, cntsize):
     add_additional_cmds(nodes, logic)
 
 
-def bool_fuzz(logic, want_stats, cntsize):
+def bool_fuzz(logic, cntsize):
     global m_assert_id, m_all_assertions
     global n_push, n_pop
 
@@ -5487,6 +5498,15 @@ def ncnf_fuzz(logic, vcratio, cntsize):
 
 
 def CNFexp_fuzz(logic, vcratio, cntsize):
+    """
+    CNFexp_fuzz is a function that generates random CNF expressions based on the given logic, vcratio, and cntsize.
+    It creates nodes and clauses, and then generates assertions based on the created CNF expressions.
+
+    :param logic: The logic to be used for generating CNF expressions.
+    :param vcratio: The variable to clause ratio for generating CNF expressions.
+    :param cntsize: The size of the CNF expressions to be generated.
+    """
+
     global m_assert_id, m_all_assertions
     global n_push, n_pop
 
@@ -5698,29 +5718,30 @@ def main():
     global IntBinOp, IntNOp, m_test_proof, m_global_logic, m_set_logic, m_global_strategy, m_test_fp, \
         m_test_unsat_core, m_test_smt_opt, m_test_max_smt, m_test_seplog, m_test_string, m_test_bag_bapa, \
         m_test_bvint, m_test_fp_lra, m_test_qe, m_test_qbf, m_strict_cnf, m_test_ufc, m_test_seq, \
-        m_test_string_lia, RealBinOp, RealNOp, m_test_set_bapa, m_test_set_bapa
+        m_test_string_lia, RealBinOp, RealNOp, m_test_set_bapa, m_test_set_bapa, m_test_max_sat, m_noinc_mode
 
     signal.signal(signal.SIGINT, sighandler)
     signal.signal(signal.SIGTERM, sighandler)
     # signal.signal(signal.SIGQUIT, sighandler)
     # signal.signal(signal.SIGHUP, sighandler)
 
-    parser = argparse.ArgumentParser()
+    # Extend the help information for each argument in the argument parser
+    parser = argparse.ArgumentParser(description="A script for generating SMT-LIB benchmarks based on various strategies and logics.")
     parser.add_argument('--strategy', dest='strategy', default='noinc', type=str,
-                        help="strategy for generation: noinc, bool, cnf, cnf, CNFexp, strictcnf")
-    parser.add_argument('--logic', dest='logic', default='random', type=str, help="set the logic to generate")
-    parser.add_argument('--seed', dest='seed', default=None, help="random seed for rand()")
-    parser.add_argument('--cnfratio', dest='ratio', default=5, type=int, help="???")
+                    help="Strategy for generation: noinc (non-incremental), bool, cnf, ncnf, CNFexp, strictcnf, or random (default: noinc)")
+    parser.add_argument('--logic', dest='logic', default='random', type=str, help="Set the logic to generate (default: random)")
+    parser.add_argument('--seed', dest='seed', default=None, help="Random seed for rand() (default: None)")
+    parser.add_argument('--cnfratio', dest='ratio', default=5, type=int, help="Ratio of variables to clauses in CNF generation (default: 5)")
     parser.add_argument('--cntsize', dest='cntsize', default=66, type=int,
-                        help="the maximal number of assertions per query")
-    parser.add_argument('--smtopt', dest='smtopt', default=0, type=int, help="test smt-opt")
-    parser.add_argument('--maxsmt', dest='maxsmt', default=0, type=int, help="test max-smt")
-    parser.add_argument('--qbf', dest='qbf', default=0, type=int, help="test QBF solving")
-    parser.add_argument('--maxsat', dest='maxsat', default=0, type=int, help="test max-sat")
-    parser.add_argument('--qe', dest='qe', default=0, type=int, help="test quantifier elimination")
-    parser.add_argument('--unsat_core', dest='unsat_core', default=0, type=int, help="test unsat_core")
+                    help="The maximal number of assertions per query (default: 66)")
+    parser.add_argument('--smtopt', dest='smtopt', default=0, type=int, help="Test SMT optimization (default: 0)")
+    parser.add_argument('--maxsmt', dest='maxsmt', default=0, type=int, help="Test Max-SMT (default: 0)")
+    parser.add_argument('--qbf', dest='qbf', default=0, type=int, help="Test QBF solving (default: 0)")
+    parser.add_argument('--maxsat', dest='maxsat', default=0, type=int, help="Test Max-SAT (default: 0)")
+    parser.add_argument('--qe', dest='qe', default=0, type=int, help="Test quantifier elimination (default: 0)")
+    parser.add_argument('--unsat_core', dest='unsat_core', default=0, type=int, help="Test unsat_core (default: 0)")
+    parser.add_argument('--proof', dest='proof', default=0, type=int, help="Test proof (default: 0)")
 
-    parser.add_argument('--proof', dest='proof', default=0, type=int, help="test proof")
 
     args = parser.parse_args()
     # print(args)
@@ -5735,13 +5756,15 @@ def main():
     else:
         m_global_strategy = args.strategy
 
-    if m_global_strategy == 'noinc': m_noinc_mode = True
+    if m_global_strategy == 'noinc':
+        m_noinc_mode = True
 
     if not args.seed: random.seed(args.seed)
 
     # the option --qbf seems meaninless, because QBF is jus a quantified theory
     # if args.qbf == 1 and m_global_logic == "QBF": m_test_qbf = True
-    if m_global_logic == "QBF": m_test_qbf = True
+    if m_global_logic == "QBF":
+        m_test_qbf = True
 
     if "IDL" in m_global_logic:
         IntBinOp = ["-"]
@@ -5783,7 +5806,8 @@ def main():
     elif m_global_logic == 'BVINT':
         m_test_bvint = True
 
-    if args.maxsat == 1 and (m_global_logic == "BOOL" or m_global_logic == "QBF"): m_test_max_sat = True
+    if args.maxsat == 1 and (m_global_logic == "BOOL" or m_global_logic == "QBF"):
+        m_test_max_sat = True
     # can we use maxsat for QBF??
 
     if args.qe == 1: m_test_qe = True
@@ -5800,7 +5824,7 @@ def main():
         m_test_proof = True
 
     if m_global_strategy == 'bool':
-        bool_fuzz(m_global_logic, args.ratio, args.cntsize)
+        bool_fuzz(m_global_logic, args.cntsize)
     elif m_global_strategy == 'cnf':
         cnf_fuzz(m_global_logic, args.ratio, args.cntsize)
     elif m_global_strategy == 'ncnf':
