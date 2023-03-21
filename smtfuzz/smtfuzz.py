@@ -1,7 +1,10 @@
 # coding: utf-8
 """
-Generating SMT-LIB2 formulas
+This file generates SMT-LIB2 formulas for fuzz testing SMT solvers.
+It includes various options and configurations to control the generation process,
+such as the types of formulas, the use of quantifiers, and the selection of specific theories.
 """
+
 import argparse
 import itertools
 import math
@@ -11,9 +14,7 @@ import string
 import sys
 from collections import OrderedDict
 
-m_set_logic = True  # print (set-logic LO) or not
-# if random.random() < 0.1: m_set_logic = False
-# tmp test; should be true
+m_set_logic = True
 
 m_strict_cnf = False
 
@@ -42,8 +43,6 @@ if random.random() < 0.8:  # use fixed?
 m_test_iand = False
 m_test_eqrange = False
 
-# For generator
-# '''
 m_quantifier_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
 m_or_and_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
 m_exists_forall_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
@@ -55,7 +54,7 @@ m_push_pop_rate_swam = [0.05, 0.1, 0.15, 0.2, 0.25]
 m_declare_new_var_swam = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.40]
 
 m_max_smt_rate = random.uniform(1.05, 1.66) - 1
-# '''
+
 m_quantifier_rate = random.choice(m_quantifier_rate_swam)
 m_or_and_rate = random.choice(m_or_and_rate_swam)
 m_exists_forall_rate = random.choice(m_exists_forall_rate_swam)
@@ -64,17 +63,6 @@ m_create_exp_rate = random.choice(m_create_exp_rate_swam)
 m_create_bool_rate = random.choice(m_create_bool_rate_swam)
 m_push_pop_rate = random.choice(m_push_pop_rate_swam)
 m_declare_new_var_rate = random.choice(m_declare_new_var_swam)
-# '''
-'''
-m_quantifier_rate = random.uniform(1.05, 1.66) - 1
-m_or_and_rate = random.uniform(1.05, 1.66) - 1
-m_exists_forall_rate = random.uniform(1.05, 1.66) - 1
-m_assert_or_create_new = random.uniform(1.05, 1.66) - 1
-m_create_exp_rate = random.uniform(1.05, 1.66) - 1
-m_create_bool_rate = random.uniform(1.05, 1.66) - 1
-m_push_pop_rate = random.uniform(1.05, 1.66) - 1
-m_declare_new_var_rate = random.uniform(1.05, 1.66) - 1
-'''
 
 m_init_var_size = 20  # default 20
 
@@ -104,8 +92,6 @@ m_test_max_smt = False  # (assert-soft xx)
 m_test_qe = False  # quantifier elimination
 m_test_unsat_core = False  # unsat core
 m_test_interpolant = False  # interpolant
-m_test_yices_itp = False  # get-unsat-model-interpolant in yices2
-m_test_yices_core = False  #
 
 m_assert_id = 0  # id for naming assertions in unsat_core
 m_all_assertions = []
@@ -115,14 +101,7 @@ n_pop = 0
 m_fancy_push = False
 # if random.random() < 0.25: m_fancy_push = True
 
-m_test_abduction = False  # abduction (CVC4 only)
-m_test_cvc_itp = False  # cvc4 interpolant
-
 m_test_proof = False  # proof generation
-
-m_test_z3_interpolant = False  # z3 ITP
-m_test_z3_simplify = False
-m_test_z3_tactic = False
 
 m_test_named_assert = False  # just test named assertions
 
@@ -139,9 +118,6 @@ m_test_set_eq = False  # seteq
 # String-related o
 m_test_string = False  # Test string
 m_test_string_lia = False
-m_test_z3str3 = False
-if random.random() < 0.33:
-    m_test_z3str3 = True
 m_test_seq = False
 
 m_test_string_substr = False
@@ -188,21 +164,9 @@ m_test_my_uf = False  # uninterpreted functions
 
 m_test_bvint = False  # BV and INT
 
-"""SMTInterpol"""
-m_test_smtinterpol = False
-
-"""CVC4"""
-m_test_cvc4 = False  # cvc4 mode
 m_noinc_mode = False
 
 m_test_ufc = False  # UF with card
-
-# Boolector
-m_test_boolector = False
-m_test_stp = False  # share the code of new_Array wth Boolector
-
-# Yices2
-m_test_yices = False
 
 # eldarica
 m_test_eldarica = False
@@ -496,7 +460,7 @@ class Var_Arr(Var):
     def __eq__(self, other):
         return isinstance(other,
                           Var_Arr) and self.n == other.n and self.sort == other.sort and \
-               self.sort_element == other.sort_element
+            self.sort_element == other.sort_element
 
     def __hash__(self):
         return hash((self.sort, self.sort_element, self.n))
@@ -778,7 +742,6 @@ def random_string(stringLength=6):
         sp = random.random()
         if sp < 0.45:
             return ''.join(random.choice(letters) for _ in range(length))
-        # elif m_test_cvc4:
         elif sp < 0.85:
             bytes_data = get_random_unicode(length).encode('unicode-escape')
             return "".join(map(chr, bytes_data))
@@ -807,7 +770,6 @@ def random_fp():
             real += str(random.randint(0, 9))
     if real[-1] == ".":
         real += "0"
-    # NOTE: Fix an important z3 paring error??. A real number should be 2.0, not 2
     if "." not in real:
         real += ".0"
 
@@ -877,12 +839,10 @@ def set_options():
     if m_optionmode == 'none': return
 
     if m_test_proof: print("(set-option :produce-proofs true)")
-    if m_test_unsat_core or m_test_yices_core: print('(set-option :produce-unsat-cores true)')
-    if m_test_yices_itp: print('(set-option :produce-unsat-model-interpolants true)')
-    # if m_test_interpolant and (not m_test_z3_interpolant): print("(set-option :produce-interpolants true)")
+    if m_test_unsat_core: print('(set-option :produce-unsat-cores true)')
 
 
-def set_logic(logic_choice, option_fuzzing_mode):
+def set_logic(logic_choice):
     global m_quantifier_rate, m_test_set_bapa, m_test_bag_bapa, m_test_my_uf, m_test_string
     global m_set_logic
     if 'UF' in logic_choice or logic_choice == 'ALL':
@@ -1090,38 +1050,26 @@ def set_logic(logic_choice, option_fuzzing_mode):
         add_reals = 1
 
     elif logic_choice == 'QF_ALRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic QF_LRA)')
-        else:
-            if m_set_logic: print('(set-logic QF_AUFLIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic QF_AUFLIRA)')  # a trick for z3 to recognize
         set_options()
         ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
 
     elif logic_choice == 'QF_AUFLRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic QF_AUFLRA)')
-        else:
-            if m_set_logic: print('(set-logic QF_AUFLIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic QF_AUFLIRA)')  # a trick for z3 to recognize
         set_options()
         ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
 
     elif logic_choice == 'QF_ANRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic QF_ANRA)')
-        else:
-            if m_set_logic: print('(set-logic QF_AUFNIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic QF_AUFNIRA)')  # a trick for z3 to recognize
         set_options()
         ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
         a, b, c = -1, -1, -1
 
     elif logic_choice == 'QF_AUFNRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic QF_AUFNRA)')
-        else:
-            if m_set_logic: print('(set-logic QF_AUFNIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic QF_AUFNIRA)')  # a trick for z3 to recognize
         set_options()
         ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
@@ -1131,12 +1079,12 @@ def set_logic(logic_choice, option_fuzzing_mode):
         set_options()
         ni, e, f, g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 
-    elif logic_choice == 'QF_UFC':  # uf with card (CVC4 only)
+    elif logic_choice == 'QF_UFC':
         if m_set_logic: print('(set-logic QF_UFC)')
         set_options()
         ni, e, f, g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 
-    elif logic_choice == 'UFC':  # uf with card (CVC4 only)
+    elif logic_choice == 'UFC':
         if m_set_logic:
             print('(set-logic UFC)')
         set_options()
@@ -1210,20 +1158,14 @@ def set_logic(logic_choice, option_fuzzing_mode):
         add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'ANIA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic ANIA)')
-        else:
-            if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
         set_options()
         a, b, c, g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_ints = 1
         add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'AUFNIA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic AUFNIA)')
-        else:
-            if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
         set_options()
         g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_ints = 1
@@ -1265,20 +1207,14 @@ def set_logic(logic_choice, option_fuzzing_mode):
         add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'ANRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic ANRA)')
-        else:
-            if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
         set_options()
         a, b, c, ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
         add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'AUFNRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic AUFNRA)')
-        else:
-            if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic AUFNIRA)')  # a trick for z3 to recognize
         set_options()
         ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
@@ -1287,11 +1223,7 @@ def set_logic(logic_choice, option_fuzzing_mode):
     # lira_logics = ['QF_LIRA', 'LIRA', 'QF_ALIRA', 'ALIRA', 'QF_UFLIRA', 'UFLIRA', 'QF_AUFLIRA', 'AUFLIRA']
     # nira_logics = ['QF_NIRA', 'NIRA', 'QF_ANIRA', 'ANIRA', 'QF_UFNIRA',
     elif 'IRA' in logic_choice:
-        if m_test_cvc4 or m_test_smtinterpol or m_test_yices:
-            if m_set_logic: print('(set-logic ' + logic_choice + ')')
-        # if m_set_logic: print('(set-logic ' + logic_choice + ')')
-        elif m_test_diff:
-            if m_set_logic: print('(set-logic ALL)')
+        if m_set_logic: print('(set-logic ' + logic_choice + ')')
         set_options()
         if 'QF' not in logic_choice: add_quantifiers = m_quantifier_rate
         add_reals = 1
@@ -1311,20 +1243,14 @@ def set_logic(logic_choice, option_fuzzing_mode):
             r, t, u, gen_arr = -1, -1, -1, 0.33
 
     elif logic_choice == 'AUFLRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic AUFLRA)')
-        else:
-            if m_set_logic: print('(set-logic AUFLIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic AUFLIRA)')  # a trick for z3 to recognize
         set_options()
         ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
         add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'ALRA':
-        if m_test_cvc4:
-            if m_set_logic: print('(set-logic ALRA)')
-        else:
-            if m_set_logic: print('(set-logic AUFLIRA)')  # a trick for z3 to recognize
+        if m_set_logic: print('(set-logic AUFLIRA)')  # a trick for z3 to recognize
         set_options()
         a, b, c, ni, e, f, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, m_create_exp_rate
         add_reals = 1
@@ -1398,8 +1324,7 @@ def set_logic(logic_choice, option_fuzzing_mode):
         add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'SET':
-        # if m_test_cvc4: if m_set_logic: print('(set-logic QF_UFLIRAFS)') # shoud we?
-        # if m_set_logic: print('(set-logic ALL)')
+        if m_set_logic: print('(set-logic ALL)')
         set_options()
         a, b, c, g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
         add_ints = 1
@@ -1412,8 +1337,7 @@ def set_logic(logic_choice, option_fuzzing_mode):
             add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'STRSET':
-        # if m_test_cvc4: if m_set_logic: print('(set-logic QF_UFLIRAFS)') # shoud we?
-        # if m_set_logic: print('(set-logic ALL)')
+        if m_set_logic: print('(set-logic ALL)')
         set_options()
         a, b, c, g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
         add_ints = 1
@@ -1423,8 +1347,7 @@ def set_logic(logic_choice, option_fuzzing_mode):
 
     # TODO: make QF_S and QF_SLIA different 
     elif logic_choice == 'QF_S':
-        # if m_test_cvc4: if m_set_logic: print('(set-logic QF_SLIA)') # shoud we?
-        # if m_set_logic: print('(set-logic QF_S)')
+        if m_set_logic: print('(set-logic QF_S)')
         set_options()
         a, b, c, g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
         add_ints = 1  #
@@ -1469,7 +1392,6 @@ def set_logic(logic_choice, option_fuzzing_mode):
         # if random.random() < 0.5: add_quantifiers = m_quantifier_rate
 
     elif logic_choice == 'SEPLOG':
-        # Separation logic: CVC4 only
         set_options()
         a, b, c, g, h, m, v, r, t, u, gen_arr = -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
         add_ints = 1
@@ -1522,19 +1444,13 @@ class Clauses:
                     # (assert -soft (= 0 0) :weight 1)
                     # print('(assert-soft ' + cnf + ')')
                     print('(assert-soft ' + cnf + ' :weight ' + str(random.randint(1, 20)) + ' )')
-            elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
+            elif m_test_unsat_core or m_test_proof or m_test_named_assert:
                 m_assert_id += 1
-                if m_test_smtinterpol or m_test_boolector or m_test_diff:
-                    print('(assert (! (or ' + cnf + ' false) :named IP_' + str(m_assert_id) + '))')
-                else:
-                    print('(assert (! ' + cnf + ' :named IP_' + str(m_assert_id) + '))')
+                print('(assert (! (or ' + cnf + ' false) :named IP_' + str(m_assert_id) + '))')
                 m_all_assertions.append('IP_' + str(m_assert_id))
 
             else:
-                if m_test_smtinterpol or m_test_boolector or m_test_diff:
-                    print('(assert (or ' + cnf + ' false))')
-                else:
-                    print('(assert ' + cnf + ')')
+                print('(assert (or ' + cnf + ' false))')
 
     def new_dist_cnfs(self):
         global m_assert_id, m_all_assertions
@@ -1572,9 +1488,7 @@ class Clauses:
                 c = c[q + 1:]
             CNFs.append(c)
         for items in CNFs:
-            new_CNF = '(or {})'.format(items)
-            if m_test_smtinterpol or m_test_boolector or m_test_diff: new_CNF = '(or {} false)'.format(
-                items)  # corrent?
+            new_CNF = '(or {} false)'.format(items)  # corrent?
             # print("; new_dist_cnfs")
             self.clauses.append(new_CNF)
             if m_test_max_smt or m_test_max_sat:
@@ -2238,59 +2152,27 @@ class Nodes:
         var_list = []
         # n = random.randint(0, 3)
         n = random.randint(0, 7)
-        if m_test_boolector: n = random.randint(0, 5)
         for _ in range(n):
             ovar = Var_Quant(self.nq)
             self.nq += 1
             osort = random.choice(list(self.d))
-            if m_test_boolector and type(osort) is Arr: continue  # TODO: for boolector.
             if osort not in self.qdict:
                 self.qdict[osort] = []
             self.qdict[osort].append(ovar)
             osv = '({} {}) '.format(ovar, osort)
             sorted_var += osv
             var_list.append(osv)
-        if m_test_boolector and m_global_logic == 'ABV':
-            sorted_var += '(q13145926 Bool))'
-        else:
-            ovar = Var_Quant(self.nq)
-            self.nq += 1
-            osort = random.choice(list(self.d))
-            if osort not in self.qdict:
-                self.qdict[osort] = []
-            self.qdict[osort].append(ovar)
-            osv = '({} {}))'.format(ovar, osort)
-            sorted_var += osv
-            var_list.append('({} {})'.format(ovar, osort))
+        ovar = Var_Quant(self.nq)
+        self.nq += 1
+        osort = random.choice(list(self.d))
+        if osort not in self.qdict:
+            self.qdict[osort] = []
+        self.qdict[osort].append(ovar)
+        osv = '({} {}))'.format(ovar, osort)
+        sorted_var += osv
+        var_list.append('({} {})'.format(ovar, osort))
 
         term = self.qterm()
-
-        if m_test_cvc4 and m_test_qe:
-            termone = self.qterm()
-            termtwo = self.qterm()
-            stmtx = ' (forall {} {})'.format(sorted_var, termtwo)
-            stmty = ' (exists {} {})'.format(sorted_var, termtwo)
-            if random.random() < 0.5:
-                fstt = '(forall {}'.format(sorted_var)
-            else:
-                fstt = '(exists {}'.format(sorted_var)
-            # fstt += ' (or {} '.format(termone)
-            fstt += ' (' + random.choice(['or', 'xor', 'and', 'or']) + ' {} '.format(termone)
-            if random.random() < 0.5:
-                fstt += stmtx
-            else:
-                fstt += stmty
-            for _ in range(8):
-                tmp = random.choice(self.d[Bool()])
-                fstt += ' {} '.format(tmp)
-            fstt += '))'
-            # self.d[Bool()].append(fstt) # stack cannot have quantified formulas?
-            if random.random() < 0.5:
-                print('(get-qe ' + fstt + ')')
-            else:
-                print('(get-qe-disjunct ' + fstt + ')')
-            self.qdict.clear()
-            return
 
         if random.random() < 0.5:
             notqterm = random.random()
@@ -2309,7 +2191,7 @@ class Nodes:
 
                 self.d[Bool()].append(statement)
 
-        if not m_use_fancy_qterm:  # or m_test_yices: # NO fancy qterm for Yices
+        if not m_use_fancy_qterm:
             self.qdict.clear()
             return
         elif random.random() < 0.5:
@@ -2890,7 +2772,6 @@ class Nodes:
         return subexpr
 
     def newSort(self):
-        if m_test_boolector: return
         n_unintsorts = 0
         for o in list(self.d):
             if type(o) is UnIntSort:
@@ -2904,7 +2785,6 @@ class Nodes:
             pass
 
     def varUSort(self):
-        if m_test_boolector: return
         options = []
         for o in list(self.d):
             if type(o) is UnIntSort:
@@ -2917,7 +2797,6 @@ class Nodes:
             self.dict[current_sort] += 1
 
     def bool_from_usort(self):
-        if m_test_boolector: return
         ops = []
         options = []
         for o in list(self.d):
@@ -3172,15 +3051,10 @@ class Nodes:
     def seq_from_seq(self):
         global StringNOp
         chance = random.random()
-        if chance < 0.25:
+        if chance < 0.45:
             par = random.choice(self.d[Int()])
             operands = str(par)
             new_str = Seq_Op('seq.unit', operands)
-            self.d[Seq()].append(new_str)
-        elif chance < 0.55 and m_test_cvc4:
-            par = random.choice(self.d[Seq()])
-            operands = str(par)
-            new_str = Seq_Op('seq.rev', operands)
             self.d[Seq()].append(new_str)
         elif chance < 0.75:
             par = random.choice(self.d[Seq()])
@@ -3222,7 +3096,7 @@ class Nodes:
         chance = random.random()
         if chance < 0.1:  # unary
             new_str = "\"" + random_string() + "\""
-            if m_test_cvc4 and random.random() < 0.35:
+            if random.random() < 0.35:
                 par = random.choice(self.d[String()])
                 operands = str(par)
                 new_str = String_Op('str.rev', operands)
@@ -3414,51 +3288,16 @@ class Nodes:
 
     def bool_from_set(self):
         global IRNSetBoolOp
-        if m_test_cvc4:
-            set_pred = random.random()
-            if set_pred < 0.35:
-                if m_test_set_eq and (not m_test_str_set_bapa):
-                    IRNSetBoolOp = ["seteq", "subset", "subset", "subset"]
-                par1 = random.choice(self.d[Set()])
-                operands = str(par1)
-                par2 = random.choice(self.d[Set()])
-                operands += (" " + str(par2))
-                bool_op_use = random.choice(IRNSetBoolOp)
-                new_bool = Bool_Op(bool_op_use, operands)
-                self.d[Bool()].append(new_bool)
-                IRNSetBoolOp = ["subset"]
-            elif set_pred < 0.55:
-                par1 = random.choice(self.d[Int()])
-                if m_test_str_set_bapa: par1 = random.choice(self.d[String()])
-                operands = str(par1)
-                par2 = random.choice(self.d[Set()])
-                operands += (" " + str(par2))
-                bool_op_use = 'member'
-                new_bool = Bool_Op(bool_op_use, operands)
-                self.d[Bool()].append(new_bool)
-            elif set_pred < 0.7:
-                par1 = random.choice(self.d[Set()])
-                operands = str(par1)
-                bool_op_use = 'is_singleton'
-                new_bool = Bool_Op(bool_op_use, operands)
-                self.d[Bool()].append(new_bool)
-            # BAPA (TODO: add as boolean node, instead of directly print)
-            # IMPORTANT: in z3 commit 5516e420a1
-            else:  # seems cvc4 supports
-                for k in range(2):
-                    st = random.choice(self.d[Set()])
-                    self.d[Int()].append(Int_Op("card", st))
-        else:
-            if m_test_set_eq and (not m_test_str_set_bapa):
-                IRNSetBoolOp = ["seteq", "subset", "subset", "subset"]
-            par1 = random.choice(self.d[Set()])
-            operands = str(par1)
-            par2 = random.choice(self.d[Set()])
-            operands += (" " + str(par2))
-            bool_op_use = random.choice(IRNSetBoolOp)
-            new_bool = Bool_Op(bool_op_use, operands)
-            self.d[Bool()].append(new_bool)
-            IRNSetBoolOp = ["subset"]
+        if m_test_set_eq and (not m_test_str_set_bapa):
+            IRNSetBoolOp = ["seteq", "subset", "subset", "subset"]
+        par1 = random.choice(self.d[Set()])
+        operands = str(par1)
+        par2 = random.choice(self.d[Set()])
+        operands += (" " + str(par2))
+        bool_op_use = random.choice(IRNSetBoolOp)
+        new_bool = Bool_Op(bool_op_use, operands)
+        self.d[Bool()].append(new_bool)
+        IRNSetBoolOp = ["subset"]
 
     def bool_from_bag(self):
         set_pred = random.random()
@@ -3487,7 +3326,7 @@ class Nodes:
                 print("(assert (< (bag.card " + str(st) + ") " + str(sz) + "))")
 
     def bool_from_seplog(self):
-        if m_test_seplog and m_test_cvc4:
+        if m_test_seplog:
             # pto: points-to
             if random.random() < 0.5:
                 par = random.choice(self.d[Int()])
@@ -3966,205 +3805,7 @@ class Nodes:
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
 
-    def new_array_boolector(self, logic):
-        # Boolector does not support array as UF argument??
-        if logic == 'QF_ABV' or logic == 'QF_AUFBV' or logic == 'ABV' or logic == 'AUFBV':
-            ops = []
-            ops_no_bool = []
-            for o in list(self.d):
-                if type(o) is not Arr:
-                    ops.append(o)
-                if type(o) is not Bool and type(o) is not Arr:
-                    ops_no_bool.append(o)
-
-            i_ops = []
-            for o in list(self.d):
-                if type(o) is BV and len(self.d[o]) > 0:
-                    i_ops.append(o)
-
-            if len(i_ops) < 1 or len(ops) < 1 or len(ops_no_bool) < 1: return  # err handling
-
-            isort = random.choice(i_ops)
-            esort = random.choice(ops)
-            if m_test_stp: esort = random.choice(ops_no_bool)  # for STP?
-            arrsort = Arr(isort, esort)
-            if arrsort not in list(self.d):
-                self.d[arrsort] = []
-                self.dict[arrsort] = 0
-            n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
-            print('(declare-fun {} () {})'.format(new_arr, arrsort))
-            self.d[arrsort].append(new_arr)
-            self.dict[arrsort] += 1
-
-    def new_array_cvc(self, logic):
-        # cvc4 does not support arr index
-        # So, ...
-        arr_arith_logic = ['ANIA', 'ALIA', 'AUFNIA', 'AUFLIA', 'QF_ANIA', 'QF_ALIA', 'QF_AUFNIA', 'QF_AUFLIA', 'ANRA',
-                           'ALRA', 'AUFNRA', 'AUFLRA', 'QF_ANRA', 'QF_ALRA', 'QF_AUFNRA', 'QF_AUFLRA', 'QF_ALIRA',
-                           'QF_ANIRA', 'QF_AUFLIRA', 'QF_AUFNIRA', 'ALIRA', 'ANIRA', 'AUFLIRA', 'AUFNIRA']
-        if logic == 'ALL' or logic == 'QF_AX' or logic == 'AX':
-            ops = []
-            ops_no_arr = []
-            for o in list(self.d):
-                if type(o) is not Arr:
-                    ops.append(o)
-                    ops_no_arr.append(o)
-                if type(o) is Arr:
-                    if len(self.d[o]) > 0:
-                        ops.append(o)
-            if len(ops) < 1 or len(ops_no_arr) < 1: return  # err handling
-            isort = random.choice(ops_no_arr)
-            esort = random.choice(ops)
-            arrsort = Arr(isort, esort)
-            if arrsort not in list(self.d):
-                self.d[arrsort] = []
-                self.dict[arrsort] = 0
-            n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
-            print('(declare-fun {} () {})'.format(new_arr, arrsort))
-            self.d[arrsort].append(new_arr)
-            self.dict[arrsort] += 1
-        elif logic == 'QF_ABV' or logic == 'QF_AUFBV' or logic == 'ABV' or logic == 'AUFBV':
-            ops = []
-            ops_no_arr = []
-            for o in list(self.d):
-                if type(o) is not Arr:
-                    ops.append(o)
-                    ops_no_arr.append(o)
-                if type(o) is Arr:
-                    if len(self.d[o]) > 0:
-                        ops.append(o)
-            i_ops = []
-            for o in list(self.d):
-                if type(o) is BV and len(self.d[o]) > 0:
-                    i_ops.append(o)
-
-            if len(i_ops) < 1 or len(ops) < 1 or len(ops_no_arr) < 1: return  # err handling
-            isort = random.choice(i_ops)
-            esort = random.choice(ops)
-            arrsort = Arr(isort, esort)
-            if arrsort not in list(self.d):
-                self.d[arrsort] = []
-                self.dict[arrsort] = 0
-            n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
-            print('(declare-fun {} () {})'.format(new_arr, arrsort))
-            self.d[arrsort].append(new_arr)
-            self.dict[arrsort] += 1
-        elif logic in arr_arith_logic:
-            ops = []
-            ops_no_arr = []
-            for o in list(self.d):
-                if type(o) is not Arr:
-                    ops.append(o)
-                    ops_no_arr.append(o)
-                if type(o) is Arr:
-                    if len(self.d[o]) > 0:
-                        ops.append(o)
-            if len(ops) < 1 or len(ops_no_arr) < 1:
-                return  # err handling
-            isort = random.choice(ops_no_arr)
-            esort = random.choice(ops)
-            arrsort = Arr(isort, esort)
-            if arrsort not in list(self.d):
-                self.d[arrsort] = []
-                self.dict[arrsort] = 0
-            n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
-            print('(declare-fun {} () {})'.format(new_arr, arrsort))
-            self.d[arrsort].append(new_arr)
-            self.dict[arrsort] += 1
-
-    def new_array_smtinterpol(self, logic):
-        # SMTInterpol does not support boolean index
-        # So, ...
-        arr_arith_logic = ['ANIA', 'ALIA', 'AUFNIA', 'AUFLIA', 'QF_ANIA', 'QF_ALIA', 'QF_AUFNIA', 'QF_AUFLIA', 'ANRA',
-                           'ALRA', 'AUFNRA', 'AUFLRA', 'QF_ANRA', 'QF_ALRA', 'QF_AUFNRA', 'QF_AUFLRA']
-        if logic == 'ALL' or logic == 'QF_AX' or logic == 'AX':
-            ops = []
-            ops_no_bool = []
-            for o in list(self.d):
-                if type(o) is not Arr:
-                    ops.append(o)
-                if type(o) is not Bool:
-                    ops_no_bool.append(o)
-                if type(o) is Arr:
-                    if len(self.d[o]) > 0:
-                        ops.append(o)
-            if len(ops) < 1 or len(ops_no_bool) < 1: return  # err handling
-            isort = random.choice(ops_no_bool)
-            esort = random.choice(ops)
-            arrsort = Arr(isort, esort)
-            if arrsort not in list(self.d):
-                self.d[arrsort] = []
-                self.dict[arrsort] = 0
-            n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
-            print('(declare-fun {} () {})'.format(new_arr, arrsort))
-            self.d[arrsort].append(new_arr)
-            self.dict[arrsort] += 1
-        elif logic == 'QF_ABV' or logic == 'QF_AUFBV' or logic == 'ABV' or logic == 'AUFBV':
-            ops = []
-            for o in list(self.d):
-                if type(o) is not Arr:
-                    ops.append(o)
-                if type(o) is Arr:
-                    if len(self.d[o]) > 0:
-                        ops.append(o)
-            i_ops = []
-            for o in list(self.d):
-                if type(o) is BV and len(self.d[o]) > 0:
-                    i_ops.append(o)
-
-            if len(i_ops) < 1 or len(ops) < 1: return  # err handling
-
-            isort = random.choice(i_ops)
-            esort = random.choice(ops)
-            arrsort = Arr(isort, esort)
-            if arrsort not in list(self.d):
-                self.d[arrsort] = []
-                self.dict[arrsort] = 0
-            n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
-            print('(declare-fun {} () {})'.format(new_arr, arrsort))
-            self.d[arrsort].append(new_arr)
-            self.dict[arrsort] += 1
-        elif logic in arr_arith_logic:
-            ops = []
-            ops_no_bool = []
-            for o in list(self.d):
-                if type(o) is not Arr:
-                    ops.append(o)
-                if type(o) is not Bool:
-                    ops_no_bool.append(o)
-                if type(o) is Arr:
-                    if len(self.d[o]) > 0:
-                        ops.append(o)
-            if len(ops) < 1 or len(ops_no_bool) < 1: return  # err handling
-            isort = random.choice(ops_no_bool)
-            esort = random.choice(ops)
-            arrsort = Arr(isort, esort)
-            if arrsort not in list(self.d):
-                self.d[arrsort] = []
-                self.dict[arrsort] = 0
-            n = len(self.d[arrsort])
-            new_arr = Var_Arr(isort, esort, n)
-            print('(declare-fun {} () {})'.format(new_arr, arrsort))
-            self.d[arrsort].append(new_arr)
-            self.dict[arrsort] += 1
-
     def new_array(self, logic):
-        # SMTInterpol does not support boolean index
-        if m_test_smtinterpol:  # ??
-            self.new_array_smtinterpol(logic)
-            return
-        elif m_test_boolector:
-            self.new_array_boolector(logic)
-            return
-        elif m_test_cvc4 or m_test_diff:
-            self.new_array_cvc(logic)
-            return
 
         arr_arith_logic = ['ANIA', 'ALIA', 'AUFNIA', 'AUFLIA', 'QF_ANIA', 'QF_ALIA', 'QF_AUFNIA', 'QF_AUFLIA', 'ANRA',
                            'ALRA', 'AUFNRA', 'AUFLRA', 'QF_ANRA', 'QF_ALRA', 'QF_AUFNRA', 'QF_AUFLRA', 'QF_ALIRA',
@@ -4259,7 +3900,7 @@ class Nodes:
             self.dict[current_sort] += 1
 
     def bool_from_array(self):
-        if random.random() < 0.5 or m_test_stp:
+        if random.random() < 0.5:
             ops = []
             options = []
             for o in list(self.d):
@@ -4449,17 +4090,6 @@ StringNOp = ['str.++']
 StringBinBoolOp = ['str.<=', 'str.<', 'str.contains', 'str.suffixof', 'str.prefixof']
 if m_use_swam_str:
     StringBinBoolOp = random.sample(StringBinBoolOp, 3)
-# NOTE: seems z3str does not suport 'str.<=', 'str.<'??
-if m_test_z3str3:  # only  QF_SLIS suuports str.<= ?
-    tt = random.random()
-    if tt <= 0.2:
-        StringBinBoolOp = ['str.contains', 'str.suffixof']
-    elif tt <= 0.4:
-        StringBinBoolOp = ['str.contains', 'str.prefixof']
-    elif tt <= 0.6:
-        StringBinBoolOp = ['str.suffixof', 'str.prefixof']
-    else:
-        StringBinBoolOp = ['str.contains', 'str.suffixof', 'str.prefixof']
 
 StringNBoolOp = ['distinct', '=']
 
@@ -4540,118 +4170,6 @@ N_BV_Bool = ["=", "distinct"]
 #########################################
 
 ##########################################
-
-def add_yices_itp_cmd(nodes, logic):
-    nodes_vars = []
-    nodes_bv_vars = []
-    nodes_bool = []
-    if 'R' in logic and len(nodes.d[Real()]) > 0:
-        for rv in nodes.d[Real()]:
-            if isinstance(rv, Var_Real):
-                nodes_vars.append(rv)
-    if 'I' in logic and len(nodes.d[Int()]) > 0:
-        for rv in nodes.d[Int()]:
-            if isinstance(rv, Var_Int):
-                nodes_vars.append(rv)
-    if logic in qf_bv_logic_options:
-        for width in range(0, 64):
-            bv_sort = BV(width)
-            if bv_sort not in nodes.d.keys(): continue
-            for rv in nodes.d[bv_sort]:
-                if isinstance(rv, Var_BV):
-                    nodes_bv_vars.append(rv)
-    if (logic == 'QF_BOOL' or logic == 'QF_UF') and len(nodes.d[Bool()]) > 0:
-        for rv in nodes.d[Bool()]:
-            if isinstance(rv, Var_Bool):
-                nodes_bool.append(rv)
-
-    if len(nodes_vars) >= 3:
-        if random.random() < 0.2:
-            tmp_cmd = '(check-sat-assuming-model ('
-            for v in nodes_vars:
-                tmp_cmd += '{}'.format(v)
-                tmp_cmd += ' '
-            tmp_cmd += ') ('
-            for v in nodes_vars:
-                if isinstance(v, Var_Real):
-                    tmp_cmd += '{}'.format(random_real())
-                else:
-                    tmp_cmd += '{}'.format(random.randint(10, 5000))
-                tmp_cmd += ' '
-            tmp_cmd += '))'
-            print(tmp_cmd)
-        else:
-            octele_cnts = list(itertools.combinations(nodes_vars, 3))
-            random.shuffle(octele_cnts)
-            for v1, v2, v3 in octele_cnts:
-                # (check-sat-assuming-model (v0 v1) ((/ 33 65) (/ (- 76) (- 24))))
-                if random.random() < 0.5:
-                    if isinstance(v1, Var_Real):
-                        print('(check-sat-assuming-model ({} {} {}) ({} {} {}))'.format(v1, v2, v3, random_real(),
-                                                                                        random_real(), random_real()))
-                    else:
-                        print('(check-sat-assuming-model ({} {} {}) ({} {} {}))'.format(v1, v2, v3,
-                                                                                        random.randint(10, 5000),
-                                                                                        random.randint(10, 5000),
-                                                                                        random.randint(10, 5000)))
-                else:
-                    if isinstance(v1, Var_Real):
-                        print('(check-sat-assuming-model ({} {}) ({} {}))'.format(v1, v2, random_real(), random_real()))
-                    else:
-                        print('(check-sat-assuming-model ({} {}) ({} {}))'.format(v1, v2, random.randint(10, 5000),
-                                                                                  random.randint(10, 5000)))
-                break
-
-    if len(nodes_bv_vars) >= 3:
-        if random.random() < 0.1:
-            tmp_cmd = '(check-sat-assuming-model ('
-            for v in nodes_bv_vars:
-                tmp_cmd += '{}'.format(v)
-                tmp_cmd += ' '
-            tmp_cmd += ') ('
-            for v in nodes_bv_vars:
-                val = '(_ bv{} {})'.format(random.randint(0, 2 ** v.sort - 1), v.sort)
-                tmp_cmd += '{}'.format(val)
-                tmp_cmd += ' '
-            tmp_cmd += '))'
-            print(tmp_cmd)
-        else:
-            vvv = random.sample(nodes_bv_vars, 3)
-            v1 = vvv[0]
-            v2 = vvv[1]
-            v3 = vvv[2]
-            # v1 = random.choice(nodes_bv_vars); v2 = random.choice(nodes_bv_vars); v3 = random.choice(nodes_bv_vars)
-            val1 = "(_ bv{} {})".format(random.randint(0, 2 ** (v1.sort) - 1), v1.sort)
-            val2 = "(_ bv{} {})".format(random.randint(0, 2 ** (v2.sort) - 1), v2.sort)
-            val3 = "(_ bv{} {})".format(random.randint(0, 2 ** (v3.sort) - 1), v3.sort)
-            if random.random() < 0.5:
-                print('(check-sat-assuming-model ({} {}) ({} {}))'.format(v1, v2, val1, val2))
-            else:
-                print('(check-sat-assuming-model ({} {} {}) ({} {} {}))'.format(v1, v2, v3, val1, val2, val3))
-
-    elif len(nodes_bool) >= 3:
-        # if random.random() < 0.6:
-        tf = ['true', 'false']
-        tmp_cmd = '(check-sat-assuming-model ('
-        for v in nodes_bool:
-            tmp_cmd += '{}'.format(v)
-            tmp_cmd += ' '
-        tmp_cmd += ') ('
-        for _ in nodes_bool:
-            tmp_cmd += '{}'.format(random.choice(tf))
-            tmp_cmd += ' '
-        tmp_cmd += '))'
-        print(tmp_cmd)
-
-    print('(get-unsat-model-interpolant)')
-
-
-def add_z3_qe_cmd():
-    if (not m_test_qe) or m_test_cvc4: return
-    # I resue qe mode to test tactics
-    # for i in range(10):
-    #  print('(apply ' + random.choice(tactics) + ')')
-    print('(check-sat-using ' + random.choice(['qe-light', 'qe', 'qe2', 'qe_rec']) + ')')
 
 
 def add_smt_opt_cmd(nodes, logic):
@@ -4771,7 +4289,6 @@ def add_smt_opt_cmd(nodes, logic):
 def add_additional_cmds(nodes, logic):
     global m_test_named_assert
     if m_test_smt_opt: add_smt_opt_cmd(nodes, logic)
-    if m_test_qe: add_z3_qe_cmd()
     return
 
 
@@ -5018,16 +4535,7 @@ def strict_cnf_fuz(logic, vcratio, option_fuzzing_mode, cntsize):
             if random.random() < 0.05:
                 if m_reset_assert and random.random() < 0.3: print(m_reset_cmd)
                 print('(check-sat)')
-                if m_test_yices and m_test_yices_itp:
-                    for _ in range(5): add_yices_itp_cmd(nodes, logic)
                 if m_test_smt_opt: print('(get-objectives)')
-                if m_test_cvc4 and m_test_abduction:
-                    abd_new_node = nodes.bool_from_bool()
-                    print('(get-abduct A {})'.format(abd_new_node))
-                if m_test_cvc4 and m_test_cvc_itp:
-                    abd_new_node = nodes.bool_from_bool()
-                    print('(get-interpol I {})'.format(abd_new_node))
-
                 if (m_test_unsat_core or m_test_proof or m_test_named_assert) and random.random() < 0.5:
                     tmp_num_goal = 0
                     cur_all_ass = m_all_assertions
@@ -5045,9 +4553,9 @@ def strict_cnf_fuz(logic, vcratio, option_fuzzing_mode, cntsize):
 
 
 # I merge other incremental tacitcs here (but remove push/pop and check-sat)
-def non_inc_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
+def non_inc_fuzz(logic, vcratio, cntsize):
     a, b, c, ni, e, f, g, h, m, v, r, t, u, gen_arr, add_ints, add_reals, add_quantifiers = \
-        set_logic(logic, option_fuzzing_mode)
+        set_logic(logic)
 
     nodes = Nodes(add_ints, add_reals)
     if r > 0:
@@ -5511,22 +5019,16 @@ def non_inc_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
                 assertions -= 2
     # '''
     #################
-    if m_test_cvc4 and m_test_abduction:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-abduct A {})'.format(abd_new_node))
-    if m_test_cvc4 and m_test_cvc_itp:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-interpol I {})'.format(abd_new_node))
 
     add_additional_cmds(nodes, logic)
 
 
-def bool_fuzz(logic, want_stats, option_fuzzing_mode, cntsize):
+def bool_fuzz(logic, want_stats, cntsize):
     global m_assert_id, m_all_assertions
     global n_push, n_pop
 
     a, b, c, ni, e, f, g, h, m, v, r, t, u, gen_arr, add_ints, add_reals, add_quantifiers = \
-        set_logic(logic, option_fuzzing_mode)
+        set_logic(logic)
 
     nodes = Nodes(add_ints, add_reals)
     if r > 0:
@@ -5670,16 +5172,7 @@ def bool_fuzz(logic, want_stats, option_fuzzing_mode, cntsize):
             add_additional_cmds(nodes, logic)
 
             print('(check-sat)')
-            if m_test_yices and m_test_yices_itp:
-                for _ in range(5): add_yices_itp_cmd(nodes, logic)
             if m_test_smt_opt: print('(get-objectives)')
-            # (get-abduct A (not (< x y))
-            if m_test_cvc4 and m_test_abduction:
-                abd_new_node = nodes.bool_from_bool()
-                print('(get-abduct A {})'.format(abd_new_node))
-            if m_test_cvc4 and m_test_cvc_itp:
-                abd_new_node = nodes.bool_from_bool()
-                print('(get-interpol I {})'.format(abd_new_node))
 
             if (m_test_unsat_core or m_test_proof or m_test_named_assert) and random.random() < 0.5:
                 # print("(get-unsat-core)")
@@ -5696,26 +5189,16 @@ def bool_fuzz(logic, want_stats, option_fuzzing_mode, cntsize):
                         tmp_num_goal += 1
                         if tmp_num_goal == 5: break
 
-    if m_test_cvc4 and m_test_abduction:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-abduct A {})'.format(abd_new_node))
-    if m_test_cvc4 and m_test_cvc_itp:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-interpol I {})'.format(abd_new_node))
-
     add_additional_cmds(nodes, logic)
 
-    if m_test_yices and m_test_yices_itp:
-        for _ in range(5): add_yices_itp_cmd(nodes, logic)
 
-
-def cnf_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
+def cnf_fuzz(logic, vcratio, cntsize):
     global m_assert_id
     global m_all_assertions
     global n_push, n_pop
 
     a, b, c, ni, e, f, g, h, m, v, r, t, u, gen_arr, add_ints, add_reals, add_quantifiers \
-        = set_logic(logic, option_fuzzing_mode)
+        = set_logic(logic)
 
     nodes = Nodes(add_ints, add_reals)
     if r > 0:
@@ -5868,27 +5351,16 @@ def cnf_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
     bank = nodes.bool_sample(n_variables)
     clauses = Clauses(bank, n_clauses)
     clauses.new_cnfs()
-
-    if m_test_cvc4 and m_test_abduction:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-abduct A {})'.format(abd_new_node))
-    if m_test_cvc4 and m_test_cvc_itp:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-interpol I {})'.format(abd_new_node))
-
     add_additional_cmds(nodes, logic)
 
-    if m_test_yices and m_test_yices_itp:
-        for _ in range(5): add_yices_itp_cmd(nodes, logic)
 
-
-def ncnf_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
+def ncnf_fuzz(logic, vcratio, cntsize):
     global m_assert_id
     global m_all_assertions
     global n_push, n_pop
 
     a, b, c, ni, e, f, g, h, m, v, r, t, u, gen_arr, add_ints, add_reals, add_quantifiers \
-        = set_logic(logic, option_fuzzing_mode)
+        = set_logic(logic)
 
     nodes = Nodes(add_ints, add_reals)
     if r > 0:
@@ -6011,25 +5483,15 @@ def ncnf_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
     clauses = Clauses(bank, n_clauses)
     clauses.new_dist_cnfs()
 
-    if m_test_cvc4 and m_test_abduction:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-abduct A {})'.format(abd_new_node))
-    if m_test_cvc4 and m_test_cvc_itp:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-interpol I {})'.format(abd_new_node))
-
     add_additional_cmds(nodes, logic)
 
-    if m_test_yices and m_test_yices_itp:
-        for _ in range(5): add_yices_itp_cmd(nodes, logic)
 
-
-def CNFexp_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
+def CNFexp_fuzz(logic, vcratio, cntsize):
     global m_assert_id, m_all_assertions
     global n_push, n_pop
 
     a, b, c, ni, e, f, g, h, m, v, r, t, u, gen_arr, add_ints, add_reals, add_quantifiers \
-        = set_logic(logic, option_fuzzing_mode)
+        = set_logic(logic)
 
     nodes = Nodes(add_ints, add_reals)
     if r > 0:
@@ -6209,22 +5671,12 @@ def CNFexp_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
 
             print('(check-sat)')
             if m_test_smt_opt: print('(get-objectives)')
-            # (get-abduct A (not (< x y))
-            if m_test_yices and m_test_yices_itp:
-                for _ in range(5): add_yices_itp_cmd(nodes, logic)
-
-            if m_test_cvc4 and m_test_abduction:
-                abd_new_node = nodes.bool_from_bool()
-                print('(get-abduct A {})'.format(abd_new_node))
-            if m_test_cvc4 and m_test_cvc_itp:
-                abd_new_node = nodes.bool_from_bool()
-                print('(get-interpol I {})'.format(abd_new_node))
 
             if (m_test_unsat_core or m_test_proof or m_test_named_assert) and random.random() < 0.3:  # Can we?
                 if m_test_unsat_core: print("(get-unsat-core)")
                 tmp_num_goal = 0
                 cur_all_ass = m_all_assertions
-                if len(cur_all_ass) >= 2:  # and not m_test_yices:
+                if len(cur_all_ass) >= 2:
                     octele_cnts = list(itertools.combinations(cur_all_ass, 2))
                     random.shuffle(octele_cnts)
                     for cnt_a, cnt_b in octele_cnts:
@@ -6235,38 +5687,30 @@ def CNFexp_fuzz(logic, vcratio, option_fuzzing_mode, cntsize):
                         tmp_num_goal += 1
                         if tmp_num_goal == 5: break
 
-    if m_test_cvc4 and m_test_abduction:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-abduct A {})'.format(abd_new_node))
-    if m_test_cvc4 and m_test_cvc_itp:
-        abd_new_node = nodes.bool_from_bool()
-        print('(get-interpol I {})'.format(abd_new_node))
-
     add_additional_cmds(nodes, logic)
-
-    if m_test_yices and m_test_yices_itp:
-        for _ in range(5): add_yices_itp_cmd(nodes, logic)
 
 
 def sighandler(signume, frame):
     sys.exit(0)
 
 
-if __name__ == "__main__":
+def main():
+    global IntBinOp, IntNOp, m_test_proof, m_global_logic, m_set_logic, m_global_strategy, m_test_fp, \
+        m_test_unsat_core, m_test_smt_opt, m_test_max_smt, m_test_seplog, m_test_string, m_test_bag_bapa, \
+        m_test_bvint, m_test_fp_lra, m_test_qe, m_test_qbf, m_strict_cnf, m_test_ufc, m_test_seq, \
+        m_test_string_lia, RealBinOp, RealNOp, m_test_set_bapa, m_test_set_bapa
+
     signal.signal(signal.SIGINT, sighandler)
     signal.signal(signal.SIGTERM, sighandler)
     # signal.signal(signal.SIGQUIT, sighandler)
     # signal.signal(signal.SIGHUP, sighandler)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--strategy', dest='strategy', default='bool', type=str,
+    parser.add_argument('--strategy', dest='strategy', default='noinc', type=str,
                         help="strategy for generation: noinc, bool, cnf, cnf, CNFexp, strictcnf")
     parser.add_argument('--logic', dest='logic', default='random', type=str, help="set the logic to generate")
     parser.add_argument('--seed', dest='seed', default=None, help="random seed for rand()")
     parser.add_argument('--cnfratio', dest='ratio', default=5, type=int, help="???")
-    parser.add_argument('--disable', dest='disable', default='none', type=str, help="??")
-    parser.add_argument('--synthesis', dest='synthesis', default='no', type=str,
-                        help="use user-defiene tactics for different logics")
     parser.add_argument('--cntsize', dest='cntsize', default=66, type=int,
                         help="the maximal number of assertions per query")
     parser.add_argument('--smtopt', dest='smtopt', default=0, type=int, help="test smt-opt")
@@ -6275,35 +5719,8 @@ if __name__ == "__main__":
     parser.add_argument('--maxsat', dest='maxsat', default=0, type=int, help="test max-sat")
     parser.add_argument('--qe', dest='qe', default=0, type=int, help="test quantifier elimination")
     parser.add_argument('--unsat_core', dest='unsat_core', default=0, type=int, help="test unsat_core")
-    parser.add_argument('--interpolant', dest='interpolant', default=0, type=int, help="test interpolant")
-    parser.add_argument('--abduction', dest='abduction', default=0, type=int, help="abduction")
 
     parser.add_argument('--proof', dest='proof', default=0, type=int, help="test proof")
-
-    parser.add_argument('--datalogchc', dest='datalogchc', default=0, type=int, help="test Datalog and/or CHC solver")
-    parser.add_argument('--datalogchclogic', dest='datalogchclogic', default="int", type=str,
-                        help="Datalog underlying theory")
-    parser.add_argument('--datalogchcvar', dest='datalogchcvar', default=3, type=int,
-                        help="Max. number of var in each rule")
-    parser.add_argument('--datalogchctactic', dest='datalogchctactic', default=3, type=int, help="Test horn tactic")
-
-    parser.add_argument('--difftest', dest='difftest', default=0, type=int,
-                        help="diff test: compare default and synthesis")
-    parser.add_argument('--difftestcore', dest='difftestcore', default=0, type=int,
-                        help="diff test when unsat core enabled")
-    parser.add_argument('--newfeat', dest='newfeat', default=0, type=int, help="test new feature")
-    parser.add_argument('--tactic', dest='tactic', default="no", type=str, help="test single tactic")
-
-    parser.add_argument('--optionsize', dest='optionsize', default=3, type=int,
-                        help="the maximal number of options per group")
-    parser.add_argument('--optionmode', dest='optionmode', default="none", type=str,
-                        help="option mode: none, basic, full")
-
-    parser.add_argument('--cvctest', dest='cvctest', default=0, type=int, help="test cvc4")
-    parser.add_argument('--smtinterpol', dest='smtinterpol', default=0, type=int, help="test smtinterpol")
-    parser.add_argument('--boolector', dest='boolector', default=0, type=int, help="test boolector")
-    parser.add_argument('--yices', dest='yices', default=0, type=int, help="test yices")
-    parser.add_argument('--eldarica', dest='eldarica', default=0, type=int, help="test eldarica")
 
     args = parser.parse_args()
     # print(args)
@@ -6320,52 +5737,12 @@ if __name__ == "__main__":
 
     if m_global_strategy == 'noinc': m_noinc_mode = True
 
-    # option_fuzzing = 1
-    option_fuzzing = args.optionsize
-    if args.disable == 'option_fuzzing':
-        option_fuzzing = 0
-
-    m_optionmode = args.optionmode
-
     if not args.seed: random.seed(args.seed)
-
-    if args.cvctest == 1:
-        m_test_cvc4 = True
-
-    if args.cvctest == 1 or args.difftest == 1 or args.yices == 1:
-        # exp
-        if m_global_logic == 'QF_NRAT':
-            RealUnOp2 = ["exp", "-", "sin", "cos", "sqrt"]
-        else:
-            RealUnOp2 = ["-"]  # for CVC4 # or m_global_logic == 'ALL'
-
-    if args.smtinterpol == 1:
-        m_test_smtinterpol = True
-        if 'NRA' in m_global_logic or 'NIA' in m_global_logic:
-            NarOp = ["and", "or", "=", "distinct"]  # should  we???
-
-    if args.boolector == 1:
-        m_test_boolector = True
-
-    if args.yices == 1:
-        m_test_yices = True
-
-    if args.eldarica == 1:
-        m_test_eldarica = True
-        Bin_BV_BV = ["bvand", "bvor", "bvadd", "bvmul", "bvudiv", "bvurem", "bvshl", "bvlshr", "bvnand", "bvnor",
-                     "bvsub",
-                     "bvsdiv", "bvsrem", "bvsmod", "bvashr", "bvcomp"]
-
-    if args.difftest == 1:
-        m_test_diff = True
-        if args.difftestcore == 1: m_test_diff_core = True
 
     # the option --qbf seems meaninless, because QBF is jus a quantified theory
     # if args.qbf == 1 and m_global_logic == "QBF": m_test_qbf = True
     if m_global_logic == "QBF": m_test_qbf = True
 
-    # NOTE: important
-    # '''
     if "IDL" in m_global_logic:
         IntBinOp = ["-"]
         IntNOp = ["-"]
@@ -6373,14 +5750,12 @@ if __name__ == "__main__":
     elif "RDL" in m_global_logic:
         RealBinOp = ["-"]
         RealNOp = ["-"]
-    # '''
 
     # Set (and BAPA)
     if m_global_logic == 'SET':
         m_test_set_bapa = True
     elif m_global_logic == 'STRSET':
         m_test_set_bapa = True
-        m_test_str_set_bapa = True
         m_test_string_lia = True
     elif m_global_logic == 'BAG':
         m_test_bag_bapa = True
@@ -6415,99 +5790,35 @@ if __name__ == "__main__":
 
     if args.unsat_core == 1: m_test_unsat_core = True
 
-    if args.interpolant == 1:
-        m_test_interpolant = True
-        m_test_cvc_itp = True
-
     if args.smtopt == 1 and m_global_logic.startswith("QF"):
         m_test_smt_opt = True
 
     if args.maxsmt == 1:
         m_test_max_smt = True  # can we have quantifier for maxsmt???
 
-    if args.synthesis == "yes":
-        m_test_z3_tactic = True
-
-    if args.abduction == 1:
-        m_test_abduction = True
-
     if args.proof == 1:
         m_test_proof = True
 
-    if args.datalogchctactic == 1:
-        m_test_datalog_chc_as_tactic = True
-
-    # print("LOGIC!!!!!:", m_global_logic)
-    if args.datalogchc == 1:
-        m_test_datalog_chc = True
-        m_test_datalog_chc_logic = args.datalogchclogic
-        m_test_datalog_chc_var_bound = args.datalogchcvar
-        if random.random() < 0.5 or m_test_smtinterpol:
-            m_test_datalog_chc_nonlinear = False
-        datalog_chc_fuzz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
+    if m_global_strategy == 'bool':
+        bool_fuzz(m_global_logic, args.ratio, args.cntsize)
+    elif m_global_strategy == 'cnf':
+        cnf_fuzz(m_global_logic, args.ratio, args.cntsize)
+    elif m_global_strategy == 'ncnf':
+        ncnf_fuzz(m_global_logic, args.ratio, args.cntsize)
+    elif m_global_strategy == 'CNFexp':
+        CNFexp_fuzz(m_global_logic, args.ratio, args.cntsize)
+    elif m_global_strategy == 'noinc':  # non-incremental
+        non_inc_fuzz(m_global_logic, args.ratio, args.cntsize)
+    elif m_global_strategy == 'strictcnf':
+        m_strict_cnf = True
+        strict_cnf_fuz(m_global_logic, args.ratio, args.cntsize)
     else:
-        if m_global_strategy == 'bool':
-            bool_fuzz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
-        elif m_global_strategy == 'cnf':
-            cnf_fuzz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
-        elif m_global_strategy == 'ncnf':
-            ncnf_fuzz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
-        elif m_global_strategy == 'CNFexp':
-            CNFexp_fuzz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
-        elif m_global_strategy == 'noinc':  # non-incremental
-            non_inc_fuzz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
-        elif m_global_strategy == 'strictcnf':
-            m_strict_cnf = True
-            strict_cnf_fuz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
-        else:
-            non_inc_fuzz(m_global_logic, args.ratio, option_fuzzing, args.cntsize)
+        non_inc_fuzz(m_global_logic, args.ratio, args.cntsize)
 
-    if True:
-        if (not (m_test_yices and m_test_yices_itp and m_noinc_mode)) and (
-                not (m_test_unsat_core and m_test_cvc4 and m_noinc_mode)):
-            print("(check-sat)")
-        if m_test_yices and m_test_yices_core: print("(get-unsat-core)")
-        if m_test_unsat_core or m_test_proof or m_test_named_assert:
-            num_goal = 0
-            all_ass = m_all_assertions
-            if len(all_ass) >= 2:  # and not m_test_yices:
-                octele = list(itertools.combinations(all_ass, 2))
-                random.shuffle(octele)
-                for a1, a2 in octele:
-                    if m_test_proof and m_test_cvc4:
-                        print("(get-proof)")
-                        break  # CVC4 proof does not support incremental mode
-                    cmd = "(check-sat-assuming (" + a1 + " " + a2 + "))"
-                    print(cmd)
-                    if m_test_proof: print("(get-proof)")
-                    if m_test_unsat_core: print("(get-unsat-core)")
-                    if m_test_cvc4 and m_noinc_mode: break
+    print("(check-sat)")
+    if m_test_unsat_core: print("(get-unsat-core)")
+    if m_test_proof: print("(get-proof)")
 
-                    num_goal += 1
-                    if num_goal == 10: break
 
-        if m_test_interpolant and (not m_test_z3_interpolant):
-            num_goal = 0
-            all_ass = m_all_assertions
-            if len(all_ass) > 20:
-                for i in range(5):
-                    to_merge = random.sample(all_ass, 5)
-                    aa = random.choice(all_ass)
-                    # (get-interpolants A (and B C D))
-                    bb = " (and "
-                    for j in to_merge:
-                        bb += j
-                        bb += " "
-                    bb += "))"
-                    cmd = "(get-interpolants " + aa + bb
-                    print(cmd)
-
-            if len(all_ass) >= 2:
-                octele = list(itertools.combinations(all_ass, 2))
-                random.shuffle(octele)
-                for a1, a2 in octele:
-                    # (get-interpolants a b)
-                    cmd = "(get-interpolants " + a1 + " " + a2 + ")"
-                    print(cmd)
-                    num_goal += 1
-                    if num_goal == 5: break
+if __name__ == "__main__":
+    main()
