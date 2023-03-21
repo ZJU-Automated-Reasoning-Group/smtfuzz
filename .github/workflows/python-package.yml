@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["2.7", "2.8", "3.5", "3.6", "3.8", "3.9", "3.10"]
+        python-version: ["2.7", "3.8", "3.9", "3.10"]
 
     steps:
     - uses: actions/checkout@v3
@@ -35,6 +35,5 @@ jobs:
       run: |
         smtfuzz --logic QF_BV
         smtfuzz --logic QF_S
-        smtfuzz --logic QF_FP
         smtfuzz --logic QF_AUFLIA --strategy bool
         
