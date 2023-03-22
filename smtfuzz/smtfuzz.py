@@ -78,7 +78,7 @@ m_use_fancy_qterm = False  # create fancy quantified assertions
 if random.random() < 0.66:
     m_use_fancy_qterm = True
 
-m_use_ite = False  # ite(b s s)
+m_use_ite = False  # ite(b s1 s2)
 if random.random() < 0.22:
     m_use_ite = True
 
@@ -125,7 +125,7 @@ if random.random() < 0.33:
 
 m_test_string_re = False
 if random.random() < 0.5:
-    m_test_string_re = True  # TODO: many re  operations not added
+    m_test_string_re = True  # TODO: many re operations are not added
 
 m_test_string_replace = False
 if random.random() < 0.33:
@@ -232,6 +232,7 @@ class Op:
     The Op class represents an operation in the SMT-LIB2 formula.
     It contains the node type and the expression associated with the operation.
     """
+
     def __init__(self, node, expr):
         self.expr = expr
         self.node = node
@@ -272,47 +273,47 @@ class BoolOp(Op):
         Op.__init__(self, node, expr)
 
 
-class USort_Op(Op):
+class USortOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Int_Op(Op):
+class IntOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Real_Op(Op):
+class RealOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class FP_Op(Op):
+class FPOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Set_Op(Op):
+class SetOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Bag_Op(Op):
+class BagOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Seplog_Op(Op):
+class SeplogOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class String_Op(Op):
+class StringOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
 
-class Seq_Op(Op):
+class SeqOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
@@ -322,7 +323,7 @@ class BVOp(Op):
         Op.__init__(self, node, expr)
 
 
-class Arr_Op(Op):
+class ArrOp(Op):
     def __init__(self, node, expr):
         Op.__init__(self, node, expr)
 
@@ -336,95 +337,95 @@ class Var:
         return str(self.sort) + str(self.n)
 
 
-class Var_Bool(Var):
+class VarBool(Var):
     def __init__(self, n):
         Var.__init__(self, 'v', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_Bool) and self.n == other.n
+        return isinstance(other, VarBool) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_Int(Var):
+class VarInt(Var):
     def __init__(self, n):
         Var.__init__(self, 'i', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_Int) and self.n == other.n
+        return isinstance(other, VarInt) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_Real(Var):
+class VarReal(Var):
     def __init__(self, n):
         Var.__init__(self, 'r', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_Real) and self.n == other.n
+        return isinstance(other, VarReal) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_FP(Var):
+class VarFP(Var):
     def __init__(self, n):
         Var.__init__(self, 'fpv', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_FP) and self.n == other.n
+        return isinstance(other, VarFP) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_Set(Var):
+class VarSet(Var):
     def __init__(self, n):
         Var.__init__(self, 'st', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_Set) and self.n == other.n
+        return isinstance(other, VarSet) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_Bag(Var):
+class VarBag(Var):
     def __init__(self, n):
         Var.__init__(self, 'bag', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_Bag) and self.n == other.n
+        return isinstance(other, VarBag) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_String(Var):
+class VarString(Var):
     def __init__(self, n):
         Var.__init__(self, 'str', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_String) and self.n == other.n
+        return isinstance(other, VarString) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_Seq(Var):
+class VarSeq(Var):
     def __init__(self, n):
         Var.__init__(self, 'seq', n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_String) and self.n == other.n
+        return isinstance(other, VarString) and self.n == other.n
 
     def __hash__(self):
         return hash((self.sort, self.n))
 
 
-class Var_UnIntSort(Var):
+class VarUnIntSort(Var):
     def __init__(self, sort, n):
         Var.__init__(self, sort, n)
 
@@ -432,7 +433,7 @@ class Var_UnIntSort(Var):
         return '{}-{}'.format(self.sort, self.n)
 
     def __eq__(self, other):
-        return isinstance(other, Var_UnIntSort) and self.n == other.n and self.sort == other.sort
+        return isinstance(other, VarUnIntSort) and self.n == other.n and self.sort == other.sort
 
     def __hash__(self):
         return hash((self.sort, self.n))
@@ -1624,7 +1625,7 @@ class SimpleNodes:
             operands = str(par)
             par = random.choice(self.d[String()])
             operands += (" " + str(par))
-            new_str = String_Op(random.choice(StringBinOp), operands)
+            new_str = StringOp(random.choice(StringBinOp), operands)
             self.d[String()].append(new_str)
         else:
             par = random.choice(self.d[String()])
@@ -1638,7 +1639,7 @@ class SimpleNodes:
                     substr = random_string()
                     operands += (" " + "\"" + substr + "\"")
             op_to_use = random.choice(StringNOp)
-            new_str = String_Op(op_to_use, operands)
+            new_str = StringOp(op_to_use, operands)
             self.d[String()].append(new_str)
 
     def bool_from_string(self):
@@ -1673,14 +1674,14 @@ class SimpleNodes:
         p = random.random()
         if p < 0.3:
             par = random.choice(self.d[Int()])
-            new_int = Int_Op(random.choice(IntUnOp), par)
+            new_int = IntOp(random.choice(IntUnOp), par)
             self.d[Int()].append(new_int)
         elif p < 0.66:
             par = random.choice(self.d[Int()])
             operand = str(par)
             par2 = random.choice(self.d[Int()])
             operand += (" " + str(par2))
-            new_int = Int_Op(random.choice(IntBinOp), operand)
+            new_int = IntOp(random.choice(IntBinOp), operand)
             self.d[Int()].append(new_int)
         else:
             par = random.choice(self.d[Int()])
@@ -1690,7 +1691,7 @@ class SimpleNodes:
                 par = random.choice(self.d[Int()])
                 operand += (" " + str(par))
             op_to_use = random.choice(IntNOp)
-            new_int = Int_Op(op_to_use, operand)
+            new_int = IntOp(op_to_use, operand)
             self.d[Int()].append(new_int)
 
     def bool_from_int(self):
@@ -1715,14 +1716,14 @@ class SimpleNodes:
         p = random.random()
         if p < 0.3:
             par = random.choice(self.d[Real()])
-            new_r = Real_Op(random.choice(RealUnOp), par)
+            new_r = RealOp(random.choice(RealUnOp), par)
             self.d[Real()].append(new_r)
         elif p < 0.66:
             par = random.choice(self.d[Real()])
             operand = str(par)
             par2 = random.choice(self.d[Real()])
             operand += (" " + str(par2))
-            new_r = Real_Op(random.choice(RealBinOp), operand)
+            new_r = RealOp(random.choice(RealBinOp), operand)
             self.d[Real()].append(new_r)
         else:
             par = random.choice(self.d[Real()])
@@ -1731,7 +1732,7 @@ class SimpleNodes:
             for _ in range(n):
                 par = random.choice(self.d[Real()])
                 operand += (" " + str(par))
-            new_r = Real_Op(random.choice(RealNOp), operand)
+            new_r = RealOp(random.choice(RealNOp), operand)
             self.d[Real()].append(new_r)
 
     def bool_from_real(self):
@@ -1793,11 +1794,11 @@ class Nodes:
                     self.d[FP()].append(new_fp)
                     self.dict[FP()] += 1
                 else:
-                    self.d[FP()].append(Var_FP(ith))
+                    self.d[FP()].append(VarFP(ith))
                     if m_test_fp64:
-                        print('(declare-fun {} () Float64)'.format(Var_FP(ith)))
+                        print('(declare-fun {} () Float64)'.format(VarFP(ith)))
                     else:
-                        print('(declare-fun {} () Float32)'.format(Var_FP(ith)))
+                        print('(declare-fun {} () Float32)'.format(VarFP(ith)))
                     self.dict[FP()] += 1
             if m_test_fp64:  # special FP constants
                 self.d[FP()].append("(_ +oo 11 53)")
@@ -1868,16 +1869,16 @@ class Nodes:
             print("(declare-fun uf7_2 (Bool Bool Bool Bool Bool Bool Bool) Bool)")
 
         for ith in range(self.n_vars):
-            self.d[Bool()].append(Var_Bool(ith))
-            print('(declare-fun {} () Bool)'.format(Var_Bool(ith)))
+            self.d[Bool()].append(VarBool(ith))
+            print('(declare-fun {} () Bool)'.format(VarBool(ith)))
             self.dict[Bool()] += 1
 
         if self.initial_ints == 1:
             self.d[Int()] = []
             for ith in range(self.n_ints):
                 if random.random() < 0.5 and (not m_test_string):  # donot show Int for QF_S
-                    self.d[Int()].append(Var_Int(ith))
-                    print('(declare-fun {} () Int)'.format(Var_Int(ith)))
+                    self.d[Int()].append(VarInt(ith))
+                    print('(declare-fun {} () Int)'.format(VarInt(ith)))
                 else:
                     val = random.randint(0, 100)
                     self.d[Int()].append(val)
@@ -1913,8 +1914,8 @@ class Nodes:
             self.d[Real()] = []
             for ith in range(self.n_reals):
                 if random.random() < 0.5:
-                    self.d[Real()].append(Var_Real(ith))
-                    print('(declare-fun {} () Real)'.format(Var_Real(ith)))
+                    self.d[Real()].append(VarReal(ith))
+                    print('(declare-fun {} () Real)'.format(VarReal(ith)))
                 else:
                     new_real = random_real()
                     self.d[Real()].append(new_real)
@@ -1964,11 +1965,11 @@ class Nodes:
             self.dict[Set()] = 0
             self.d[Set()] = []
             for ith in range(15):
-                self.d[Set()].append(Var_Set(ith))
+                self.d[Set()].append(VarSet(ith))
                 if m_test_str_set_bapa:
-                    print('(declare-fun {} () (Set String))'.format(Var_Set(ith)))
+                    print('(declare-fun {} () (Set String))'.format(VarSet(ith)))
                 else:
-                    print('(declare-fun {} () (Set Int))'.format(Var_Set(ith)))
+                    print('(declare-fun {} () (Set Int))'.format(VarSet(ith)))
                 self.dict[Set()] += 1
             if m_test_set_eq and (not m_test_str_set_bapa):
                 # if True:
@@ -1981,8 +1982,8 @@ class Nodes:
             self.dict[Bag()] = 0
             self.d[Bag()] = []
             for ith in range(15):
-                self.d[Bag()].append(Var_Bag(ith))
-                print('(declare-fun {} () (Bag Int))'.format(Var_Bag(ith)))
+                self.d[Bag()].append(VarBag(ith))
+                print('(declare-fun {} () (Bag Int))'.format(VarBag(ith)))
                 self.dict[Bag()] += 1
 
         if (m_test_string or m_test_string_lia) and (not m_test_datalog_chc):
@@ -1995,14 +1996,14 @@ class Nodes:
             nstr = random.randint(5, 20)
             if m_test_seq:
                 for ith in range(nstr):
-                    self.d[Seq()].append(Var_Seq(ith))
-                    print('(declare-fun {} () (Seq Int))'.format(Var_Seq(ith)))
+                    self.d[Seq()].append(VarSeq(ith))
+                    print('(declare-fun {} () (Seq Int))'.format(VarSeq(ith)))
                     self.dict[Seq()] += 1
                 # return #TEMP: mixing seq and str
 
             for ith in range(nstr):
-                self.d[String()].append(Var_String(ith))
-                print('(declare-fun {} () String)'.format(Var_String(ith)))
+                self.d[String()].append(VarString(ith))
+                print('(declare-fun {} () String)'.format(VarString(ith)))
                 self.dict[String()] += 1
 
             if m_test_my_uf:
@@ -2261,6 +2262,7 @@ class Nodes:
         qkeys = random.sample(qkeys, nsam)
         if nsam == 0:
             term = random.choice(self.d[Bool()])
+            return term
         boolean_subexpressions = ""
         for ith in qkeys:
             subexpr = self.qsubexpression(ith)
@@ -2270,7 +2272,7 @@ class Nodes:
             term = '({} {})'.format(random.choice(UnOp), boolean_subexpressions)
         elif nsam == 2:  # binary
             term = '({} {})'.format(random.choice(BiOp), boolean_subexpressions)
-        elif nsam > 2:  # n-array
+        else:  # n-array
             term = '({} {})'.format(random.choice(NarOp), boolean_subexpressions)
 
         return term
@@ -2395,7 +2397,7 @@ class Nodes:
                     p = random.random()
                     if p < 0.4:  # unary
                         par = random.choice(self.qdict[sort])
-                        new_int = Int_Op(random.choice(IntUnOp), par)
+                        new_int = IntOp(random.choice(IntUnOp), par)
                         self.qdict[sort].append(new_int)
                     elif p < 0.65:  # binary
                         num_created = 0
@@ -2407,7 +2409,7 @@ class Nodes:
                             if not m_test_datalog_chc_nonlinear and int_op_use in ["div", "*", "mod"]:
                                 par2 = str(random.randint(1, 1000))
                             operand += (" " + str(par2))
-                            new_int = Int_Op(int_op_use, operand)
+                            new_int = IntOp(int_op_use, operand)
                             self.qdict[sort].append(new_int)
                             num_created += 1
                             if num_created == 4: break
@@ -2430,7 +2432,7 @@ class Nodes:
                                 # if m_global_logic in lia_logics:
                                 if op_to_use == "*" and num_int_var >= 2: continue
 
-                            new_int = Int_Op(op_to_use, operand)
+                            new_int = IntOp(op_to_use, operand)
                             self.qdict[sort].append(new_int)
                             num_created += 1
                             if num_created == 4: break
@@ -2447,7 +2449,7 @@ class Nodes:
                     chance = random.random()
                     if chance < 0.33:
                         par = random.choice(self.qdict[sort])
-                        new_real = Real_Op(random.choice(RealUnOp), par)  # Op2 has sin/cos
+                        new_real = RealOp(random.choice(RealUnOp), par)  # Op2 has sin/cos
                         self.qdict[sort].append(new_real)
 
                     elif chance < 0.66:  # binary
@@ -2460,7 +2462,7 @@ class Nodes:
                             if not m_test_datalog_chc_nonlinear:
                                 par2 = random_real()
                             operand += (" " + str(par2))
-                            new_real = Real_Op(real_op_use, operand)
+                            new_real = RealOp(real_op_use, operand)
                             self.qdict[sort].append(new_real)
                             num_created += 1
                             if num_created == 4: break
@@ -2483,7 +2485,7 @@ class Nodes:
                             if m_global_logic in lra_logics:
                                 if op_to_use == "*" and num_real_var >= 2: continue
 
-                            new_real = Real_Op(op_to_use, operand)
+                            new_real = RealOp(op_to_use, operand)
                             self.qdict[sort].append(new_real)
                             num_created += 1
                             if num_created == 4: break
@@ -2802,8 +2804,8 @@ class Nodes:
         if len(options) > 0:
             current_sort = random.choice(options)
             n = len(self.d[current_sort])
-            self.d[current_sort].append(Var_UnIntSort(current_sort, n))
-            print('(declare-fun {} () {})'.format(Var_UnIntSort(current_sort, n), current_sort))
+            self.d[current_sort].append(VarUnIntSort(current_sort, n))
+            print('(declare-fun {} () {})'.format(VarUnIntSort(current_sort, n), current_sort))
             self.dict[current_sort] += 1
 
     def bool_from_usort(self):
@@ -2838,7 +2840,7 @@ class Nodes:
                 # else: print('(assert (not (fmf.card ' + str(par) + ' 2)))')
 
     def new_bool(self):
-        new_var = Var_Bool(self.n_vars)
+        new_var = VarBool(self.n_vars)
         print('(declare-fun {} () Bool)'.format(new_var))
         self.n_vars += 1
         self.d[Bool()].append(new_var)
@@ -2846,7 +2848,7 @@ class Nodes:
 
     def new_int(self):
         if random.random() < 0.3:
-            new_int = Var_Int(self.n_ints)
+            new_int = VarInt(self.n_ints)
             print('(declare-fun {} () Int)'.format(new_int))
             self.n_ints += 1
             self.d[Int()].append(new_int)
@@ -2866,29 +2868,29 @@ class Nodes:
             new_int2 = new_int
             if n_operands == 2:
                 if random.random() < 0.5:
-                    new_int2 = Int_Op('ufii3', operands)
+                    new_int2 = IntOp('ufii3', operands)
                 else:
-                    new_int2 = Int_Op('ufii3_2', operands)
+                    new_int2 = IntOp('ufii3_2', operands)
             elif n_operands == 3:
                 if random.random() < 0.5:
-                    new_int2 = Int_Op('ufii4', operands)
+                    new_int2 = IntOp('ufii4', operands)
                 else:
-                    new_int2 = Int_Op('ufii4_2', operands)
+                    new_int2 = IntOp('ufii4_2', operands)
             elif n_operands == 4:
                 if random.random() < 0.5:
-                    new_int2 = Int_Op('ufii5', operands)
+                    new_int2 = IntOp('ufii5', operands)
                 else:
-                    new_int2 = Int_Op('ufii5_2', operands)
+                    new_int2 = IntOp('ufii5_2', operands)
             elif n_operands == 5:
                 if random.random() < 0.5:
-                    new_int2 = Int_Op('ufii6', operands)
+                    new_int2 = IntOp('ufii6', operands)
                 else:
-                    new_int2 = Int_Op('ufii6_2', operands)
+                    new_int2 = IntOp('ufii6_2', operands)
             elif n_operands == 6:
                 if random.random() < 0.5:
-                    new_int2 = Int_Op('ufii7', operands)
+                    new_int2 = IntOp('ufii7', operands)
                 else:
-                    new_int2 = Int_Op('ufii7_2', operands)
+                    new_int2 = IntOp('ufii7_2', operands)
 
             par = random.choice(self.d[Bool()])
             operands = str(par)
@@ -2898,15 +2900,15 @@ class Nodes:
                 operands += (" " + str(par))
             new_b = random.choice(self.d[Int()])
             if n_operands == 2:
-                new_b = Int_Op('ufbi3', operands)
+                new_b = IntOp('ufbi3', operands)
             elif n_operands == 3:
-                new_b = Int_Op('ufbi4', operands)
+                new_b = IntOp('ufbi4', operands)
             elif n_operands == 4:
-                new_b = Int_Op('ufbi5', operands)
+                new_b = IntOp('ufbi5', operands)
             elif n_operands == 5:
-                new_b = Int_Op('ufbi6', operands)
+                new_b = IntOp('ufbi6', operands)
             elif n_operands == 6:
-                new_b = Int_Op('ufbi7', operands)
+                new_b = IntOp('ufbi7', operands)
 
             if random.random() < 0.5:
                 self.d[Int()].append(new_int2)
@@ -2948,13 +2950,13 @@ class Nodes:
             operands = str(parone)
             partwo = random.choice(self.d[Int()])
             operands += (" " + str(partwo))
-            self.d[Int()].append(Int_Op("-", operands))  # RDL
+            self.d[Int()].append(IntOp("-", operands))  # RDL
             return
 
         p = random.random()
         if p < 0.3:
             par = random.choice(self.d[Int()])
-            new_int = Int_Op(random.choice(IntUnOp), par)
+            new_int = IntOp(random.choice(IntUnOp), par)
             self.d[Int()].append(new_int)
         elif p < 0.66:
             try_times = 1
@@ -2976,11 +2978,11 @@ class Nodes:
                     if (op_to_use == "*" or op_to_use == "mod" or op_to_use == "div") and num_int_var >= 2:
                         continue
                     else:
-                        new_int = Int_Op(op_to_use, operand)
+                        new_int = IntOp(op_to_use, operand)
                         self.d[Int()].append(new_int)
                         break
                 else:
-                    new_int = Int_Op(op_to_use, operand)
+                    new_int = IntOp(op_to_use, operand)
                     self.d[Int()].append(new_int)
                     break
         else:
@@ -3002,11 +3004,11 @@ class Nodes:
                     if (op_to_use == "*" or op_to_use == "mod" or op_to_use == "div") and num_int_var >= 2:
                         continue
                     else:
-                        new_int = Int_Op(op_to_use, operand)
+                        new_int = IntOp(op_to_use, operand)
                         self.d[Int()].append(new_int)
                         break
                 else:
-                    new_int = Int_Op(op_to_use, operand)
+                    new_int = IntOp(op_to_use, operand)
                     self.d[Int()].append(new_int)
         self.dict[Int()] += 1
 
@@ -3024,14 +3026,14 @@ class Nodes:
         chance = random.random()
         if chance < 0.15:  # unary
             par = random.choice(self.d[Set()])
-            new_set = Set_Op(random.choice(SetUnOp), par)
+            new_set = SetOp(random.choice(SetUnOp), par)
             self.d[Set()].append(new_set)
         else:
             par = random.choice(self.d[Set()])
             operands = str(par)
             par = random.choice(self.d[Set()])
             operands += (" " + str(par))
-            new_set = Set_Op(random.choice(SetBinOp), operands)
+            new_set = SetOp(random.choice(SetBinOp), operands)
             self.d[Set()].append(new_set)
 
         if m_use_ite and random.random() < 0.05:
@@ -3048,14 +3050,14 @@ class Nodes:
         chance = random.random()
         if chance < 0:  # unary
             par = random.choice(self.d[Bag()])
-            new_bag = Bag_Op(random.choice(BagUnOp), par)
+            new_bag = BagOp(random.choice(BagUnOp), par)
             self.d[Bag()].append(new_bag)
         else:
             par = random.choice(self.d[Bag()])
             operands = str(par)
             par = random.choice(self.d[Bag()])
             operands += (" " + str(par))
-            new_bag = Bag_Op(random.choice(BagBinOp), operands)
+            new_bag = BagOp(random.choice(BagBinOp), operands)
             self.d[Bag()].append(new_bag)
 
     def seq_from_seq(self):
@@ -3064,21 +3066,21 @@ class Nodes:
         if chance < 0.45:
             par = random.choice(self.d[Int()])
             operands = str(par)
-            new_str = Seq_Op('seq.unit', operands)
+            new_str = SeqOp('seq.unit', operands)
             self.d[Seq()].append(new_str)
         elif chance < 0.75:
             par = random.choice(self.d[Seq()])
             operands = str(par)
             par = random.choice(self.d[Seq()])
             operands += (" " + str(par))
-            new_str = Seq_Op('seq.++', operands)
+            new_str = SeqOp('seq.++', operands)
             self.d[Seq()].append(new_str)
         else:
             par = random.choice(self.d[Seq()])
             operands = str(par)
             operands += (" " + str(random.choice(self.d[Int()])))
             operands += (" " + str(random.choice(self.d[Int()])))
-            new_str = Seq_Op('seq.extract', operands)
+            new_str = SeqOp('seq.extract', operands)
             self.d[Seq()].append(new_str)
 
     def bool_from_seq(self):
@@ -3086,14 +3088,14 @@ class Nodes:
         chance = random.random()
         if chance < 0.3 and m_test_string_lia:  # binary
             st = random.choice(self.d[Seq()])
-            self.d[Int()].append(Int_Op("seq.len", st))
+            self.d[Int()].append(IntOp("seq.len", st))
         else:
             par = random.choice(self.d[Seq()])
             operands = str(par)
             par = random.choice(self.d[Seq()])
             operands += (" " + str(par))
             seqb = random.choice(['seq.contains', 'seq.suffixof', 'seq.prefixof'])
-            new_bool = Seq_Op(seqb, operands)
+            new_bool = SeqOp(seqb, operands)
             self.d[Bool()].append(new_bool)
             self.dict[Bool()] += 1
 
@@ -3109,14 +3111,14 @@ class Nodes:
             if random.random() < 0.35:
                 par = random.choice(self.d[String()])
                 operands = str(par)
-                new_str = String_Op('str.rev', operands)
+                new_str = StringOp('str.rev', operands)
             self.d[String()].append(new_str)
         elif chance < 0.45:  # binary
             par = random.choice(self.d[String()])
             operands = str(par)
             par = random.choice(self.d[String()])
             operands += (" " + str(par))
-            new_str = String_Op(random.choice(StringBinOp), operands)
+            new_str = StringOp(random.choice(StringBinOp), operands)
             self.d[String()].append(new_str)
         else:
             par = random.choice(self.d[String()])
@@ -3139,7 +3141,7 @@ class Nodes:
                                 if random.random() < 0.5:
                                     intstr = random.choice(self.d[String()])
                                     tmp_operands = str(intstr)
-                                    new_int = Int_Op("str.to_int", tmp_operands)
+                                    new_int = IntOp("str.to_int", tmp_operands)
                                     self.d[Int()].append(new_int)
                                 else:
                                     tmp_s1 = random.choice(self.d[String()])
@@ -3148,7 +3150,7 @@ class Nodes:
                                     tmp_operands += (" " + str(tmp_s2))
                                     tmp_int = random.choice(self.d[Int()])
                                     tmp_operands += (" " + str(tmp_int))
-                                    new_int = Int_Op("str.indexof", tmp_operands)
+                                    new_int = IntOp("str.indexof", tmp_operands)
                                     self.d[Int()].append(new_int)
 
                             if random.random() < 0.22:
@@ -3162,7 +3164,7 @@ class Nodes:
                 StringNOp.append('str.replace_all')
                 StringNOp.append('str.replace')
             op_to_use = random.choice(StringNOp)
-            new_str = String_Op(op_to_use, operands)
+            new_str = StringOp(op_to_use, operands)
             self.d[String()].append(new_str)
             StringNOp = ['str.++']
         # str.substr: (I add a global flag to control this)
@@ -3176,7 +3178,7 @@ class Nodes:
                 operands += (" " + str(intv))
             else:
                 operands += (" " + str(random.choice(self.d[Int()])))
-            new_str = String_Op('str.substr', operands)
+            new_str = StringOp('str.substr', operands)
             self.d[String()].append(new_str)
         if m_use_ite and random.random() < 0.05:
             parb = random.choice(self.d[Bool()])
@@ -3233,29 +3235,29 @@ class Nodes:
             new_int2 = par
             if n_operands == 2:
                 if random.random() < 0.5:
-                    new_int2 = Real_Op('ufss3', operands)
+                    new_int2 = RealOp('ufss3', operands)
                 else:
-                    new_int2 = Real_Op('ufss3_2', operands)
+                    new_int2 = RealOp('ufss3_2', operands)
             elif n_operands == 3:
                 if random.random() < 0.5:
-                    new_int2 = Real_Op('ufss4', operands)
+                    new_int2 = RealOp('ufss4', operands)
                 else:
-                    new_int2 = Real_Op('ufss4_2', operands)
+                    new_int2 = RealOp('ufss4_2', operands)
             elif n_operands == 4:
                 if random.random() < 0.5:
-                    new_int2 = Real_Op('ufss5', operands)
+                    new_int2 = RealOp('ufss5', operands)
                 else:
-                    new_int2 = Real_Op('ufss5_2', operands)
+                    new_int2 = RealOp('ufss5_2', operands)
             elif n_operands == 5:
                 if random.random() < 0.5:
-                    new_int2 = Real_Op('ufss6', operands)
+                    new_int2 = RealOp('ufss6', operands)
                 else:
-                    new_int2 = Real_Op('ufss6_2', operands)
+                    new_int2 = RealOp('ufss6_2', operands)
             elif n_operands == 6:
                 if random.random() < 0.5:
-                    new_int2 = Real_Op('ufss7', operands)
+                    new_int2 = RealOp('ufss7', operands)
                 else:
-                    new_int2 = Real_Op('ufss7_2', operands)
+                    new_int2 = RealOp('ufss7_2', operands)
             self.d[String()].append(new_int2)
 
     def bool_from_int(self):
@@ -3364,7 +3366,7 @@ class Nodes:
         # TODO:more unary
         if chance < 0.3 and m_test_string_lia:  # binary
             st = random.choice(self.d[String()])
-            self.d[Int()].append(Int_Op("str.len", st))
+            self.d[Int()].append(IntOp("str.len", st))
         elif chance < 0.5:
             par = random.choice(self.d[String()])
             operands = str(par)
@@ -3404,8 +3406,8 @@ class Nodes:
 
     def new_real(self):
         if random.random() < 0.5:
-            self.d[Real()].append(Var_Real(self.n_reals))
-            print('(declare-fun {} () Real)'.format(Var_Real(self.n_reals)))
+            self.d[Real()].append(VarReal(self.n_reals))
+            print('(declare-fun {} () Real)'.format(VarReal(self.n_reals)))
             self.n_reals += 1
         else:
             new_real = random_real()
@@ -3422,15 +3424,15 @@ class Nodes:
             new_real = random_real()
             new_int2 = new_real
             if n_operands == 2:
-                new_int2 = Real_Op('ufrr3', operands)
+                new_int2 = RealOp('ufrr3', operands)
             elif n_operands == 3:
-                new_int2 = Real_Op('ufrr4', operands)
+                new_int2 = RealOp('ufrr4', operands)
             elif n_operands == 4:
-                new_int2 = Real_Op('ufrr5', operands)
+                new_int2 = RealOp('ufrr5', operands)
             elif n_operands == 5:
-                new_int2 = Real_Op('ufrr6', operands)
+                new_int2 = RealOp('ufrr6', operands)
             elif n_operands == 6:
-                new_int2 = Real_Op('ufrr7', operands)
+                new_int2 = RealOp('ufrr7', operands)
             # self.d[Real()].append(new_int2)
             par = random.choice(self.d[Bool()])
             operands = str(par)
@@ -3440,15 +3442,15 @@ class Nodes:
                 operands += (" " + str(par))
             new_b = random.choice(self.d[Real()])
             if n_operands == 2:
-                new_b = Int_Op('ufbr3', operands)
+                new_b = IntOp('ufbr3', operands)
             elif n_operands == 3:
-                new_b = Int_Op('ufbr4', operands)
+                new_b = IntOp('ufbr4', operands)
             elif n_operands == 4:
-                new_b = Int_Op('ufbr5', operands)
+                new_b = IntOp('ufbr5', operands)
             elif n_operands == 5:
-                new_b = Int_Op('ufbr6', operands)
+                new_b = IntOp('ufbr6', operands)
             elif n_operands == 6:
-                new_b = Int_Op('ufbr7', operands)
+                new_b = IntOp('ufbr7', operands)
 
             if random.random() < 0.5:
                 self.d[Real()].append(new_int2)
@@ -3461,11 +3463,11 @@ class Nodes:
             self.d[FP()].append(new_fp)
             self.dict[FP()] += 1
         else:
-            self.d[FP()].append(Var_FP(self.n_fps))
+            self.d[FP()].append(VarFP(self.n_fps))
             if m_test_fp64:
-                print('(declare-fun {} () Float64)'.format(Var_FP(self.n_fps)))
+                print('(declare-fun {} () Float64)'.format(VarFP(self.n_fps)))
             else:
-                print('(declare-fun {} () Float32)'.format(Var_FP(self.n_fps)))
+                print('(declare-fun {} () Float32)'.format(VarFP(self.n_fps)))
             self.n_fps += 1
             self.dict[FP()] += 1
 
@@ -3479,7 +3481,7 @@ class Nodes:
                 operands = str(parone)
                 partwo = random.choice(self.d[Real()])
                 operands += (" " + str(partwo))
-                self.d[Real()].append(Real_Op("-", operands))  # RDL
+                self.d[Real()].append(RealOp("-", operands))  # RDL
             return
 
         chance = random.random()
@@ -3487,13 +3489,13 @@ class Nodes:
             par = random.choice(self.d[Real()])
 
             if m_global_logic in lra_logics:
-                new_real = Real_Op(random.choice(RealUnOp), par)
+                new_real = RealOp(random.choice(RealUnOp), par)
             else:
                 if random.random() < 0.65 or m_global_logic == 'UFNRA' or m_global_logic == 'NRA' \
                         or m_global_logic == 'QF_UFNRA':
-                    new_real = Real_Op(random.choice(RealUnOp), par)
+                    new_real = RealOp(random.choice(RealUnOp), par)
                 else:  # sin, cos, tanh
-                    new_real = Real_Op(random.choice(RealUnOp2), par)
+                    new_real = RealOp(random.choice(RealUnOp2), par)
             self.d[Real()].append(new_real)
         elif chance < 0.55:  # binary
             try_times = 1
@@ -3513,7 +3515,7 @@ class Nodes:
                         continue
                 else:
                     operands += (" " + str(partwo))
-                    new_real = Real_Op(real_op_use, operands)
+                    new_real = RealOp(real_op_use, operands)
                     self.d[Real()].append(new_real)
                     break
         else:  # n-array
@@ -3534,11 +3536,11 @@ class Nodes:
                     if (op_to_use == "*" or op_to_use == "/") and num_real_var >= 2:
                         continue
                     else:
-                        new_real = Real_Op(op_to_use, operands)
+                        new_real = RealOp(op_to_use, operands)
                         self.d[Real()].append(new_real)
                         break
                 else:
-                    new_real = Real_Op(op_to_use, operands)
+                    new_real = RealOp(op_to_use, operands)
                     self.d[Real()].append(new_real)
                     # break
             # '''
@@ -3594,14 +3596,14 @@ class Nodes:
         chance = random.random()
         if chance < 0.4:  # unary
             par = random.choice(self.d[FP()])
-            new_fp = FP_Op(random.choice(FPUnOp), par)
+            new_fp = FPOp(random.choice(FPUnOp), par)
             self.d[FP()].append(new_fp)
         else:
             par = random.choice(self.d[FP()])
             operands = str(par)
             par = random.choice(self.d[FP()])
             operands += (" " + str(par))
-            new_fp = FP_Op(random.choice(FPNOp), operands)
+            new_fp = FPOp(random.choice(FPNOp), operands)
             self.d[FP()].append(new_fp)
 
     def bool_from_fp(self):
@@ -3629,11 +3631,11 @@ class Nodes:
         chance = random.randint(1, 5)
         if chance <= 2:
             par = random.choice(self.d[Int()])
-            self.d[Real()].append(Real_Op("to_real", par))
+            self.d[Real()].append(RealOp("to_real", par))
             self.dict[Real()] += 1
         elif chance <= 4:
             par = random.choice(self.d[Real()])
-            self.d[Int()].append(Int_Op("to_int", par))
+            self.d[Int()].append(IntOp("to_int", par))
             self.dict[Int()] += 1
         else:
             par = random.choice(self.d[Real()])
@@ -3905,7 +3907,7 @@ class Nodes:
             par2 = random.choice(self.d[isort])
             par3 = random.choice(self.d[esort])
             items = '{} {} {}'.format(par, par2, par3)
-            new_arr = Arr_Op('store', items)
+            new_arr = ArrOp('store', items)
             self.d[current_sort].append(new_arr)
             self.dict[current_sort] += 1
 
@@ -3925,7 +3927,7 @@ class Nodes:
                 par = random.choice(self.d[current_sort])
                 par2 = random.choice(self.d[isort])
                 expression = '{} {}'.format(par, par2)
-                new_one = Arr_Op('select', expression)
+                new_one = ArrOp('select', expression)
                 sssort = current_sort.sort_element
                 self.d[sssort].append(new_one)
                 if sssort not in self.dict.keys():
@@ -4175,18 +4177,17 @@ Bin_BV_Bool = ["bvult", "bvule", "bvugt", "bvuge", "bvslt", "bvsle", "bvsgt", "b
 N_BV_Bool = ["=", "distinct"]
 
 
-
 def add_smt_opt_cmd(nodes, logic):
     if m_test_smt_opt:
         nodes_vars = []
         nodes_bv_vars = []
         if (logic in qf_real_logic_options or logic in qf_ira_logics) and len(nodes.d[Real()]) > 0:
             for rv in nodes.d[Real()]:
-                if isinstance(rv, Var_Real) and random.random() < 0.9:
+                if isinstance(rv, VarReal) and random.random() < 0.9:
                     nodes_vars.append(rv)
         if (logic in qf_int_logic_options or logic in qf_ira_logics) and len(nodes.d[Int()]) > 0:
             for rv in nodes.d[Int()]:
-                if isinstance(rv, Var_Int) and random.random() < 0.9:
+                if isinstance(rv, VarInt) and random.random() < 0.9:
                     nodes_vars.append(rv)
 
         if logic in qf_bv_logic_options:
@@ -4217,7 +4218,7 @@ def add_smt_opt_cmd(nodes, logic):
             tmp_num_goal = 0
             if (logic in qf_real_logic_options or logic in qf_ira_logics) and len(nodes.d[Real()]) > 0:
                 for rv in nodes.d[Real()]:
-                    if isinstance(rv, Var_Real):
+                    if isinstance(rv, VarReal):
                         continue
                     else:
                         if random.random() < 0.5:
@@ -4228,7 +4229,7 @@ def add_smt_opt_cmd(nodes, logic):
                         if tmp_num_goal >= 15: break
             if (logic in qf_int_logic_options or logic in qf_ira_logics) and len(nodes.d[Int()]) > 0:
                 for rv in nodes.d[Int()]:
-                    if isinstance(rv, Var_Int):
+                    if isinstance(rv, VarInt):
                         continue
                     else:
                         if random.random() < 0.5:
@@ -4302,11 +4303,6 @@ def datalog_chc_fuzz(logic, vcratio, cntsize):
 
     if m_set_logic: print('(set-logic HORN)')
 
-    chc_prob = random.random()
-    if chc_prob < 0.5:
-        print("(set-option :fp.engine spacer)")
-    else:
-        print("(set-option :fp.engine bmc)")
     set_options()
     add_reals = -1
     add_ints = -1
@@ -4383,13 +4379,10 @@ def datalog_chc_fuzz(logic, vcratio, cntsize):
             nodes.quantifier_chc()
             assertions -= 1
 
-
 '''
 Generate formulas in strint CNF form
 # TODO: consider incremental
 '''
-
-
 def strict_cnf_fuz(logic, vcratio, cntsize):
     a, b, c, ni, e, f, g, h, m, v, r, t, u, gen_arr, add_ints, add_reals, add_quantifiers = \
         set_logic(logic)
@@ -5719,22 +5712,30 @@ def main():
     # signal.signal(signal.SIGHUP, sighandler)
 
     # Extend the help information for each argument in the argument parser
-    parser = argparse.ArgumentParser(description="A script for generating SMT-LIB benchmarks based on various strategies and logics.")
+    parser = argparse.ArgumentParser(
+        description="A script for generating SMT-LIB benchmarks based on various strategies and logics.")
     parser.add_argument('--strategy', dest='strategy', default='noinc', type=str,
-                    help="Strategy for generation: noinc (non-incremental), bool, cnf, ncnf, CNFexp, strictcnf, or random (default: noinc)")
-    parser.add_argument('--logic', dest='logic', default='random', type=str, help="Set the logic to generate (default: random)")
+                        help="Strategy for generation: noinc (non-incremental), bool, cnf, ncnf, CNFexp, strictcnf, or random (default: noinc)")
+    parser.add_argument('--logic', dest='logic', default='random', type=str,
+                        help="Set the logic to generate (default: random)")
     parser.add_argument('--seed', dest='seed', default=None, help="Random seed for rand() (default: None)")
-    parser.add_argument('--cnfratio', dest='ratio', default=5, type=int, help="Ratio of variables to clauses in CNF generation (default: 5)")
+    parser.add_argument('--cnfratio', dest='ratio', default=5, type=int,
+                        help="Ratio of variables to clauses in CNF generation (default: 5)")
     parser.add_argument('--cntsize', dest='cntsize', default=66, type=int,
-                    help="The maximal number of assertions per query (default: 66)")
-    parser.add_argument('--smtopt', dest='smtopt', default=0, type=int, help="Test SMT optimization (default: 0. use 1 to enable this feature)")
-    parser.add_argument('--maxsmt', dest='maxsmt', default=0, type=int, help="Test Max-SMT (default: 0. use 1 to enable this feature)")
-    parser.add_argument('--qbf', dest='qbf', default=0, type=int, help="Test QBF solving (default: 0. use 1 to enable this feature)")
+                        help="The maximal number of assertions per query (default: 66)")
+    parser.add_argument('--smtopt', dest='smtopt', default=0, type=int,
+                        help="Test SMT optimization (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--maxsmt', dest='maxsmt', default=0, type=int,
+                        help="Test Max-SMT (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--qbf', dest='qbf', default=0, type=int,
+                        help="Test QBF solving (default: 0. use 1 to enable this feature)")
     parser.add_argument('--maxsat', dest='maxsat', default=0, type=int, help="Test Max-SAT (default: 0)")
-    parser.add_argument('--qe', dest='qe', default=0, type=int, help="Test quantifier elimination (default: 0. use 1 to enable this feature)")
-    parser.add_argument('--unsat_core', dest='unsat_core', default=0, type=int, help="Test unsat_core (default: 0. use 1 to enable this feature)")
-    parser.add_argument('--proof', dest='proof', default=0, type=int, help="Test proof (default: 0. use 1 to enable this feature)")
-
+    parser.add_argument('--qe', dest='qe', default=0, type=int,
+                        help="Test quantifier elimination (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--unsat_core', dest='unsat_core', default=0, type=int,
+                        help="Test unsat_core (default: 0. use 1 to enable this feature)")
+    parser.add_argument('--proof', dest='proof', default=0, type=int,
+                        help="Test proof (default: 0. use 1 to enable this feature)")
 
     args = parser.parse_args()
     # print(args)
