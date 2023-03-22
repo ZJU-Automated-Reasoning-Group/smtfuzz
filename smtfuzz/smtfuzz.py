@@ -13,11 +13,11 @@ import string
 import sys
 from collections import OrderedDict
 
-m_set_logic = True
+m_set_logic = True   # generate the (set-logic ...) command
 
-m_strict_cnf = False
+m_strict_cnf = False  # generate formulas in CNF form
 
-m_reset_assert = False  # (reset-assertions)
+m_reset_assert = False  # generate the (reset-assertions) and (reset) commands
 m_reset_cmd = '(reset-assertions)'
 if random.random() < 0.2:
     m_reset_cmd = '(reset)'
@@ -25,7 +25,7 @@ if random.random() < 0.2:
 m_test_fp64 = False  # default Float32
 if random.random() < 0.5:
     m_test_fp64 = True
-m_fp_rounding_mode = "random"
+m_fp_rounding_mode = "random"  # rounding mode for FP
 if random.random() < 0.8:  # use fixed?
     fp_round_pp = random.random()
     if fp_round_pp < 0.2:
@@ -39,40 +39,41 @@ if random.random() < 0.8:  # use fixed?
     else:
         m_fp_rounding_mode = "RTZ"
 
-m_test_iand = False
-m_test_eqrange = False
+m_test_iand = False  # test the iand feature
+m_test_eqrange = False  # test eqrange
 
-m_quantifier_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
-m_or_and_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
-m_exists_forall_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
-m_assert_or_create_new_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
-m_create_exp_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
-m_create_bool_rate_swam = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
-m_push_pop_rate_swam = [0.05, 0.1, 0.15, 0.2, 0.25]
+# Swarm testing
+m_quantifier_rate_swarm = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
+m_or_and_rate_swarm = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
+m_exists_forall_rate_swarm = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
+m_assert_or_create_new_swarm = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
+m_create_exp_rate_swarm = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
+m_create_bool_rate_swarm = [0.11, 0.22, 0.33, 0.44, 0.55, 0.66]
+m_push_pop_rate_swarm = [0.05, 0.1, 0.15, 0.2, 0.25]
 
-m_declare_new_var_swam = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.40]
+m_declare_new_var_swarm = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.40]
 
 m_max_smt_rate = random.uniform(1.05, 1.66) - 1
 
-m_quantifier_rate = random.choice(m_quantifier_rate_swam)
-m_or_and_rate = random.choice(m_or_and_rate_swam)
-m_exists_forall_rate = random.choice(m_exists_forall_rate_swam)
-m_assert_or_create_new = random.choice(m_assert_or_create_new_swam)
-m_create_exp_rate = random.choice(m_create_exp_rate_swam)
-m_create_bool_rate = random.choice(m_create_bool_rate_swam)
-m_push_pop_rate = random.choice(m_push_pop_rate_swam)
-m_declare_new_var_rate = random.choice(m_declare_new_var_swam)
+m_quantifier_rate = random.choice(m_quantifier_rate_swarm)
+m_or_and_rate = random.choice(m_or_and_rate_swarm)
+m_exists_forall_rate = random.choice(m_exists_forall_rate_swarm)
+m_assert_or_create_new = random.choice(m_assert_or_create_new_swarm)
+m_create_exp_rate = random.choice(m_create_exp_rate_swarm)
+m_create_bool_rate = random.choice(m_create_bool_rate_swarm)
+m_push_pop_rate = random.choice(m_push_pop_rate_swarm)
+m_declare_new_var_rate = random.choice(m_declare_new_var_swarm)
 
-m_init_var_size = 20  # default 20
+m_init_var_size = 20  # default 20 (the number of vars to crate at the beginning)
 
-m_use_swam_bv = False  # selectively reduce the number of bv-operations
-# if random.random() < 0.5: m_use_swam_bv = True
+m_use_swarm_bv = False  # selectively reduce the number of bv-operations
+# if random.random() < 0.5: m_use_swarm_bv = True
 m_use_bv_concat_repeat = True
 # if random.random() < 0.33: m_use_bv_concat_repeat = False
 
-m_use_swam_fp = False  # selectively reduce the number of fp-operations
+m_use_swarm_fp = False  # selectively reduce the number of fp-operations
 if random.random() < 0.33:
-    m_use_swam_fp = True
+    m_use_swarm_fp = True
 
 m_use_fancy_qterm = False  # create fancy quantified assertions
 if random.random() < 0.66:
@@ -87,11 +88,14 @@ m_test_smt_opt = False  # (maximize x)
 m_test_smt_opt_fancy_term = False
 if random.random() < 0.33: m_test_smt_opt_fancy_term = True
 
-m_test_max_smt = False  # (assert-soft xx)
-m_test_qe = False  # quantifier elimination
-m_test_unsat_core = False  # unsat core
-m_test_interpolant = False  # interpolant
+m_test_max_smt = False  # test MaxSMT, e.g., (assert-soft xx)
+m_test_qe = False  # test quantifier elimination
+m_test_unsat_core = False  # test unsat core
+m_test_interpolant = False  # test interpolant
 
+
+# The following items are used for maintaining the scope information
+# when using push/pop commands
 m_assert_id = 0  # id for naming assertions in unsat_core
 m_all_assertions = []
 m_backtrack_points = []
@@ -100,9 +104,9 @@ n_pop = 0
 m_fancy_push = False
 # if random.random() < 0.25: m_fancy_push = True
 
-m_test_proof = False  # proof generation
+m_test_proof = False  # test proof generation
 
-m_test_named_assert = False  # just test named assertions
+m_test_named_assert = False  # test named assertions
 
 m_test_pure_sat = False  # SAT
 m_test_qbf = False  # QBF
@@ -135,9 +139,9 @@ m_test_string_unicode = False
 if random.random() < 0.22:
     m_test_string_unicode = True
 
-m_use_swam_str = False  # selectively reduce the number of str-operations
+m_use_swarm_str = False  # selectively reduce the number of str-operations
 if random.random() < 0.5:
-    m_use_swam_str = True
+    m_use_swarm_str = True
 
 """
 FP related
@@ -4100,14 +4104,14 @@ StringBinOp = ['str.++']
 StringNOp = ['str.++']
 # str.substr, str.replace, str.indexof, str.prefixof, str.at, str.replace_all
 StringBinBoolOp = ['str.<=', 'str.<', 'str.contains', 'str.suffixof', 'str.prefixof']
-if m_use_swam_str:
+if m_use_swarm_str:
     StringBinBoolOp = random.sample(StringBinBoolOp, 3)
 
 StringNBoolOp = ['distinct', '=']
 
 ReUnOp = ['re.opt', 're.comp', 're.*', 're.+']
 ReBinOp = ['re.++', 're.union', 're.diff', 're.inter']
-if m_use_swam_str:
+if m_use_swarm_str:
     ReUnOp = random.sample(ReUnOp, 2)
     ReBinOp = random.sample(ReBinOp, 2)
 
@@ -4146,7 +4150,7 @@ if m_fp_rounding_mode == 'random':
              'fp.min', 'fp.min', 'fp.min', 'fp.min',
              'fp.max', 'fp.max', 'fp.max', 'fp.max'
              ]
-    # if m_use_swam_fp:
+    # if m_use_swarm_fp:
     #    FPNOp = random.sample(FPNOp, 10)
     FPTriOp = ['fp.fma RNE', 'fp.fma RNA', 'fp.fma RTP', 'fp.fma RTN', 'fp.fma RTZ']
     FPUnOp = ['fp.sqrt RNE', 'fp.sqrt RNA',
@@ -4164,12 +4168,12 @@ else:
 
 Bin_BV_BV = ["bvand", "bvor", "bvadd", "bvmul", "bvudiv", "bvurem", "bvshl", "bvlshr", "bvnand", "bvnor", "bvsub",
              "bvsdiv", "bvsrem", "bvsmod", "bvashr", "bvcomp", "bvxnor"]
-if m_use_swam_bv:
+if m_use_swarm_bv:
     Bin_BV_BV = random.sample(Bin_BV_BV, 3)
 
 # N_BV_BV = ["bvxor"]
 N_BV_BV = ["bvxor", "bvor", "bvand"]
-if m_use_swam_bv:
+if m_use_swarm_bv:
     N_BV_BV = random.sample(N_BV_BV, 1)
 
 Un_BV_BV = ["bvnot", "bvneg"]
@@ -5747,9 +5751,9 @@ def main():
         m_global_logic = random.choice(total_logic_options)
     else:
         if m_global_logic not in total_logic_options:
-            print("Error, the logic is not supported: ", m_global_logic)
-            print("You may try the following logics: ")
-            print(total_logic_options)
+            print("; Error, the logic is not supported: ", m_global_logic)
+            print("; You may try the following logics: ")
+            print("; ", total_logic_options)
             exit(0)
 
     if args.strategy == "random":
