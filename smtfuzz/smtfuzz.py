@@ -231,6 +231,7 @@ total_logic_options = qf_logic_options + q_logic_options
 total_logic_options += string_logic_options
 
 
+
 class Op:
     """
     The Op class represents an operation in the SMT-LIB2 formula.
@@ -255,7 +256,7 @@ class Op:
 
     def set_node_ty(self, newnode):
         self.node = newnode
-
+       
 
 class IteOp(Op):
     def __init__(self, node, expr):
@@ -1777,7 +1778,7 @@ class Nodes:
         self.initial_bvs = 0  # bv
         self.n_bvs = 0
 
-        # just for storing quantified exp? (TODO: not so easy, becaues we need to manager it at push/pop
+        # just for storing quantified exp? (TODO: not so easy, because we need to manager it at push/pop
         # self.dict[Quantifier()] = 1
         # self.d[Quantifier()] = []
 
@@ -4209,8 +4210,8 @@ def add_smt_opt_cmd(nodes, logic):
         # tes bv octagon
         if len(nodes_bv_vars) >= 2:
             # print(";BV OCT!")
-            octele_cnts = list(itertools.combinations(nodes_bv_vars, 2))  # octagon domain?
-            for v1, v2 in octele_cnts:
+            octagon_cnts = list(itertools.combinations(nodes_bv_vars, 2))  # octagon domain?
+            for v1, v2 in octagon_cnts:
                 if v1.sort == v2.sort:
                     if random.random() < 0.5:
                         print('(minimize (bvadd {} {}))'.format(v1, v2))
@@ -4269,10 +4270,10 @@ def add_smt_opt_cmd(nodes, logic):
                     else:
                         print('(maximize {})'.format(rv))
             elif opt_ty < 0.6:
-                octele_cnts = list(itertools.combinations(nodes_vars, 2))  # octagon domain?
-                random.shuffle(octele_cnts)
+                octagon_cnts = list(itertools.combinations(nodes_vars, 2))  # octagon domain?
+                random.shuffle(octagon_cnts)
                 num_query = 0
-                for v1, v2 in octele_cnts:
+                for v1, v2 in octagon_cnts:
                     if random.random() < 0.65:
                         num_query += 1
                         if num_query > 15: break
@@ -4281,10 +4282,10 @@ def add_smt_opt_cmd(nodes, logic):
                         else:
                             print('(maximize (- {} {}))'.format(v1, v2))
             else:
-                octele_cnts = list(itertools.combinations(nodes_vars, 3))  # octagon domain?
-                random.shuffle(octele_cnts)
+                octagon_cnts = list(itertools.combinations(nodes_vars, 3))  # octagon domain?
+                random.shuffle(octagon_cnts)
                 num_query = 0
-                for v1, v2, v3 in octele_cnts:
+                for v1, v2, v3 in octagon_cnts:
                     if random.random() < 0.65:
                         num_query += 1
                         if num_query > 15: break
@@ -4335,19 +4336,19 @@ def datalog_chc_fuzz(logic, vcratio, cntsize):
                 term2 = simp.get_int_term()
                 term3 = simp.get_int_term()
                 bbb = '(inv-int3 {} {} {})'.format(term1, term2, term3)
-                pred = simp.get_bool()
-                connec = random.choice(['or'])
-                pp = "(assert (forall ((x Int) (y Int) (z Int)) ({} {} {})))".format(connec, bbb, pred)
+                predicate = simp.get_bool()
+                connect = random.choice(['or'])
+                pp = "(assert (forall ((x Int) (y Int) (z Int)) ({} {} {})))".format(connect, bbb, predicate)
             else:
                 simp = SimpleNodes(['x', 'y', 'z', 's'], "Int")
                 term1 = simp.get_int_term()
                 term2 = simp.get_int_term()
                 term3 = simp.get_int_term()
                 term4 = simp.get_int_term()
-                pred = simp.get_bool()
-                connec = random.choice(['or'])
+                predicate = simp.get_bool()
+                connect = random.choice(['or'])
                 bbb = '(inv-int4 {} {} {} {})'.format(term1, term2, term3, term4)
-                pp = "(assert (forall ((x Int) (y Int) (z Int) (s Int)) ({} {} {})))".format(connec, bbb, pred)
+                pp = "(assert (forall ((x Int) (y Int) (z Int) (s Int)) ({} {} {})))".format(connect, bbb, predicate)
             print(pp)
     elif m_test_datalog_chc_logic == "real":
         rand = random.random()
@@ -4363,19 +4364,19 @@ def datalog_chc_fuzz(logic, vcratio, cntsize):
                 term2 = simp.get_real_term()
                 term3 = simp.get_real_term()
                 bbb = '(inv-real3 {} {} {})'.format(term1, term2, term3)
-                pred = simp.get_bool()
-                connec = random.choice(['or'])
-                pp = "(assert (forall ((x Real) (y Real) (z Real)) ({} {} {})))".format(connec, bbb, pred)
+                predicate = simp.get_bool()
+                connect = random.choice(['or'])
+                pp = "(assert (forall ((x Real) (y Real) (z Real)) ({} {} {})))".format(connect, bbb, predicate)
             else:
                 simp = SimpleNodes(['x', 'y', 'z', 's'], "Real")
                 term1 = simp.get_real_term()
                 term2 = simp.get_real_term()
                 term3 = simp.get_real_term()
                 term4 = simp.get_real_term()
-                pred = simp.get_bool()
+                predicate = simp.get_bool()
                 bbb = '(inv-real4 {} {} {} {})'.format(term1, term2, term3, term4)
-                connec = random.choice(['or'])
-                pp = "(assert (forall ((x Real) (y Real) (z Real) (s Real)) ({} {} {})))".format(connec, bbb, pred)
+                connect = random.choice(['or'])
+                pp = "(assert (forall ((x Real) (y Real) (z Real) (s Real)) ({} {} {})))".format(connect, bbb, predicate)
             print(pp)
     else:
         assertions = cntsize
@@ -5767,7 +5768,7 @@ def main():
     if not args.seed:
         random.seed(args.seed)
 
-    # the option --qbf seems meaninless, because QBF is jus a quantified theory
+    # the option --qbf seems meaningless, because QBF is jus a quantified theory
     # if args.qbf == 1 and m_global_logic == "QBF": m_test_qbf = True
     if m_global_logic == "QBF":
         m_test_qbf = True
