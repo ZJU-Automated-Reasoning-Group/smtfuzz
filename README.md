@@ -27,3 +27,44 @@ Feel free to experiment with different combinations of options to generate a wid
 To report any bugs, issues, questions or feature requests, 
 please submit an issue. We are pleased to receive your 
 feedback.
+
+
+## Citing SMTFuzz
+You are kindly asked to acknowledge usage of the tool by citing the 
+following papers
+~~~~
+@inproceedings{DBLP:conf/sigsoft/YaoHTSWZ21,
+  author       = {Peisen Yao and
+                  Heqing Huang and
+                  Wensheng Tang and
+                  Qingkai Shi and
+                  Rongxin Wu and
+                  Charles Zhang},
+  title        = {Skeletal approximation enumeration for SMT solver testing},
+  booktitle    = {ESEC/FSE'21: 29th ACM Joint European Software Engineering Conference
+                  and Symposium on the Foundations of Software Engineering, Athens,
+                  Greece, August 23-28, 2021},
+  pages        = {1141--1153},
+  publisher    = {ACM},
+  year         = {2021},
+  doi          = {10.1145/3468264.3468540}
+}
+~~~~
+
+~~~~
+@inproceedings{DBLP:conf/issta/YaoHTSWZ21,
+  author       = {Peisen Yao and
+                  Heqing Huang and
+                  Wensheng Tang and
+                  Qingkai Shi and
+                  Rongxin Wu and
+                  Charles Zhang},
+  title        = {Fuzzing SMT solvers via two-dimensional input space exploration},
+  booktitle    = {ISSTA'21: 30th ACM SIGSOFT International Symposium on Software
+                  Testing and Analysis, Virtual Event, Denmark, July 11-17, 2021},
+  pages        = {322--335},
+  publisher    = {ACM},
+  year         = {2021},
+  doi          = {10.1145/3460319.3464803}
+}
+~~~~
