@@ -86,6 +86,9 @@ class Z3Mutation:
         self.optfuzz = "no"
         self.has_quantifier = False
 
+        self.z3option = False
+        self.cvc4option = False
+
     def apply_probe(self, name):
         g = Goal()
         g.add(self.formula)
@@ -169,6 +172,12 @@ class Z3Mutation:
         except Exception as ex:
             print("error while parsing orig smt file")
             print(ex)
+
+    def enable_z3_option(self):
+        self.z3option = True
+
+    def enable_cvc4_option(self):
+        self.cvc4option = True
 
     def init_from_str(self, strf):
         """
@@ -418,5 +427,7 @@ if __name__ == "__main__":
     parser.add_argument('--input', dest='input', default='default', type=str)
     parser.add_argument('--output', dest='output', default='default', type=str)
     parser.add_argument('--mode', dest='mode', default='default', type=str)
+    parser.add_argument('--optionmode', dest='optionmode', default='none', type=str)
     args = parser.parse_args()
+
     main(args.input, args.output, args.mode)

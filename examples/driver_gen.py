@@ -120,22 +120,24 @@ black_list = []
 black_list_files = ['../black_list_cvc4_new', '../black_list_z3', '../black_list_open', '../black_list_yices2']
 for f in black_list_files:
     bf = open(f, 'r')
-    for l in bf:
-        black_list.append(l.replace("\n", ""))
+    for line in bf:
+        black_list.append(line.replace("\n", ""))
     bf.close()
 
     # Load the configuration file
+
+
 with open('test_config.json', 'r') as file:
     m_config = json.load(file)
 
 
-def get_solver_path(solver: str):
+def get_smt_solver_path(solver: str):
     return m_config.get(solver, solver)
 
 
 m_tools = [
-    get_solver_path("z3"),
-    get_solver_path("cvc5")
+    get_smt_solver_path("z3"),
+    get_smt_solver_path("cvc5")
 ]
 
 generator = 'generator.py'
@@ -176,18 +178,9 @@ def find_smt2(path):
     return flist
 
 
-def find_sygus(path):
-    flist = []  # path to smtlib2 files
-    for root, dirs, files in os.walk(path):
-        for fname in files:
-            if os.path.splitext(fname)[1] == '.sy' or os.path.splitext(fname)[1] == '.sl':
-                flist.append(os.path.join(root, fname))
-    return flist
-
-
 def rand_partition(list_in, n):
     random.shuffle(list_in)
-    return [list_in[i::n] for i in range(n)]
+    return [list_in[ii::n] for ii in range(n)]
 
 
 def split_list(alist, wanted_parts=1):
@@ -244,7 +237,8 @@ def gen_and_mut(idt):
     while True:
         try:
             if counter % count == 0 and (
-                    m_solver_mode == "default" or m_solver_mode == "exp" or m_solver_mode == "proof" or m_solver_mode == "interpolant" or m_solver_mode == "unsat_core"):
+                    m_solver_mode == "default" or m_solver_mode == "exp" or m_solver_mode == "proof"
+                    or m_solver_mode == "interpolant" or m_solver_mode == "unsat_core"):
                 logging.debug("enter parameter generations")
                 cnfratio = random.randint(2, 50)
                 cntsize = random.randint(25, 550)
@@ -338,28 +332,21 @@ def gen_and_mut(idt):
                 print("seed file empty")
                 continue
 
-            # Load the configuration file
-            with open('test_config.json', 'r') as file:
-                config = json.load(file)
-
-            def get_solver_path(solver: str):
-                return config.get(solver, solver)
-
             # Starting to mutate
             cmd_tool = []
             to_test = None
             if args.solver == 'yices':
-                to_test = get_solver_path("yices")
+                to_test = get_smt_solver_path("yices")
             elif args.solver == 'cvc5':
-                to_test = get_solver_path("cvc5")
+                to_test = get_smt_solver_path("cvc5")
             elif args.solver == 'z3':
-                to_test = get_solver_path("z3")
+                to_test = get_smt_solver_path("z3")
             elif args.solver == 'open':
-                to_test = get_solver_path("open")
+                to_test = get_smt_solver_path("open")
             elif args.solver == 'pol':
-                to_test = get_solver_path("pol")
+                to_test = get_smt_solver_path("pol")
             else:
-                to_test = get_solver_path("z3")
+                to_test = get_smt_solver_path("z3")
 
             for cc in to_test.split(' '):  # currently, choose the first tool
                 cmd_tool.append(cc)
@@ -436,8 +423,6 @@ def gen_and_mut(idt):
 
             for i in range(args.count):
                 tmp_file_mut = inputs + name + "_" + str(i) + ".smt2"
-                if m_solver_mode == "sygus":
-                    tmp_file_mut = inputs + name + "_" + str(i) + ".sy"  # or .sl?
                 try:
                     with open(tmp_file_mut, 'w') as mut:
                         if args.solvermode == 'exp' and m_has_z3py:  # experimental
@@ -475,10 +460,11 @@ def gen_and_mut(idt):
                 out_mut = ' '.join([str(element.decode('UTF-8')) for element in out_mut])
                 logging.debug("Mut res: ")
                 logging.debug(out_mut)
-                ## TODO: invalid model message also contains 'error
+                # TODO: invalid model message also contains 'error
                 bl_msg = ['unsupported', 'what', 'Warning', 'suppress', 'unknown', 'support', 'type', 'Unes']
 
-                if "Santi" in out_mut or 'ASS' in out_mut or 'Ass' in out_mut or 'Fat' in out_mut or 'invalid mo' in out_mut:
+                if "Santi" in out_mut or 'ASS' in out_mut or 'Ass' in out_mut \
+                        or 'Fat' in out_mut or 'invalid mo' in out_mut:
                     err_flag = True
                     for item in black_list:
                         if not item:
@@ -507,7 +493,7 @@ def gen_and_mut(idt):
                 os.remove(tmp_file)
         except Exception as e:
             # remove file?
-            if not 'timed out' in e:
+            if 'timed out' not in e:
                 print(e)
 
 
@@ -518,12 +504,15 @@ def gen_and_meta(idt):
     while True:
         try:
             if counter % count == 0 and (
-                    m_solver_mode == "default" or m_solver_mode == "exp" or m_solver_mode == "proof" or m_solver_mode == "interpolant" or m_solver_mode == "unsat_core"):
+                    m_solver_mode == "default" or m_solver_mode == "exp" or
+                    m_solver_mode == "proof" or m_solver_mode == "interpolant" or
+                    m_solver_mode == "unsat_core"):
                 logging.debug("enter parameter generations")
                 cnfratio = random.randint(2, 50)
                 cntsize = random.randint(25, 550)
                 strategy = random.randint(0, len(strategies) - 1)
-                if m_solver_mode == "exp": strategy = 0
+                if m_solver_mode == "exp":
+                    strategy = 0
                 logic = random.randint(0, len(logics) - 1)
                 logiclist = logics
                 if m_logic_mode == 'bv':
@@ -598,21 +587,16 @@ def gen_and_meta(idt):
                 continue
 
             # Load the configuration file
-            with open('test_config.json', 'r') as file:
-                config = json.load(file)
-
-            def get_solver_path(solver: str):
-                return config.get(solver, solver)
 
             # Starting to mutate
             cmd_tool = []
             to_test = None
             if args.solver == 'cvc5':
-                to_test = get_solver_path("cvc5")
+                to_test = get_smt_solver_path("cvc5")
             elif args.solver == 'z3':
-                to_test = get_solver_path("z3")
+                to_test = get_smt_solver_path("z3")
             else:
-                to_test = get_solver_path("z3")
+                to_test = get_smt_solver_path("z3")
 
             for cc in to_test.split(' '):  # currently, choose the first tool
                 cmd_tool.append(cc)
@@ -690,8 +674,6 @@ def gen_and_meta(idt):
 
             for i in range(args.count):
                 tmp_file_mut = inputs + name + "_" + str(i) + ".smt2"
-                if m_solver_mode == "sygus":
-                    tmp_file_mut = inputs + name + "_" + str(i) + ".sy"  # or .sl?
                 try:
                     with open(tmp_file_mut, 'w') as mut:
                         if gene.generate(tmp_file_mut):
@@ -717,11 +699,12 @@ def gen_and_meta(idt):
                 out_mut = ' '.join([str(element.decode('UTF-8')) for element in out_mut])
                 logging.debug("Mut res: ")
                 logging.debug(out_mut)
-                ## TODO: invalid model message also contains 'error
-                bl_msg = ['unsupported', 'error', 'loop', 'what', 'Warning', 'suppress', 'unknown', 'support', 'type',
-                          'Unes']
+                # TODO: invalid model message also contains 'error
+                bl_msg = ['unsupported', 'error', 'loop', 'what', 'Warning', 'suppress',
+                          'unknown', 'support', 'type', 'Unes']
 
-                if is_timeout[0] == False and out_seed != out_mut and os.path.isfile(tmp_file):
+                if not is_timeout[0] and out_seed != out_mut \
+                        and os.path.isfile(tmp_file):
                     err_flag = True
                     for item in black_list:
                         if not item:
@@ -746,7 +729,8 @@ def gen_and_meta(idt):
                         shutil.copy(tmp_file, out_dir + "/crash")
                         shutil.copy(tmp_file_mut, out_dir + "/crash")
 
-                if "Santi" in out_mut or 'ASS' in out_mut or 'Ass' in out_mut or 'Fat' in out_mut or 'invalid mo' in out_mut:
+                if "Santi" in out_mut or 'ASS' in out_mut or 'Ass' in out_mut or\
+                        'Fat' in out_mut or 'invalid mo' in out_mut:
                     err_flag = True
                     for item in black_list:
                         if not item:
@@ -775,7 +759,7 @@ def gen_and_meta(idt):
                 os.remove(tmp_file)
         except Exception as e:
             # remove file?
-            if not 'timed out' in e:
+            if 'timed out' not in e:
                 print(e)
 
 

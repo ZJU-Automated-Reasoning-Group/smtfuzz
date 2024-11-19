@@ -1,3 +1,4 @@
+"""Read seed files and try to mutate them"""
 import argparse
 import glob
 import hashlib
@@ -8,7 +9,6 @@ import os
 import random
 import shutil
 import signal
-# import statistics
 import statistics as st
 import subprocess
 import sys
@@ -35,6 +35,13 @@ except Exception as e:
     print(e)
     print("No z3py, will use StrMut or TyMut")
     m_has_z3py = False
+
+with open('test_config.json', 'r') as file:
+    m_config = json.load(file)
+
+
+def get_smt_solver_path(solver: str):
+    return m_config.get(solver, solver)
 
 
 class Statistic:
@@ -127,8 +134,8 @@ black_list = []
 black_list_files = ['../black_list_cvc4_new', '../black_list_z3', '../black_list_open', '../black_list_yices2']
 for f in black_list_files:
     bf = open(f, 'r')
-    for l in bf:
-        black_list.append(l.replace("\n", ""))
+    for line in bf:
+        black_list.append(line.replace("\n", ""))
     bf.close()
 
 
@@ -228,25 +235,18 @@ def worker(pack):
         # print("tmp file empty")
         return
 
-    # Load the configuration file
-    with open('test_config.json', 'r') as file:
-        config = json.load(file)
-
-    def get_solver_path(solver: str):
-        return config.get(solver, solver)
-
     cmd_tool = []
     to_test = None
     if solver == 'yices':
-        to_test = get_solver_path("yices")
+        to_test = get_smt_solver_path("yices")
     elif solver == 'cvc5':
-        to_test = get_solver_path("cvc5")
+        to_test = get_smt_solver_path("cvc5")
     elif solver == 'z3':
-        to_test = get_solver_path("z3")
+        to_test = get_smt_solver_path("z3")
     elif solver == 'open':
-        to_test = get_solver_path("open")
+        to_test = get_smt_solver_path("open")
     elif solver == 'pol':
-        to_test = get_solver_path("pol")
+        to_test = get_smt_solver_path("pol")
     else:
         to_test = solver  # allow for specifying the solver bin in cmd
 
@@ -257,16 +257,11 @@ def worker(pack):
         cmd_tool.append('--quiet')
         if args.solvermode == 'unsat_core':
             cmd_tool.append('--check-unsat-cores')
-        if not args.solvermode == 'sygus':
-            cmd_tool.append('--incremental')
+        cmd_tool.append('--incremental')
         cmd_tool.append('--check-models')
         # cmd_tool.append('--strings-exp')
     if 'yice' in to_test or 'boolec' in to_test:
         cmd_tool.append('--incremental')
-
-    # if 'z3' in to_test:
-    #    cmd_tool.append('tactic.default_tactic=smt')
-    #    cmd_tool.append('sat.euf=true')
 
     try:
         cmd_seed = cmd_tool
@@ -350,11 +345,7 @@ def worker(pack):
             if len(solver_opts) > 1 and opt != "NA":
                 cmd_new.append(opt)
             name = '/muta_input-' + str(idt) + "_" + str(opt_id) + "_" + str(counter)[0:6] + '_'
-            gene = None
-            if args.solvermode == 'sygus':
-                gene = StringMutation(tmp_file)
-            else:
-                gene = StringMutation(tmp_file)
+            gene = StringMutation(tmp_file)
             if args.solvermode == 'unsat_core':
                 gene.enable_unsat_core()
             if args.solvermode == 'proof':
@@ -371,8 +362,6 @@ def worker(pack):
             for i in range(args.count):
                 tmp_file_mut = inputs + name + str(i) + ".smt2"
                 xxxname = name + str(i) + ".smt2"
-                if args.solvermode == "sygus":
-                    tmp_file_mut = inputs + name + str(i) + ".sy"  # or .sl?
                 try:
                     with open(tmp_file_mut, 'w') as mut:
                         if args.solvermode == 'exp' and m_has_z3py:  # experimental
@@ -476,10 +465,7 @@ def worker_diff(pack):
         g_statistic.seeds += 1
 
     for i in range(args.count):
-
         tmp_file_mut = inputs + name + str(i) + ".smt2"
-        if args.solvermode == "sygus":
-            tmp_file_mut = inputs + name + str(i) + ".sy"  # or .sl?
         try:
             with open(tmp_file_mut, 'w') as mut:
                 if args.solvermode == 'exp' and m_has_z3py:  # experimental
@@ -496,25 +482,20 @@ def worker_diff(pack):
                         break
         except Exception as file_e:
             # print(file_e)
-            if os.path.isfile(tmp_file_mut): os.remove(tmp_file_mut)
+            if os.path.isfile(tmp_file_mut):
+                os.remove(tmp_file_mut)
             continue
 
         if g_statistic:
             g_statistic.mutants += 1
             g_statistic.printbar()
 
-        with open('test_config.json', 'r') as file:
-            config = json.load(file)
-
-        def get_solver_path(solver: str):
-            return config.get(solver, solver)
-
         # Start solving
         m_tools = [
-            get_solver_path("z3"),
-            get_solver_path("z3") + " rewriter.flat=false",
-            get_solver_path("z3") + " smt.arith.solver=2",
-            get_solver_path("cvc5")
+            get_smt_solver_path("z3"),
+            get_smt_solver_path("z3") + " rewriter.flat=false",
+            get_smt_solver_path("z3") + " smt.arith.solver=2",
+            get_smt_solver_path("cvc5")
         ]
         # allow the users to specify the solvers in cmds!
         if args.solvers != "no":
@@ -522,7 +503,7 @@ def worker_diff(pack):
 
         try:
             m_res = []
-            for tool in m_tools:
+            for _ in m_tools:
                 m_res.append('unknown')
             m_res_out = []
             m_res_tout = []
@@ -563,7 +544,8 @@ def worker_diff(pack):
                     toadd = True
                     for bl in bl_msg:
                         if bl in out_tool:
-                            # if bl == 'Ass' or bl == 'Segment' or bl == 'Fat' or bl == 'Unespected' or bl == 'suffer' or bl == 'terminate':
+                            # if bl == 'Ass' or bl == 'Segment' or bl == 'Fat' or bl == 'Unespected'
+                            # or bl == 'suffer' or bl == 'terminate':
                             # print("find error")
                             # TODO: record and report error
                             #   shutil.copy(tmp_file_mut, outdir + "/crash")
@@ -573,7 +555,8 @@ def worker_diff(pack):
                         m_res_out.append(out_tool)
                 else:
                     if not (
-                            'true' in out_tool or 'false' in out_tool or 'error' in out_tool or 'an inv' in out_tool or 'Ass' in out_tool or 'ASSERTION' in out_tool):
+                            'true' in out_tool or 'false' in out_tool or 'error' in out_tool
+                            or 'an inv' in out_tool or 'Ass' in out_tool or 'ASSERTION' in out_tool):
                         m_res_tout.append(True)
                 # close?
                 ptool.stdout.close()
@@ -596,7 +579,8 @@ def worker_diff(pack):
                 print(tmp_file_mut)
                 break  #
             else:
-                if os.path.isfile(tmp_file_mut): os.remove(tmp_file_mut)
+                if os.path.isfile(tmp_file_mut):
+                    os.remove(tmp_file_mut)
         except Exception as ee:
             print(ee)
 
@@ -613,6 +597,7 @@ def signal_handler(sig, frame):
             print("Max: ", max(g_statistic.profile_data))
             print("Avg: ", sum(g_statistic.profile_data) / len(g_statistic.profile_data))
             print("Std: ", st.pstdev(g_statistic.profile_data))
+    # ugly
     os.system('pkill -9 python3')
     os.system('pkill -9 python3.7')
     os.system('pkill -9 python3.8')
@@ -632,13 +617,9 @@ signal.signal(signal.SIGQUIT, signal_handler)
 signal.signal(signal.SIGHUP, signal_handler)
 
 if args.seed != 'no':
-    tasks = []
     seed_files = glob.glob(args.seed + '/**/*.smt2', recursive=True)
     random.shuffle(seed_files)
-    if args.logicmode == 'sygus':
-        tasks = [(args.solver, f, args.output) for f in seed_files]
-    else:
-        tasks = [(args.solver, f, args.output) for f in seed_files]
+    tasks = [(args.solver, f, args.output) for f in seed_files]
 
     if args.profile:
         for _ in tqdm.tqdm(pool.imap_unordered(profile, tasks), total=len(tasks)):
