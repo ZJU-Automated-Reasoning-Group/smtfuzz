@@ -15,6 +15,7 @@ The mutation strategy can be specified using the --mode argument.
 import argparse
 import itertools
 import random
+
 from z3 import *
 from z3.z3util import get_vars
 

@@ -1,0 +1,7 @@
+{
+  "yices": "/pathto/yices_smt2",
+  "cvc5": "/pathto/cvc5/build/bin/cvc5",
+  "z3": "/pathto/z3 model_validate=true",
+  "open": "/pathto/opensmt/build/opensmt",
+  "pol": "java -jar /pathto/smtinterpol/dist/smtinterpol.jar -no-success -w -q"
+}
