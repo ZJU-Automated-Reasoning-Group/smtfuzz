@@ -1,6 +1,6 @@
 import random
 
-from grammar_gene import generate_from_grammar_as_str
+from generator import generate_from_grammar_as_str
 
 from cvc4option_mutator import mutate_cvc4_option
 from examples.mutators.z3option_mutator import mutate_z3_option
