@@ -5,12 +5,9 @@ import io
 import os
 import sys
 from shutil import rmtree
-
 from setuptools import find_packages, setup, Command
-from setuptools.command.build_py import build_py
-from setuptools.command.install import install
 
-# Package meta-data.
+# Package meta-data
 NAME = 'smtfuzz'
 DESCRIPTION = 'A fuzzer for SMT solvers.'
 URL = 'https://github.com/ZJU-Automated-Reasoning-Group/smtfuzz'
@@ -19,41 +16,24 @@ AUTHOR = 'rainoftime'
 REQUIRES_PYTHON = '>=3.6.0'
 VERSION = '0.0.3'
 
+# Required packages with relaxed version constraints
 REQUIRED = [
-    'z3-solver==4.8.10'
+    'z3-solver>=4.8.10',
+    'meson>=1.6.1',
+    'tqdm>=4.65.0'
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+# Import the README and use it as the long-description
 try:
     with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
         long_description = '\n' + f.read()
 except FileNotFoundError:
     long_description = DESCRIPTION
 
-about = {}
-if not VERSION:
-    project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
-    with open(os.path.join(here, project_slug, '__version__.py')) as f:
-        exec(f.read(), about)
-else:
-    about['__version__'] = VERSION
-
-class CustomBuildCommand(build_py):
-    """Custom build command."""
-    
-    def run(self):
-        # Add any custom build steps here
-        print("Running custom build...")
-        build_py.run(self)
-
-class CustomInstallCommand(install):
-    """Custom install command."""
-    
-    def run(self):
-        # Add any custom install steps here
-        print("Running custom install...")
-        install.run(self)
+# Load the package's version
+about = {'__version__': VERSION}
 
 class UploadCommand(Command):
     """Support setup.py upload."""
@@ -101,12 +81,18 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
+    packages=find_packages(include=['smtfuzz', 'smtfuzz.*']),
+    entry_points={
+        'console_scripts': [
+            'smtfuzz=smtfuzz:main',
+        ],
+    },
     install_requires=REQUIRED,
     include_package_data=True,
-    license='MIT',
+    license='GPL-3.0',
     classifiers=[
-        'License :: OSI Approved :: MIT License',
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
@@ -115,13 +101,12 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        'Topic :: Software Development :: Testing',
+        'Topic :: Scientific/Engineering :: Mathematics',
     ],
+    keywords=['smt', 'fuzzing', 'testing', 'formal methods', 'verification'],
     cmdclass={
         'upload': UploadCommand,
-        'build_py': CustomBuildCommand,
-        'install': CustomInstallCommand,
     },
 )
