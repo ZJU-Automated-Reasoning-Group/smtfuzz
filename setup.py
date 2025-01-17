@@ -1,45 +1,36 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Note: To use the 'upload' functionality of this file, you must:
-#   $ pipenv install twine --dev
 import io
 import os
 import sys
 from shutil import rmtree
 
 from setuptools import find_packages, setup, Command
+from setuptools.command.build_py import build_py
+from setuptools.command.install import install
 
 # Package meta-data.
 NAME = 'smtfuzz'
 DESCRIPTION = 'A fuzzer for SMT solvers.'
-URL = ' https://github.com/ZJU-Automated-Reasoning-Group/smtfuzz'
+URL = 'https://github.com/ZJU-Automated-Reasoning-Group/smtfuzz'
 EMAIL = 'rainoftime@gmail.com'
 AUTHOR = 'rainoftime'
 REQUIRES_PYTHON = '>=3.6.0'
 VERSION = '0.0.3'
 
-# What packages are required for this module to be executed?
 REQUIRED = [
     'z3-solver==4.8.10'
 ]
 
-# The rest you shouldn't have to touch too much :)
-# ------------------------------------------------
-# Except, perhaps the License and Trove Classifiers!
-# If you do change the License, remember to change the Trove Classifier for that!
-
 here = os.path.abspath(os.path.dirname(__file__))
 
-# Import the README and use it as the long-description.
-# Note: this will only work if 'README.md' is present in your MANIFEST.in file!
 try:
     with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
         long_description = '\n' + f.read()
 except FileNotFoundError:
     long_description = DESCRIPTION
 
-# Load the package's __version__.py module as a dictionary.
 about = {}
 if not VERSION:
     project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
@@ -48,6 +39,21 @@ if not VERSION:
 else:
     about['__version__'] = VERSION
 
+class CustomBuildCommand(build_py):
+    """Custom build command."""
+    
+    def run(self):
+        # Add any custom build steps here
+        print("Running custom build...")
+        build_py.run(self)
+
+class CustomInstallCommand(install):
+    """Custom install command."""
+    
+    def run(self):
+        # Add any custom install steps here
+        print("Running custom install...")
+        install.run(self)
 
 class UploadCommand(Command):
     """Support setup.py upload."""
@@ -85,8 +91,6 @@ class UploadCommand(Command):
 
         sys.exit()
 
-
-# Where the magic happens:
 setup(
     name=NAME,
     version=about['__version__'],
@@ -98,19 +102,10 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
-    # If your package is a single module, use this instead of 'packages':
-    # py_modules=['mypackage'],
-
-    # entry_points={
-    #     'console_scripts': ['mycli=mymodule:cli'],
-    # },
     install_requires=REQUIRED,
-    # extras_require=EXTRAS,
     include_package_data=True,
     license='MIT',
     classifiers=[
-        # Trove classifiers
-        # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
@@ -124,8 +119,9 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
     ],
-    # $ setup.py publish support.
     cmdclass={
         'upload': UploadCommand,
+        'build_py': CustomBuildCommand,
+        'install': CustomInstallCommand,
     },
 )
