@@ -28,15 +28,19 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install pytest
-        python -m pip insall setuptools
+        python -m pip install setuptools
+        pythom -m pip install z3-solver==4.8.10
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         python setup.py build
         python setup.py install
     - name: Test
       run: |
         smtfuzz --logic QF_BV
+        smtfuzz --logic QF_LIA
+        smtfuzz --logic QF_LRA
         smtfuzz --logic QF_S
         smtfuzz --logic NRA
+        smtfuzz --logic BV
         smtfuzz --logic AUFBV
         smtfuzz --logic QF_AUFLIA --strategy bool
         
