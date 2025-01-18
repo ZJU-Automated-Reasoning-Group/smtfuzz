@@ -58,11 +58,11 @@ def mutate_z3_tactic(f):
     ]
     z3_final_tactics = ['qfnia ', 'aufnira ', 'qfufbv_ackr ', 'qffd ', 'smt ']
     z3_final_tactics += ['bv ', 'nra ', 'uflra ', 'lira ', 'ufbv ', 'nlsat ', 'qe2 ']
-    if random.random() < 0.5: z3_middle_tactics += z3_final_tactics
+    if random.random() < 0.5:
+        z3_middle_tactics += z3_final_tactics
 
     checkcmd = "\n(check-sat-using (then simplify "
-    l = random.randint(0, len(z3_middle_tactics))
-    to_set = random.sample(z3_middle_tactics, l)
+    to_set = random.sample(z3_middle_tactics, random.randint(0, len(z3_middle_tactics)))
     for tac in to_set:
         checkcmd += tac
     final_t = z3_final_tactics[random.randint(0, len(z3_final_tactics) - 1)] + "))"
@@ -78,12 +78,13 @@ def mutate_z3_option(f):
         else:
             f.write("(set-option :ackermannization.inc_sat_backend true)\n")
 
-    if random.random() < 0.2: f.write("(set-option :smt.quasi_macros true)\n")
+    if random.random() < 0.2:
+        f.write("(set-option :smt.quasi_macros true)\n")
 
-    if random.random() < 0.05: f.write("(set-option :combined_solver.ignore_solver1 true)\n")
+    if random.random() < 0.05:
+        f.write("(set-option :combined_solver.ignore_solver1 true)\n")
 
-    l = random.randint(0, len(boolean_solver_options))
-    to_set = random.sample(boolean_solver_options, l)
+    to_set = random.sample(boolean_solver_options, random.randint(0, len(boolean_solver_options)))
     for ss in to_set:
         f.write('(set-option :{} {})\n'.format(ss, random.choice(tf)))
 
@@ -152,8 +153,7 @@ def mutate_z3_option(f):
     if random.random() < 0.5:
         f.write('(set-option :smt.core.minimize true)\n')
 
-    l = random.randint(0, len(z3_str_options))
-    to_set = random.sample(z3_str_options, l)
+    to_set = random.sample(z3_str_options, random.randint(0, len(z3_str_options)))
     for i in to_set:
         f.write('(set-option :{} {})\n'.format(i, random.choice(tf)))
 

@@ -15,7 +15,7 @@ import sys
 from multiprocessing.pool import Pool
 from threading import Timer
 
-from mutators.opt_mutator import StringMutation
+from smtfuzz.mutators.op_mutator import StringMutation
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -24,7 +24,7 @@ m_bet_mutator = currentdir + '/mutators/bet_mutator.py'
 
 m_has_z3py = True
 try:
-    from mutators.bet_mutator import Z3Mutation
+    from smtfuzz.mutators.bet_mutator import Z3Mutation
 except Exception as e:
     print("No z3py, will use StrMut or TyMut")
     m_has_z3py = False

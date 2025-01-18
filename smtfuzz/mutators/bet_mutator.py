@@ -407,6 +407,9 @@ def main(problem_file, output_file, mode):
                 smt2_string = z3_gene.get_cube_mutant_as_str()
             elif mode == "domain":
                 smt2_string = z3_gene.get_domain_mutant_as_str()
+            elif mode == "inter":
+                # FIME: add the implementaiton
+                smt2_string = None
             else:
                 smt2_string = z3_gene.get_mutant_as_str()
         final_fml_str += smt2_string

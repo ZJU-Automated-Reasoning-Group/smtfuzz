@@ -18,7 +18,7 @@ from threading import Timer
 
 import tqdm
 
-from mutators.opt_mutator import StringMutation
+from smtfuzz.mutators.op_mutator import StringMutation
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -30,7 +30,7 @@ m_test_invalid_model = True
 m_has_z3py = True
 
 try:
-    from mutators.bet_mutator import Z3Mutation
+    from smtfuzz.mutators.bet_mutator import Z3Mutation
 except Exception as e:
     print(e)
     print("No z3py, will use StrMut or TyMut")
