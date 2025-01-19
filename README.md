@@ -15,14 +15,14 @@ pip3 install smtfuzz
 Install from source
 ~~~~
 pip install -e .
-~~~
+~~~~
 
 ## Usage
 
 After installing the package, you can type
 ~~~~
-`smtfuzz`
-~~~~~
+smtfuzz
+~~~~
 And you will see an SMT-LIB2 formula on the screen.
 
 For more advanced options, please use the `-h` flag to display the help menu. Feel free to experiment with different combinations of options to generate a wide variety of SMT-LIB2 formulas for testing purposes.

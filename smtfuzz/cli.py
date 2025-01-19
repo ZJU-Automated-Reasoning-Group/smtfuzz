@@ -14,4 +14,8 @@ def cli_main():
 
 
 if __name__ == '__main__':
+    # if len(sys.argv) > 1 and sys.argv[1] == 'smtfuzz':
+    #    mutate_main()
+    # else:
+    #    cli_main()
     cli_main()
