@@ -31,3 +31,8 @@ For more advanced options, please use the `-h` flag to display the help menu. Fe
 
 Please submit an issue to report any bugs, issues, questions, or feature requests. We are pleased to receive your 
 feedback.
+
+
+## Detected Bugs
+
+https://smtfuzz.github.io/
