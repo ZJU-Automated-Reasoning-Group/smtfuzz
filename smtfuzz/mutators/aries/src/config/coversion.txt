@@ -1,0 +1,34 @@
+
+Int -> Real: to_real
+Int -> Bool: is_int
+Int -> String: str.from_int, str.from_code
+Int -> bv: int2bv
+; Int -> fp:
+
+Real -> Int: to_int
+Real -> Bool: is_int
+Real -> String: to_int-str.from_int, str.from_code
+Real -> bv: to_int-int2bv
+; Real -> fp: to_fp
+
+Bool -> ALL: ite
+
+String -> Int: str.to_code, str.to_int
+String -> Real: str.to_code, str.to_int-to_real
+String -> Bool: str.is_digit
+String -> bv: str.to_code, str.to_int-int2bv
+; String -> fp: 
+
+bv -> Int: bv2nat
+bv -> Real: bv2nat-to_real
+bv -> Bool: bv2nat-is_int
+bv -> String: bv2nat-str.from_int, str.from_code
+; bv -> fp: 
+
+
+; fp -> Int: fp.to_real-to_int
+; fp -> Real: fp.to_real
+; fp -> Bool: fp.isNormal, fp.isSubnormal, fp.isZero, fp.isInfinite, fp.isNaN, fp.isNegative, fp.isPositive
+; fp -> String: fp.to_real-to_int-str.from_int, str.from_code
+; fp -> bv: fp.to_sbv, fp.to_ubv
+

@@ -13,7 +13,6 @@ core
 ctest/status
 *.dot
 *.dat
-*.txt
 .externalToolBuilders
 .settings
 .project
