@@ -1,0 +1,133 @@
+% var_Bool
+var00; var00, Bool; 
+% const_Bool
+true
+false
+% (< var_Int const_Int)
+(< var20 74228850); var20, Int; 
+% (< var_Int var_Int)
+(< var18 var20); var18, Int; ; var20, Int; 
+(< var25 (str.len var23)); var25, Int; ; var23, String; 
+(< var31 (str.len var29)); var31, Int; ; var29, String; 
+% (<= const_Int var_Int)
+(<= 0 (str.indexof var23 var24 var25)); var23, String; ; var24, String; ; var25, Int; 
+(<= 0 (str.indexof var29 var30 var31)); var29, String; ; var30, String; ; var31, Int; 
+(<= 0 var31); var31, Int; 
+% (= const_Int str.to.int var_String))
+(= 0 (str.to.int var12)); var12, String; 
+% (= str.to.int var_String) var_Int)
+(= (str.to.int var17) var18); var17, String; ; var18, Int; 
+(= (str.to.int var21) (* var22 var22)); var21, String; ; var22, Int; ; var22, Int; 
+% (= var_Bool str.in.re var_String re.++ str.to.re const_String) re.* const_RegLan) str.to.re const_String) re.* const_RegLan) str.to.re const_String))))
+(= var32 (str.in.re var33 (re.++ (str.to.re "ab") (re.* re.allchar) (str.to.re "b") (re.* re.allchar) (str.to.re "b")))); var32, Bool; ; var33, String; 
+(= var34 (str.in.re var33 (re.++ (str.to.re "a") (re.* re.allchar) (str.to.re "b") (re.* re.allchar) (str.to.re "b")))); var34, Bool; ; var33, String; 
+% (= var_Bool var_Bool)
+(= (str.contains (str.++ "A" "A") var5) (str.prefixof var5 (str.++ "A" "A"))); var5, String; ; var5, String; 
+% (= var_Int IntFromString var_String))
+(= var8 (IntFromString var9)); var8, Int; ; var9, String; 
+% (= var_Int const_Int)
+(= (str.len var0) 1); var0, String; 
+(= (ite (str.contains (str.++ (str.replace (str.substr var1 0 (- (+ (str.indexof var1 "L" 0) 1) 0)) "L" "l") (str.substr var1 (+ (str.indexof var1 "L" 0) 1) (- (str.len var1) (+ (str.indexof var1 "L" 0) 1)))) "O") 1 0) 0); var1, String; ; var1, String; ; var1, String; ; var1, String; ; var1, String; ; var1, String; 
+(= (ite (str.contains (str.++ (str.replace (str.substr var1 0 (- (+ (str.indexof var1 "L" 0) 1) 0)) "L" "l") (str.substr var1 (+ (str.indexof var1 "L" 0) 1) (- (str.len var1) (+ (str.indexof var1 "L" 0) 1)))) "N") 1 0) 0); var1, String; ; var1, String; ; var1, String; ; var1, String; ; var1, String; ; var1, String; 
+(= (ite (str.contains (str.++ (str.replace (str.substr var1 0 (- (+ (str.indexof var1 "L" 0) 1) 0)) "L" "l") (str.substr var1 (+ (str.indexof var1 "L" 0) 1) (- (str.len var1) (+ (str.indexof var1 "L" 0) 1)))) "M") 1 0) 0); var1, String; ; var1, String; ; var1, String; ; var1, String; ; var1, String; ; var1, String; 
+(= (ite (str.contains (str.substr var1 (+ (str.indexof var1 "L" 0) 1) (- (str.len var1) (+ (str.indexof var1 "L" 0) 1))) "L") 1 0) 0); var1, String; ; var1, String; ; var1, String; ; var1, String; 
+(= (ite (str.contains var1 "L") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "K") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "J") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "I") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "H") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "G") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "F") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "E") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "D") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "C") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "B") 1 0) 0); var1, String; 
+(= (ite (str.contains var1 "A") 1 0) 0); var1, String; 
+(= (ite (= (str.at var1 (- (str.len var1) 1)) "\f") 1 0) 0); var1, String; ; var1, String; 
+(= (ite (= (str.at var1 (- (str.len var1) 1)) "\v") 1 0) 0); var1, String; ; var1, String; 
+(= (ite (= (str.at var1 (- (str.len var1) 1)) "\r") 1 0) 0); var1, String; ; var1, String; 
+(= (ite (= (str.at var1 (- (str.len var1) 1)) "\n") 1 0) 0); var1, String; ; var1, String; 
+(= (ite (= (str.at var1 (- (str.len var1) 1)) "\t") 1 0) 0); var1, String; ; var1, String; 
+(= (ite (= (str.at var1 (- (str.len var1) 1)) " ") 1 0) 0); var1, String; ; var1, String; 
+(= (ite (= (str.at var1 0) "\f") 1 0) 0); var1, String; 
+(= (ite (= (str.at var1 0) "\v") 1 0) 0); var1, String; 
+(= (ite (= (str.at var1 0) "\r") 1 0) 0); var1, String; 
+(= (ite (= (str.at var1 0) "\n") 1 0) 0); var1, String; 
+(= (ite (= (str.at var1 0) "\t") 1 0) 0); var1, String; 
+(= (ite (= (str.at var1 0) " ") 1 0) 0); var1, String; 
+(= (ite (= (str.indexof var1 "=" 0) (- 1)) 1 0) 0); var1, String; 
+(= (ite (not (= (str.indexof var1 "=" 0) (- 1))) 1 0) 0); var1, String; 
+(= (ite (str.contains var1 ",") 1 0) 0); var1, String; 
+(= (ite (= var2 "cache-control") 1 0) 0); var2, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) (- (str.len (str.substr var3 0 (- (- (str.len var3) 1) 0))) 1)) "\r") 1 0) 0); var3, String; ; var3, String; ; var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) (- (str.len (str.substr var3 0 (- (- (str.len var3) 1) 0))) 1)) "\n") 1 0) 0); var3, String; ; var3, String; ; var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) (- (str.len (str.substr var3 0 (- (- (str.len var3) 1) 0))) 1)) "\t") 1 0) 0); var3, String; ; var3, String; ; var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) (- (str.len (str.substr var3 0 (- (- (str.len var3) 1) 0))) 1)) " ") 1 0) 0); var3, String; ; var3, String; ; var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) 0) "\f") 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) 0) "\v") 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) 0) "\r") 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) 0) "\n") 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) 0) "\t") 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.at (str.substr var3 0 (- (- (str.len var3) 1) 0)) 0) " ") 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.len (str.substr var3 0 (- (- (str.len var3) 1) 0))) 0) 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.at var3 (- (str.len var3) 1)) "\t") 1 0) 0); var3, String; ; var3, String; 
+(= (ite (= (str.at var3 0) "\f") 1 0) 0); var3, String; 
+(= (ite (= (str.at var3 0) "\r") 1 0) 0); var3, String; 
+(= (ite (= (str.at var3 0) "\t") 1 0) 0); var3, String; 
+(= (ite (= (str.indexof var3 "=" 0) (- 1)) 1 0) 0); var3, String; 
+(= (ite (str.contains var3 ",") 1 0) 0); var3, String; 
+(= (ite (= var4 "cache-control") 1 0) 0); var4, String; 
+(= (ite (= var4 "cache-control") 1 0) 0); var4, String; 
+(= (ite (= (str.at (str.substr var6 0 (- (- (str.len var6) 1) 0)) (- (str.len (str.substr var6 0 (- (- (str.len var6) 1) 0))) 1)) "\r") 1 0) 0); var6, String; ; var6, String; ; var6, String; ; var6, String; 
+(= (ite (= (str.at (str.substr var6 0 (- (- (str.len var6) 1) 0)) (- (str.len (str.substr var6 0 (- (- (str.len var6) 1) 0))) 1)) "\t") 1 0) 0); var6, String; ; var6, String; ; var6, String; ; var6, String; 
+(= (ite (= (str.at (str.substr var6 0 (- (- (str.len var6) 1) 0)) 0) "\f") 1 0) 0); var6, String; ; var6, String; 
+(= (ite (= (str.at (str.substr var6 0 (- (- (str.len var6) 1) 0)) 0) "\r") 1 0) 0); var6, String; ; var6, String; 
+(= (ite (= (str.at (str.substr var6 0 (- (- (str.len var6) 1) 0)) 0) "\t") 1 0) 0); var6, String; ; var6, String; 
+(= (ite (= (str.len (str.substr var6 0 (- (- (str.len var6) 1) 0))) 0) 1 0) 0); var6, String; ; var6, String; 
+(= (ite (= (str.at var6 (- (str.len var6) 1)) "\t") 1 0) 0); var6, String; ; var6, String; 
+(= (ite (= (str.at var6 0) "\f") 1 0) 0); var6, String; 
+(= (ite (= (str.at var6 0) "\r") 1 0) 0); var6, String; 
+(= (ite (= (str.at var6 0) "\t") 1 0) 0); var6, String; 
+(= (ite (= (str.len var6) 0) 1 0) 0); var6, String; 
+(= (ite (not (= (str.indexof var6 "=" 0) (- 1))) 1 0) 0); var6, String; 
+(= (ite (= (str.len var6) 0) 1 0) 0); var6, String; 
+% (= var_Int var_Int)
+(= (- var20 var18) var22); var20, Int; ; var18, Int; ; var22, Int; 
+% (= var_String Int0oString var_Int))
+(= var15 (Int0oString var16)); var15, String; ; var16, Int; 
+% (= var_String IntToString var_Int))
+(= var10 (IntToString var11)); var10, String; ; var11, Int; 
+% (= var_String const_String)
+(= (str.replace (str.++ "B" var26) var26 "B") (str.++ "B" "B")); var26, String; ; var26, String; 
+% (= var_String var_String)
+(= var13 (str.replace var14 "A" "b")); var13, String; ; var14, String; 
+(= (str.replace var35 "0" "") (str.replace var35 (int.to.str var36) "")); var35, String; ; var35, String; ; var36, Int; 
+% (> var_Int const_Int)
+(> var18 7422885); var18, Int; 
+(> (str.len var28) 3); var28, String; 
+% (>= const_Int const_Int)
+(>= 0 0)
+% (>= var_Int const_Int)
+(>= (+ (str.indexof var1 "L" 0) 1) 0); var1, String; 
+(>= (- (str.len var1) (+ (str.indexof var1 "L" 0) 1)) 0); var1, String; ; var1, String; 
+(>= (- (- (str.len var3) 1) 0) 0); var3, String; 
+% (ValidIntString var_String)
+(ValidIntString var9); var9, String; 
+(ValidIntString var10); var10, String; 
+% (str.contains var_String var_String)
+(str.contains var23 var24); var23, String; ; var24, String; 
+(str.contains var29 var30); var29, String; ; var30, String; 
+% (str.in.re var_String re.++ re.* re.range const_String const_String)) str.to.re const_String)))
+(str.in.re var13 (re.++ (re.* (re.range "B" "Z")) (str.to.re "A"))); var13, String; 
+% (str.in.re var_String re.++ re.+ str.to.re const_String)) re.* re.++ str.to.re const_String) str.to.re const_String)))))
+(str.in.re var27 (re.++ (re.+ (str.to.re "")) (re.* (re.++ (str.to.re "L") (str.to.re "g"))))); var27, String; 
+% (str.in.re var_String re.union str.to.re const_String) re.* str.to.re const_String))))
+(str.in.re var27 (re.union (str.to.re "b") (re.* (str.to.re "a")))); var27, String; 
+% (str.in.re var_String re.union str.to.re const_String) re.+ str.to.re const_String))))
+(str.in.re var27 (re.union (str.to.re "a") (re.+ (str.to.re "")))); var27, String; 
+% Null
+(>= l 0)
+(< l 10)
+(= e2 e3)
+(= "" e2)
+(= "a" e2)

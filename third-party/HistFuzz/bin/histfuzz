@@ -1,0 +1,190 @@
+#! /usr/bin/env python3
+
+"""
+MIT License
+
+Copyright (c) 2023 The histfuzz authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
+
+import os
+import time
+import argparse
+from pathlib import Path
+import sys
+import multiprocessing
+import random
+
+path = Path(__file__)
+rootpath = str(path.parent.absolute().parent)
+sys.path.append(rootpath)
+
+current_dir = os.getcwd()
+
+from src.fuzz import fuzz
+from src.argument_parser.parser import MainArgumentParser
+from src.collect import collect_buggy_formula
+from src.simplify import standardize_instance
+from src.building_blocks import export_buggy_seed
+from src.association import export_association_rules
+from src.skeleton import export_skeleton
+
+
+def run(skeleton_file, rules, buggy, argument, solver1, solver2, solver1_bin, solver2_bin, core_num, cores, add_option, mutant, tactic=None):
+    """
+    Runs multiple fuzzing processes in parallel, each with its own core affinity.
+    :param skeleton_file: Path to the skeleton file to be used in the fuzzing process.
+    :param argument: Command line arguments for the fuzzing process.
+    :param solver1: Name of the first SMT solver to use in the fuzzing process.
+    :param solver2: Name of the second SMT solver to use in the fuzzing process.
+    :param solver1_bin: Path to the binary of the first SMT solver.
+    :param solver2_bin: Path to the binary of the second SMT solver.
+    :param core_num: Number of the first CPU core to use in the fuzzing process.
+    :param cores: Number of CPU cores to use in total for the fuzzing process.
+    :param add_option: Additional command line option to pass to the solvers.
+    :param mutant: Whether to use mutant or normal skeleton.
+    :param tactic: Optional parameter to pass to the solvers.
+    """
+    temp = rootpath + "/temp"
+    # Iterate over the range of number of CPU cores to use
+    for i in range(cores):
+        # Spawn a new fuzzing process
+        process = multiprocessing.Process(target=fuzz, args=(
+            skeleton_file, solver1, solver2, solver1_bin, solver2_bin, 10, argument["incremental"], core_num, add_option, rules, buggy, temp, argument, mutant, tactic))
+        time.sleep(1)
+        process.start()
+        # Set the CPU affinity for the process to the current core number
+        os.system("taskset -p -c " + str(core_num) + " " + str(process.pid))
+        core_num += 1
+
+
+def auto_collect_buggy_formulas(token, store_path):
+    """
+    This function collects bug-triggering formulas from multiple solvers' bug trackers concurrently
+    using Python's multiprocessing library.
+
+    :param token: A GitHub personal access token to access the bug trackers of solvers.
+    :param store_path: A string representing the path where the collected formulas will be stored.
+    :return: None
+    """
+    
+    # A list of solvers whose bug trackers will be searched for bug-triggering formulas
+    solvers = ["z3", "cvc5", "yices2", "opensmt", "cvc5-projects"]
+    
+    # A list to hold all the processes
+    process_pool = []
+    
+    # Start a new process for each solver and add the process to the process_pool
+    for solver in solvers:
+        p = multiprocessing.Process(target=collect_buggy_formula, args=(token, solver, store_path))
+        p.start()
+        process_pool.append(p)
+        
+    # Wait for all the processes to finish
+    while process_pool:
+        for index, process in enumerate(process_pool):
+            # Check if the process is still alive
+            if not process.is_alive():
+                # Remove the process from the pool if it has completed
+                process_pool.pop(index)
+                break
+
+
+def main():
+    # Create an instance of MainArgumentParser class to handle command line arguments
+    arguments = MainArgumentParser()
+    
+    # Parse command line arguments using the argparse module
+    arguments.parse_arguments(argparse.ArgumentParser())
+    
+    # Retrieve parsed command line arguments
+    parsedArguments = arguments.get_arguments()
+    
+    # If the "update" option is specified
+    if parsedArguments["update"]:
+        # Define the path to the token.txt file
+        token_path = rootpath + "/config/token.txt"
+        
+        # If no token is provided, read the token from token.txt file
+        if parsedArguments["token"] is None:
+            if os.path.exists(token_path):
+                with open(token_path) as f:
+                    parsedArguments["token"] = f.read().replace("\n", "")
+            else:
+                # If no token is provided and the token.txt file is missing, print an error message and return
+                print("Please provide your GitHub token.")
+                return
+        else:
+            # Write the provided token to token.txt file
+            with open(token_path, "w") as token_file:
+                token_file.write(parsedArguments["token"])
+        
+        # If bugfolder is not specified, set it to the default value
+        if parsedArguments["bugfolder"] is None:
+            parsedArguments["bugfolder"] = rootpath + "/bug_triggering_formulas"
+        
+        # Auto collect buggy formulas using the provided token and bug folder path
+        auto_collect_buggy_formulas(parsedArguments["token"], parsedArguments["bugfolder"])
+        
+        # Standardize SMT instances
+        print("recheck SMT instances......")
+        standardize_instance(parsedArguments["bugfolder"])
+        print("finished")
+        
+        # Generate configuration files
+        print("generating configuration files......")
+        export_buggy_seed(parsedArguments["bugfolder"], buggy)
+        export_skeleton(parsedArguments["bugfolder"], skeletons)
+        export_association_rules(parsedArguments["bugfolder"], rules, parsedArguments["sup"], parsedArguments["conf"])
+        print("update finished")
+    
+    # If the "update" option is not specified
+    else:
+        # Retrieve solver and binary paths from parsed arguments
+        solver1 = parsedArguments["solver1"]
+        solver2 = parsedArguments["solver2"]
+        solver1_bin = parsedArguments["solverbin1"]
+        solver2_bin = parsedArguments["solverbin2"]
+
+        # Adjust the paths of resource files if replicating evaluation C-1
+        if parsedArguments["c1"]:
+            skeletons = rootpath + "/skeletons/skeleton_exclusion.smt2"
+            rules = rootpath + "/config/rules_exclusion.txt"
+            buggy = rootpath + "/seeds/exclusion"
+        else:
+            skeletons = rootpath + "/skeletons/skeleton.smt2"
+            rules = rootpath + "/config/rules.txt"
+            buggy = rootpath + "/seeds"
+   
+        # If any of the required options are missing, print an error message and return
+        if None in [solver1, solver2, solver1_bin, solver2_bin]:
+            print("Please check if the correct solvers and their binaries are given.")
+            return
+        
+        # Retrieve core settings and other parameters from parsed arguments
+        core_num = int(parsedArguments["core"])
+        cores = int(parsedArguments["cores"])
+        
+        # Run the program with the provided parameters
+        run(skeletons, rules, buggy, parsedArguments, solver1, solver2, solver1_bin, solver2_bin, core_num, cores, parsedArguments["option"], parsedArguments["mutant"])
+
+if __name__ == "__main__":
+    main()

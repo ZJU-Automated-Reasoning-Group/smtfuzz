@@ -1,0 +1,236 @@
+% var_Bool
+var00; var00, Bool; 
+% const_Bool
+true
+false
+% (< const_Int var_Int)
+(< 0 var20); var20, Int; 
+(< 0 (+ (div var77 4294967296) 1)); var77, Int; 
+% (< var_Int const_Int)
+(< var41 74228850); var41, Int; 
+% (< var_Int var_Int)
+(< var39 var41); var39, Int; ; var41, Int; 
+(< var74 (str.len var72)); var74, Int; ; var72, String; 
+% (<= const_Int sqr var_Int))
+(<= 1 (sqr var179)); var179, Int; 
+% (<= const_Int var_Int)
+(<= 0 (str.indexof var72 var73 var74)); var72, String; ; var73, String; ; var74, Int; 
+(<= 0 var83); var83, Int; 
+(<= 0 (str.indexof "a123cdef" (str.substr "a123cdef" 0 var91) 0)); var91, Int; 
+(<= 0 (+ (+ var93 (* (- 1) var94)) (- 1))); var93, Int; ; var94, Int; func: (declare-fun bug15_inv_main4 (Int Int) Bool); (declare-fun bug15_inv_main5 (Int Int) Bool); 
+(<= 0 (+ (+ 2 (* (- 1) var95)) (- 1))); var95, Int; func: (declare-fun bug17_inv_main4 (Int Int) Bool); (declare-fun bug17_inv_main5 (Int Int) Bool); 
+(<= 0 (+ (+ 2 (* 1 var95)) (- 1))); var95, Int; func: (declare-fun bug18_inv_main4 (Int Int) Bool); (declare-fun bug18_inv_main5 (Int Int) Bool); 
+(<= 0 (+ var95 (- 1))); var95, Int; func: (declare-fun bug19_inv_main4 (Int Int) Bool); (declare-fun bug19_inv_main5 (Int Int) Bool); 
+(<= 0 (+ (* (- 1) var95) (- 1))); var95, Int; func: (declare-fun bug21_inv_main4 (Int Int) Bool); (declare-fun bug21_inv_main5 (Int Int) Bool); 
+(<= 0 (+ (* (- 1) var94) (- 1))); var94, Int; func: (declare-fun bug22_inv_main4 (Int Int) Bool); (declare-fun bug22_inv_main5 (Int Int) Bool); 
+(<= 6 var98); var98, Int; 
+(<= 0 (str.indexof var108 var109 var110)); var108, String; ; var109, String; ; var110, Int; 
+% (<= var_Int const_Int)
+(<= var11 0); var11, Int; 
+(<= var22 1); var22, Int; 
+(<= var31 50); var31, Int; 
+(<= var31 99); var31, Int; 
+(<= var31 200); var31, Int; 
+(<= (* (- 1) var50) 0); var50, Int; 
+(<= (+ (+ (* (- 1) var51) (* (- 1) var50)) var52) 0); var51, Int; ; var50, Int; ; var52, Int; 
+(<= var63 0); var63, Int; 
+(<= (+ (* (- 1) var65) (* var66 (- 2))) (- 12)); var65, Int; ; var66, Int; 
+(<= (+ (* var65 2) (* (- 1) var66)) 19); var65, Int; ; var66, Int; 
+(<= (+ (* var65 2) var66) 21); var65, Int; ; var66, Int; 
+(<= (+ var65 (* (- 1) var66)) 9); var65, Int; ; var66, Int; 
+(<= (+ var65 (* var66 (- 2))) 8); var65, Int; ; var66, Int; 
+(<= (+ (* var65 (- 2)) (* (- 1) var66)) (- 21)); var65, Int; ; var66, Int; 
+(<= (+ (* (- 1) var65) (* var66 2)) (- 8)); var65, Int; ; var66, Int; 
+(<= (+ var65 (* var66 2)) 12); var65, Int; ; var66, Int; 
+(<= (* (- 1) var66) (- 1)); var66, Int; 
+(<= (+ var66 (* (- 1) var65)) (- 9)); var66, Int; ; var65, Int; 
+(<= var65 10); var65, Int; 
+(<= (+ (* (- 1) var65) (* (- 1) var66)) (- 11)); var65, Int; ; var66, Int; 
+(<= (+ var65 var66) 11); var65, Int; ; var66, Int; 
+(<= (* (- 1) var65) (- 10)); var65, Int; 
+(<= (+ (* var65 (- 2)) var66) (- 19)); var65, Int; ; var66, Int; 
+(<= var77 1); var77, Int; 
+(<= var91 8); var91, Int; 
+(<= (+ (* (- 1) var101) (* var98 2)) 10); var101, Int; ; var98, Int; 
+(<= (+ var101 (* var98 2)) 16); var101, Int; ; var98, Int; 
+(<= (+ (* var101 2) var98) 14); var101, Int; ; var98, Int; 
+(<= var101 4); var101, Int; 
+(<= var98 6); var98, Int; 
+(<= (+ (* var101 (- 2)) (* (- 1) var98)) (- 2)); var101, Int; ; var98, Int; 
+(<= (+ var101 (* var98 (- 2))) 1); var101, Int; ; var98, Int; 
+(<= (+ var101 (* (- 1) var98)) 1); var101, Int; ; var98, Int; 
+(<= (+ (* (- 1) var101) var98) (- 1)); var101, Int; ; var98, Int; 
+(<= (+ (* (- 1) var101) (* (- 1) var98)) 0); var101, Int; ; var98, Int; 
+(<= (+ (* (- 1) var101) (* var98 (- 2))) (- 1)); var101, Int; ; var98, Int; 
+(<= (+ var101 var98) 10); var101, Int; ; var98, Int; 
+(<= (+ (* var101 (- 2)) var98) (- 2)); var101, Int; ; var98, Int; 
+(<= var105 4); var105, Int; 
+(<= (+ (* (- 1) var104) var106) 19); var104, Int; ; var106, Int; 
+(<= var106 19); var106, Int; 
+(<= (+ var104 (* (- 1) var105)) 0); var104, Int; ; var105, Int; 
+(<= (+ (* (- 1) var104) var105) 4); var104, Int; ; var105, Int; 
+(<= (+ (* (- 1) var104) var107) 0); var104, Int; ; var107, Int; 
+(<= (+ var104 (* (- 1) var107)) 1); var104, Int; ; var107, Int; 
+(<= (* (- 1) var107) 0); var107, Int; 
+% (<= var_Int var_Int)
+(<= var80 (+ (* 4294967296 (div var79 4294967296)) 4294967295)); var80, Int; ; var79, Int; 
+(<= var79 var80); var79, Int; ; var80, Int; 
+% (= const_Int const_Int)
+(= (+ 0 0 (* (- 1) 0) 0 0 0 0 0 0 0 0 0 0) 0)
+% (= const_Int str.to.int var_String))
+(= 0 (str.to.int var27)); var27, String; 
+% (= const_Int var_BitVec)
+(= #x00000000 var15); var15, (_ BitVec 32); 
+% (= const_Int var_Int)
+(= 0 var48); var48, Int; 
+(= 0 (str.indexof "a0" (str.substr "a" 0 var71))); var71, Int; 
+(= 0 var182); var182, Int; 
+% (= head var_(List Int)) const_Int)
+(= (head var28) 1); var28, (List Int); 
+% (= select tptp_const_array1 var_Int var_Real) const_Int) var_Real)
+(= (select (bug98_tptp_const_array1 var175 var176) 0) var176); var175, Int; ; var176, Real; ; var176, Real; func: (declare-fun bug98_tptp_const_array1 (Int Real) (Array Int Real)); 
+% (= select var_Array const_Int) const_Int)
+(= (select var59 5) 0); var59, (Array Int Int); 
+% (= select var_Array var_Int) var_Int)
+(= (select var59 var60) var60); var59, (Array Int Int); ; var60, Int; ; var60, Int; 
+% (= seq.at var_(Seq Int) const_Int) seq.unit const_Int))
+(= (seq.at var84 0) (seq.unit 42)); var84, (Seq Int); 
+% (= seq.unit var_Int) seq.extract zero-one-two var_Int const_Int))
+(= (seq.unit var7) (seq.extract zero-one-two var8 1)); var7, Int; ; var8, Int; 
+% (= str.to.int var_String) var_Int)
+(= (str.to.int var38) var39); var38, String; ; var39, Int; 
+(= (str.to.int var40) var41); var40, String; ; var41, Int; 
+(= (str.to.int var42) (* var43 var43)); var42, String; ; var43, Int; ; var43, Int; 
+% (= var_Array var_Array)
+(= (store var171 var172 (store (select var171 var172) 0 0)) var173); var171, (Array Int (Array Int Int)); ; var172, Int; ; var171, (Array Int (Array Int Int)); ; var172, Int; ; var173, (Array Int (Array Int Int)); 
+(= (store (store var173 0 (store (select var173 0) 0 0)) 0 (store (select (store var173 0 (store (select var173 0) 0 0)) 0) 0 (select (select var174 0) 0))) var174); var173, (Array Int (Array Int Int)); ; var173, (Array Int (Array Int Int)); ; var173, (Array Int (Array Int Int)); ; var173, (Array Int (Array Int Int)); ; var174, (Array Int (Array Int Int)); ; var174, (Array Int (Array Int Int)); 
+% (= var_Bool var_Bool)
+(= var9 (distinct (- (* var10 var10) 2) 0)); var9, Bool; ; var10, Int; ; var10, Int; 
+(= (str.contains (str.++ "A" "A") var17) (str.prefixof var17 (str.++ "A" "A"))); var17, String; ; var17, String; 
+(= var35 (distinct (- (Int_Real (* var36 var36)) 2 .) 0.0)); var35, Bool; ; var36, Int; ; var36, Int; 
+% (= var_Float32 (_ to_fp 8 24) const_Int))
+(= var89 ((_ to_fp 8 24) #x807140a7)); var89, Float32; 
+(= var90 ((_ to_fp 8 24) #xbf800000)); var90, Float32; 
+% (= var_Float32 var_FloatingPoint)
+(= var90 (fp.roundToIntegral roundNearestTiesToAway var89)); var90, Float32; ; var89, Float32; 
+% (= var_FloatingPoint const_FloatingPoint)
+(= var32 (fp.roundToIntegral roundNearestTiesToEven ((_ to_fp 8 24) roundNearestTiesToEven (/ 9 10)))); var32, (_ FloatingPoint 8 24); 
+% (= var_FloatingPoint var_FloatingPoint)
+(= (fp.roundToIntegral RNE var75) var75); var75, (_ FloatingPoint 3 5); ; var75, (_ FloatingPoint 3 5); 
+(= (fp.roundToIntegral RNE var76) var75); var76, (_ FloatingPoint 3 5); ; var75, (_ FloatingPoint 3 5); 
+% (= var_Int IntFromString var_String))
+(= var23 (IntFromString var24)); var23, Int; ; var24, String; 
+% (= var_Int const_Int)
+(= (+ (+ (- 0 var0) var1) (* var4 var2)) 0); var0, Int; ; var1, Int; ; var4, Int; ; var2, Int; 
+(= (+ (+ var0 (- 0 var1)) (* var5 var2)) 0); var0, Int; ; var1, Int; ; var5, Int; ; var2, Int; 
+(= (+ (+ (* var6 var2) var3) 1) 0); var6, Int; ; var2, Int; ; var3, Int; 
+(= var63 0); var63, Int; 
+(= var64 2); var64, Int; 
+(= var82 0); var82, Int; func: (declare-fun bug127_col (Int) Int); (declare-fun bug127_col (Int) Int); 
+(= (+ var133 var134 (* (- 1) var114) var135 (* (- 1) var119) (* (- 1) var120) (* (- 1) var123) (* (- 1) var124) var136 0 0 0 0) 0); var133, Int; ; var134, Int; ; var114, Int; ; var135, Int; ; var119, Int; ; var120, Int; ; var123, Int; ; var124, Int; ; var136, Int; 
+(= (+ (* (- 1) var112) (* (- 1) var114) var137 (* 1 var118) (* (- 1) var121) var138 (* (- 1) var124) 0 0 0 0) 0); var112, Int; ; var114, Int; ; var137, Int; ; var118, Int; ; var121, Int; ; var138, Int; ; var124, Int; 
+(= (+ (* (- 1) var113) (* (- 1) var115) (* (- 1) var116) (* (- 1) var118) (* (- 1) var119) 0 0 0 0) 0); var113, Int; ; var115, Int; ; var116, Int; ; var118, Int; ; var119, Int; 
+(= (+ (* (- 1) var112) (* (- 1) var113) (* (- 1) var114) (* (- 1) var115) (* (- 1) var118) var139 (* (- 1) var122) (* (- 1) var140) 0 0 0) 0); var112, Int; ; var113, Int; ; var114, Int; ; var115, Int; ; var118, Int; ; var139, Int; ; var122, Int; ; var140, Int; 
+(= (+ (* (- 1) var113) var141 (* (- 1) var117) (* 1 var118) (* (- 1) var120) (* (- 1) var123) 0 0 0 0) 0); var113, Int; ; var141, Int; ; var117, Int; ; var118, Int; ; var120, Int; ; var123, Int; 
+(= (+ var162 var163 (* (- 1) var145) var164 (* (- 1) var150) (* (- 1) var151) (* (- 1) var154) (* (- 1) var155) var165 0 0 0 0) 0); var162, Int; ; var163, Int; ; var145, Int; ; var164, Int; ; var150, Int; ; var151, Int; ; var154, Int; ; var155, Int; ; var165, Int; 
+(= (+ (* (- 1) var143) (* (- 1) var145) var166 (* 1 var149) (* (- 1) var152) var167 (* (- 1) var155) 0 0 0 0) 0); var143, Int; ; var145, Int; ; var166, Int; ; var149, Int; ; var152, Int; ; var167, Int; ; var155, Int; 
+(= (+ (* (- 1) var144) (* (- 1) var146) (* (- 1) var147) (* (- 1) var149) (* (- 1) var150) 0 0 0 0) 0); var144, Int; ; var146, Int; ; var147, Int; ; var149, Int; ; var150, Int; 
+(= (+ (* (- 1) var143) (* (- 1) var144) (* (- 1) var145) (* (- 1) var146) (* (- 1) var149) var168 (* (- 1) var153) (* (- 1) var169) 0 0 0) 0); var143, Int; ; var144, Int; ; var145, Int; ; var146, Int; ; var149, Int; ; var168, Int; ; var153, Int; ; var169, Int; 
+(= (+ (* (- 1) var144) var170 (* (- 1) var148) (* 1 var149) (* (- 1) var151) (* (- 1) var154) 0 0 0 0) 0); var144, Int; ; var170, Int; ; var148, Int; ; var149, Int; ; var151, Int; ; var154, Int; 
+% (= var_Int str.to.int int.to.str var_Int)))
+(= var16 (str.to.int (int.to.str var16))); var16, Int; ; var16, Int; 
+% (= var_Int var_Int)
+(= var13 var14); var13, Int; ; var14, Int; 
+(= (* 3 var18) var19); var18, Int; ; var19, Int; 
+(= (- var41 var39) var43); var41, Int; ; var39, Int; ; var43, Int; 
+(= var46 var47); var46, Int; ; var47, Int; 
+(= var53 (+ (- 1) var50)); var53, Int; ; var50, Int; 
+(= var54 (+ 1 var51)); var54, Int; ; var51, Int; 
+(= var67 (+ 2 var66)); var67, Int; ; var66, Int; 
+(= var68 (+ (- 1) var65)); var68, Int; ; var65, Int; 
+(= var66 (+ 1 (* 2 var69))); var66, Int; ; var69, Int; 
+(= var65 (+ 0 (* 2 var70))); var65, Int; ; var70, Int; 
+(= var77 (+ var78 1)); var77, Int; ; var78, Int; 
+(= var94 (+ (* 2 var96) var95)); var94, Int; ; var96, Int; ; var95, Int; func: (declare-fun bug156_inv_main4 (Int Int) Bool); (declare-fun bug156_inv_main5 (Int Int) Bool); 
+(= var99 (+ 1 var98)); var99, Int; ; var98, Int; 
+(= var100 (* 2 var101)); var100, Int; ; var101, Int; 
+% (= var_String Int0oString var_Int))
+(= var33 (Int0oString var34)); var33, String; ; var34, Int; 
+% (= var_String IntToString var_Int))
+(= var25 (IntToString var26)); var25, String; ; var26, Int; 
+% (= var_String var_String)
+(= (str.replace var177 "0" "") (str.replace var177 (int.to.str var178) "")); var177, String; ; var177, String; ; var178, Int; 
+% (> var_Int const_Int)
+(> (+ (absolute var4) (absolute var5)) 0); var4, Int; ; var5, Int; 
+(> var39 7422885); var39, Int; 
+(> (+ var68 (* var67 (- 2))) 8); var68, Int; ; var67, Int; 
+(> (+ (* (- 1) var100) (* (- 1) var99)) 0); var100, Int; ; var99, Int; 
+(> (+ var128 (* 1 var119) (* 1 var120) var129 var130 (* (- 1) var123) (* (- 1) var124) 0 (* var131 var126) (* var132 var127) (- 1 (+ (+ var131 (* 0 1)) 0))) 0); var128, Int; ; var119, Int; ; var120, Int; ; var129, Int; ; var130, Int; ; var123, Int; ; var124, Int; ; var131, Int; ; var126, Int; ; var132, Int; ; var127, Int; ; var131, Int; 
+(> (+ var159 (* 1 var150) (* 1 var151) var160 var161 (* (- 1) var154) (* (- 1) var155) 0 (* var131 var157) (* var132 var158) (- 1 (+ (+ var132 (* 0 1)) 0))) 0); var159, Int; ; var150, Int; ; var151, Int; ; var160, Int; ; var161, Int; ; var154, Int; ; var155, Int; ; var131, Int; ; var157, Int; ; var132, Int; ; var158, Int; ; var132, Int; 
+% (>= const_Int var_Int)
+(>= 1 var83); var83, Int; 
+% (>= length array_integer var_Test)) const_Int)
+(>= (length (array_integer var102)) 4); var102, Test; 
+% (>= var_Int const_Int)
+(>= var0 0); var0, Int; 
+(>= var2 0); var2, Int; 
+(>= var62 47); var62, Int; 
+(>= var62 47); var62, Int; 
+(>= var113 0); var113, Int; 
+(>= var115 0); var115, Int; 
+(>= var117 0); var117, Int; 
+(>= var119 0); var119, Int; 
+(>= var121 0); var121, Int; 
+(>= var123 0); var123, Int; 
+(>= var125 0); var125, Int; 
+(>= var127 0); var127, Int; 
+(>= var144 0); var144, Int; 
+(>= var146 0); var146, Int; 
+(>= var148 0); var148, Int; 
+(>= var150 0); var150, Int; 
+(>= var152 0); var152, Int; 
+(>= var154 0); var154, Int; 
+(>= var156 0); var156, Int; 
+(>= var158 0); var158, Int; 
+% (>= var_Int var_Int)
+(>= var65 var66); var65, Int; ; var66, Int; 
+% (>= var_Real const_Real)
+(>= (to_real var92) (/ 131075.0 6.0)); var92, Int; 
+(>= (to_real var92) (/ 131081.0 6.0)); var92, Int; 
+% (INV var_Int)
+(bug213_INV var86); var86, Int; func: (declare-fun bug213_INV (Int) Bool); (declare-fun bug213_INV (Int) Bool); 
+(bug214_INV var86); var86, Int; func: (declare-fun bug214_INV (Int) Bool); (declare-fun bug214_INV (Int) Bool); 
+% (ValidIntString var_String)
+(ValidIntString var24); var24, String; 
+% (bvsle var_BitVec var_BitVec)
+(bvsle var57 var58); var57, (_ BitVec 32); ; var58, (_ BitVec 32); 
+% (implies var_Bool var_Bool)
+(implies (= (* var45 var45) 0.0) (= var45 0.0)); var45, Real; ; var45, Real; ; var45, Real; func: (declare-fun bug218_F (Real) Int); 
+% (inv_main4 const_Int var_Int)
+(bug219_inv_main4 0 var93); var93, Int; func: (declare-fun bug219_inv_main4 (Int Int) Bool); (declare-fun bug219_inv_main5 (Int Int) Bool); 
+% (inv_main4 var_Int var_Int)
+(bug220_inv_main4 var94 var93); var94, Int; ; var93, Int; func: (declare-fun bug220_inv_main4 (Int Int) Bool); (declare-fun bug220_inv_main5 (Int Int) Bool); 
+(bug221_inv_main4 var94 var93); var94, Int; ; var93, Int; func: (declare-fun bug221_inv_main4 (Int Int) Bool); (declare-fun bug221_inv_main5 (Int Int) Bool); 
+(bug222_inv_main4 (+ var94 2) var93); var94, Int; ; var93, Int; func: (declare-fun bug222_inv_main4 (Int Int) Bool); (declare-fun bug222_inv_main5 (Int Int) Bool); 
+% (inv_main5 var_Int var_Int)
+(bug223_inv_main5 var94 var93); var94, Int; ; var93, Int; func: (declare-fun bug223_inv_main4 (Int Int) Bool); (declare-fun bug223_inv_main5 (Int Int) Bool); 
+(bug224_inv_main5 var94 var93); var94, Int; ; var93, Int; func: (declare-fun bug224_inv_main4 (Int Int) Bool); (declare-fun bug224_inv_main5 (Int Int) Bool); 
+% (seq.contains seq.unit const_Int) seq.unit var_Int))
+(seq.contains (seq.unit 1) (seq.unit var37)); var37, Int; 
+% (str.contains var_String const_String)
+(str.contains (str.++ "some text" (int.to.str var180)) "vector"); var180, Int; 
+% (str.contains var_String var_String)
+(str.contains var72 var73); var72, String; ; var73, String; 
+(str.contains var108 var109); var108, String; ; var109, String; 
+% (tickleBool const_Bool)
+(bug229_tickleBool true)func: (declare-fun bug229_tickleBool (Bool) Bool); (declare-fun bug229_ControlFlow (Int Int) Int); 
+(bug230_tickleBool false)func: (declare-fun bug230_tickleBool (Bool) Bool); (declare-fun bug230_ControlFlow (Int Int) Int); 
+% Null
+(= (fp.roundToIntegral RNE x) x)
+(= (fp.roundToIntegral RNE var12) x); var12, (_ FloatingPoint 3 5); 
+(= var28 nil); var28, (List Int); 
+(= 10 (bug234_F var44)); var44, Real; func: (declare-fun bug234_F (Real) Int); 
+(= (bug235_col var82) (bug235_col (+ var82 1))); var82, Int; ; var82, Int; func: (declare-fun bug235_col (Int) Int); (declare-fun bug235_col (Int) Int); 
+(distinct (bug236_col 0) 0)func: (declare-fun bug236_col (Int) Int); (declare-fun bug236_col (Int) Int); 
+(distinct (bug237_col 0) 0)func: (declare-fun bug237_col (Int) Int); (declare-fun bug237_col (Int) Int); 
+(= (bug238_ControlFlow 0 0) 182)func: (declare-fun bug238_tickleBool (Bool) Bool); (declare-fun bug238_ControlFlow (Int Int) Int); 
