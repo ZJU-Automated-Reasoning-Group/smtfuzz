@@ -1,0 +1,20 @@
+crash_list = [
+    "Exception",
+    "lang.AssertionError",
+    "lang.Error",
+    "runtime error",
+    "LEAKED",
+    "Leaked",
+    "Segmentation fault",
+    "segmentation fault",
+    "segfault",
+    "ASSERTION",
+    "Assertion",
+    "Fatal failure",
+    "Internal error detected",
+    "an invalid model was generated",
+    "Failed to verify",
+    "failed to verify",
+    "ERROR: AddressSanitizer:",
+    "Aborted"
+]
