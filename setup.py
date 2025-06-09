@@ -86,12 +86,14 @@ setup(
     entry_points={
         'console_scripts': [
             'smtfuzz=smtfuzz.cli:main',
+            'smtfuzz-runner=smtfuzz.runner_cli:main',
             'smtfuzz-seed=smtfuzz.runner.seed_runner:main',
             'smtfuzz-gen=smtfuzz.runner.gen_runner:main',
         ],
     },
     scripts=[
         'scripts/smtfuzz',
+        'scripts/smtfuzz-runner',
         'scripts/smtfuzz-seed',
         'scripts/smtfuzz-gen',
     ],
