@@ -21,7 +21,7 @@ REQUIRED = [
     'z3-solver==4.8.10',
     'meson>=1.6.1',
     'tqdm>=4.65.0',
-    'antlr4-python3-runtime==4.9.2'
+    #'antlr4-python3-runtime==4.9.2'
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -87,16 +87,8 @@ setup(
         'console_scripts': [
             'smtfuzz=smtfuzz.cli:main',
             'smtfuzz-runner=smtfuzz.runner_cli:main',
-            'smtfuzz-seed=smtfuzz.runner.seed_runner:main',
-            'smtfuzz-gen=smtfuzz.runner.gen_runner:main',
-        ],
+        ]
     },
-    scripts=[
-        'scripts/smtfuzz',
-        'scripts/smtfuzz-runner',
-        'scripts/smtfuzz-seed',
-        'scripts/smtfuzz-gen',
-    ],
     install_requires=REQUIRED,
     include_package_data=True,
     license='GPL-3.0',

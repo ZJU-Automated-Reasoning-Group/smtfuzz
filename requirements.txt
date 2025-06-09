@@ -1,4 +1,4 @@
 z3-solver==4.8.10
 meson>=1.6.1
 tqdm>=4.65.0
-antlr4-python3-runtime==4.9.2
+# antlr4-python3-runtime==4.9.2
