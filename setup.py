@@ -18,7 +18,7 @@ VERSION = '0.0.3'
 
 # Required packages with relaxed version constraints
 REQUIRED = [
-    'z3-solver>=4.8.10',
+    'z3-solver==4.8.10',
     'meson>=1.6.1',
     'tqdm>=4.65.0'
 ]
