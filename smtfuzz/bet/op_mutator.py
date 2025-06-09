@@ -1,9 +1,9 @@
 import random
 
-from smtfuzz.mutators.smt2_generator import generate_from_grammar_as_str
+from smtfuzz.bet.smt2_generator import generate_from_grammar_as_str
 
-from smtfuzz.mutators.cvc4option_mutator import mutate_cvc4_option
-from smtfuzz.mutators.z3option_mutator import mutate_z3_option
+from smtfuzz.options.cvc4option_mutator import mutate_cvc4_option
+from smtfuzz.options.z3option_mutator import mutate_z3_option
 
 # import timeout_decorator
 

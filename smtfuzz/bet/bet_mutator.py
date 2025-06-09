@@ -17,7 +17,29 @@ import itertools
 import random
 
 from z3 import *
-from z3.z3util import get_vars
+# from z3.z3util import get_vars  # this one is slow
+
+
+def get_vars(exp):
+    try:
+        syms = set()
+        stack = [exp]
+
+        while stack:
+            e = stack.pop()
+            if z3.is_app(e):
+                if e.num_args() == 0 and e.decl().kind() == z3.Z3_OP_UNINTERPRETED:
+                    syms.add(e)
+                else:
+                    # Add children in reverse order
+                    # This maintains DFS traversal order when using pop()
+                    # stack.extend(reversed(e.children())) # shoud we?
+                    stack.extend(e.children())
+
+        return list(syms)
+    except z3.Z3Exception as ex:
+        print(ex)
+        return False
 
 
 def get_atoms(z3expr):

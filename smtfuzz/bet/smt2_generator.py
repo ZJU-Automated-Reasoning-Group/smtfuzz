@@ -7,7 +7,7 @@ from threading import Timer
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 
-generator = 'smtfuzz'   # FIXME: directly use the smtfuzz.py file?
+generator = os.path.join(parentdir, 'smtfuzz.py')  # Fixed: use the actual smtfuzz.py file
 
 strategies = ['noinc', 'noinc', 'CNFexp', 'cnf', 'ncnf', 'bool', 'bool']
 
