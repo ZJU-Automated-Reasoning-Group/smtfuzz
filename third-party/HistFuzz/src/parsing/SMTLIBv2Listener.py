@@ -6,6 +6,7 @@ if __name__ is not None and "." in __name__:
 else:
     from SMTLIBv2Parser import SMTLIBv2Parser
 
+
 # This class defines a complete listener for a parse tree produced by SMTLIBv2Parser.
 class SMTLIBv2Listener(ParseTreeListener):
 
@@ -395,7 +396,7 @@ class SMTLIBv2Listener(ParseTreeListener):
 
     # Enter a parse tree produced by SMTLIBv2Parser#cmd_checkSatAssuming.
     def enterCmd_checkSatAssuming(
-        self, ctx: SMTLIBv2Parser.Cmd_checkSatAssumingContext
+            self, ctx: SMTLIBv2Parser.Cmd_checkSatAssumingContext
     ):
         pass
 
@@ -445,19 +446,19 @@ class SMTLIBv2Listener(ParseTreeListener):
 
     # Enter a parse tree produced by SMTLIBv2Parser#cmd_declareCodatatype.
     def enterCmd_declareCodatatype(
-        self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypeContext
+            self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypeContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#cmd_declareCodatatype.
     def exitCmd_declareCodatatype(
-        self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypeContext
+            self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypeContext
     ):
         pass
 
     # Enter a parse tree produced by SMTLIBv2Parser#cmd_declareDatatypes.
     def enterCmd_declareDatatypes(
-        self, ctx: SMTLIBv2Parser.Cmd_declareDatatypesContext
+            self, ctx: SMTLIBv2Parser.Cmd_declareDatatypesContext
     ):
         pass
 
@@ -467,13 +468,13 @@ class SMTLIBv2Listener(ParseTreeListener):
 
     # Enter a parse tree produced by SMTLIBv2Parser#cmd_declareCodatatypes.
     def enterCmd_declareCodatatypes(
-        self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypesContext
+            self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypesContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#cmd_declareCodatatypes.
     def exitCmd_declareCodatatypes(
-        self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypesContext
+            self, ctx: SMTLIBv2Parser.Cmd_declareCodatatypesContext
     ):
         pass
 
@@ -639,13 +640,13 @@ class SMTLIBv2Listener(ParseTreeListener):
 
     # Enter a parse tree produced by SMTLIBv2Parser#cmd_getUnsatAssumptions.
     def enterCmd_getUnsatAssumptions(
-        self, ctx: SMTLIBv2Parser.Cmd_getUnsatAssumptionsContext
+            self, ctx: SMTLIBv2Parser.Cmd_getUnsatAssumptionsContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#cmd_getUnsatAssumptions.
     def exitCmd_getUnsatAssumptions(
-        self, ctx: SMTLIBv2Parser.Cmd_getUnsatAssumptionsContext
+            self, ctx: SMTLIBv2Parser.Cmd_getUnsatAssumptionsContext
     ):
         pass
 
@@ -907,25 +908,25 @@ class SMTLIBv2Listener(ParseTreeListener):
 
     # Enter a parse tree produced by SMTLIBv2Parser#get_assertions_response.
     def enterGet_assertions_response(
-        self, ctx: SMTLIBv2Parser.Get_assertions_responseContext
+            self, ctx: SMTLIBv2Parser.Get_assertions_responseContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#get_assertions_response.
     def exitGet_assertions_response(
-        self, ctx: SMTLIBv2Parser.Get_assertions_responseContext
+            self, ctx: SMTLIBv2Parser.Get_assertions_responseContext
     ):
         pass
 
     # Enter a parse tree produced by SMTLIBv2Parser#get_assignment_response.
     def enterGet_assignment_response(
-        self, ctx: SMTLIBv2Parser.Get_assignment_responseContext
+            self, ctx: SMTLIBv2Parser.Get_assignment_responseContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#get_assignment_response.
     def exitGet_assignment_response(
-        self, ctx: SMTLIBv2Parser.Get_assignment_responseContext
+            self, ctx: SMTLIBv2Parser.Get_assignment_responseContext
     ):
         pass
 
@@ -963,25 +964,25 @@ class SMTLIBv2Listener(ParseTreeListener):
 
     # Enter a parse tree produced by SMTLIBv2Parser#get_unsat_assump_response.
     def enterGet_unsat_assump_response(
-        self, ctx: SMTLIBv2Parser.Get_unsat_assump_responseContext
+            self, ctx: SMTLIBv2Parser.Get_unsat_assump_responseContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#get_unsat_assump_response.
     def exitGet_unsat_assump_response(
-        self, ctx: SMTLIBv2Parser.Get_unsat_assump_responseContext
+            self, ctx: SMTLIBv2Parser.Get_unsat_assump_responseContext
     ):
         pass
 
     # Enter a parse tree produced by SMTLIBv2Parser#get_unsat_core_response.
     def enterGet_unsat_core_response(
-        self, ctx: SMTLIBv2Parser.Get_unsat_core_responseContext
+            self, ctx: SMTLIBv2Parser.Get_unsat_core_responseContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#get_unsat_core_response.
     def exitGet_unsat_core_response(
-        self, ctx: SMTLIBv2Parser.Get_unsat_core_responseContext
+            self, ctx: SMTLIBv2Parser.Get_unsat_core_responseContext
     ):
         pass
 
@@ -995,13 +996,13 @@ class SMTLIBv2Listener(ParseTreeListener):
 
     # Enter a parse tree produced by SMTLIBv2Parser#specific_success_response.
     def enterSpecific_success_response(
-        self, ctx: SMTLIBv2Parser.Specific_success_responseContext
+            self, ctx: SMTLIBv2Parser.Specific_success_responseContext
     ):
         pass
 
     # Exit a parse tree produced by SMTLIBv2Parser#specific_success_response.
     def exitSpecific_success_response(
-        self, ctx: SMTLIBv2Parser.Specific_success_responseContext
+            self, ctx: SMTLIBv2Parser.Specific_success_responseContext
     ):
         pass
 

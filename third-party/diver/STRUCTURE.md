@@ -1,4 +1,5 @@
 # Implementation of Diver
+
 We implemented Diver in Python code. The detailed structure for Diver is as follows:
 
 ```text

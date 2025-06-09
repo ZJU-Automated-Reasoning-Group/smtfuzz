@@ -17,11 +17,11 @@ limitations under the License.
 import random
 import string
 
+
 class Randomness(object):
     def __init__(self, seed):
         self.seed = seed
         random.seed(self.seed)
-
 
     def get_random_integer(self, low, high):
         # high is inclusive
@@ -40,7 +40,7 @@ class Randomness(object):
         return random.choice(list)
 
     def get_random_float(self, low, high):
-        return str(self.get_random_integer(low,high)) + "." + str(self.get_random_integer(0,999))
+        return str(self.get_random_integer(low, high)) + "." + str(self.get_random_integer(0, 999))
 
     def shuffle_list(self, list):
         random.shuffle(list)

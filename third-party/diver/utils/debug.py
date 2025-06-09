@@ -15,13 +15,15 @@ def trace(func):
             trace = inspect.trace()
             fn = trace[-1].filename
             lineno = trace[-1].lineno
-            print("Runtime error at %s,  Line : %s, Error Message : %s" % (fn, lineno,e), flush=True)
+            print("Runtime error at %s,  Line : %s, Error Message : %s" % (fn, lineno, e), flush=True)
             # print(f"Args are: {args}")
+
     return wrapper
 
 
 class TimeoutError(Exception):
     pass
+
 
 def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
     def decorator(func):
@@ -30,11 +32,13 @@ def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
 
         def wrapper(*args, **kwargs):
             signal.signal(signal.SIGALRM, _handle_timeout)
-            signal.setitimer(signal.ITIMER_REAL,seconds) #used timer instead of alarm
+            signal.setitimer(signal.ITIMER_REAL, seconds)  # used timer instead of alarm
             try:
                 result = func(*args, **kwargs)
             finally:
                 signal.alarm(0)
             return result
+
         return wraps(func)(wrapper)
+
     return decorator

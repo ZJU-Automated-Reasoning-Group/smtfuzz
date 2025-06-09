@@ -1,11 +1,12 @@
 # Inter-Theory Mutation Engine
 
-A specialized component of SMTFuzz for generating and mutating SMT-LIB2 formulas with interactions between different SMT theories.
+A specialized component of SMTFuzz for generating and mutating SMT-LIB2 formulas with interactions between different SMT
+theories.
 
 ## Components
 
 - **`theory_bridge.py`** - Theory conversion mappings
-- **`seed_generator.py`** - Seed formula generation  
+- **`seed_generator.py`** - Seed formula generation
 - **`inter_theory_mutator.py`** - Main mutation engine
 
 ## Supported Theories

@@ -35,13 +35,12 @@ import shutil
 from storm.utils.file_operations import append_row
 import time
 
-
 ALL_FUZZING_PARAMETERS = None
 
 
 def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params):
-
-    def run_mutants_in_a_thread(path_to_temp_core_directory, signal, seed_file_number, seed_file_path, incrementality, solver, fuzzing_parameters):
+    def run_mutants_in_a_thread(path_to_temp_core_directory, signal, seed_file_number, seed_file_path, incrementality,
+                                solver, fuzzing_parameters):
         mutant_file_paths = get_mutant_paths(path_to_temp_core_directory)
         mutant_file_paths.sort()
         if len(mutant_file_paths) > 0:
@@ -56,10 +55,11 @@ def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params)
                                        temp_core_folder=path_to_temp_core_directory,
                                        timeout=ALL_FUZZING_PARAMETERS["solver_timeout"],
                                        incremental=incrementality,
-                                       solver = solver)
-                print("[" + parsedArguments["solver"] +"]\t"+ "[core: " + str(core) +"]\t", end="")
-                print("[seed_file: " + str(seed_file_number) +"]\t\t" + "[" + str(i+1) + "/" + str(len(mutant_file_paths)) + "]\t\t", end="")
-                print("[" + parsedArguments["theory"] +"]\t", end="")
+                                       solver=solver)
+                print("[" + parsedArguments["solver"] + "]\t" + "[core: " + str(core) + "]\t", end="")
+                print("[seed_file: " + str(seed_file_number) + "]\t\t" + "[" + str(i + 1) + "/" + str(
+                    len(mutant_file_paths)) + "]\t\t", end="")
+                print("[" + parsedArguments["theory"] + "]\t", end="")
 
                 if output == "sat":
                     print(colored(output, "green", attrs=["bold"]))
@@ -77,13 +77,12 @@ def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params)
                                      seed_theory=parsedArguments["theory"],
                                      fuzzing_parameters=fuzzing_parameters)
                     print(colored("Time to bug: ", "magenta", attrs=["bold"]) + str(time.time() - start_time))
-                    print(colored("Iterations to bug: ", "magenta", attrs=["bold"]) + str(i+1))
+                    print(colored("Iterations to bug: ", "magenta", attrs=["bold"]) + str(i + 1))
                 elif output == "error":
                     print(colored(output, "white", "on_red", attrs=["bold"]))
                 else:
                     print(colored(output, "yellow", attrs=["bold"]))
                 os.remove(mutant_path)  # remove mutant when processed
-
 
     """
         Initalizations
@@ -98,7 +97,7 @@ def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params)
     global ALL_FUZZING_PARAMETERS
     if not reproduce:
         # normal mode
-        ALL_FUZZING_PARAMETERS = get_parameters_dict(replication_mode = False,
+        ALL_FUZZING_PARAMETERS = get_parameters_dict(replication_mode=False,
                                                      bug_number=None)
         path_to_theory = os.path.join(parsedArguments["benchmark"], parsedArguments["theory"])
         if not os.path.exists(path_to_theory):
@@ -114,7 +113,6 @@ def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params)
         print("Path to seed file for this bug = " + path_to_seed_file)
         seed_file_paths.append(path_to_seed_file)
         parsedArguments["theory"] = ALL_FUZZING_PARAMETERS["theory"]
-
 
     randomness = Randomness(SEED)
     randomness.shuffle_list(seed_file_paths)
@@ -153,7 +151,9 @@ def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params)
             continue
 
         # Incremental setting apply to all mutants of a file
-        print("####### Setting incrementality with prob: " + colored(str(ALL_FUZZING_PARAMETERS["incremental"]), "yellow", attrs=["bold"]))
+        print(
+            "####### Setting incrementality with prob: " + colored(str(ALL_FUZZING_PARAMETERS["incremental"]), "yellow",
+                                                                   attrs=["bold"]))
         print("####### Incrementality: ", end="")
         if incrementality == "yes":
             print(colored("YES", "green", attrs=["bold"]))
@@ -162,20 +162,22 @@ def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params)
         else:
             print(colored("NO", "red", attrs=["bold"]))
 
-
-        print("####### Adding check-sat-using options with prob: " + colored(str(ALL_FUZZING_PARAMETERS["check_sat_using"]), "yellow", attrs=["bold"]))
+        print("####### Adding check-sat-using options with prob: " + colored(
+            str(ALL_FUZZING_PARAMETERS["check_sat_using"]), "yellow", attrs=["bold"]))
         for mutant_file_path in mutant_file_paths:
-            if randomness.random_choice(ALL_FUZZING_PARAMETERS["check_sat_using"]) == "yes" and parsedArguments["solver"] == "z3":
+            if randomness.random_choice(ALL_FUZZING_PARAMETERS["check_sat_using"]) == "yes" and parsedArguments[
+                "solver"] == "z3":
                 check_sat_using_option = randomness.random_choice(ALL_FUZZING_PARAMETERS["check_sat_using_options"])
                 add_check_sat_using(mutant_file_path, check_sat_using_option)
-
 
         # If we are in bug repoduction mode, copy the buggy mutant to the bug folder in fse replication folder
         if reproduce:
             print("copying the buggy mutant")
             buggy_mutant = [i for i in mutant_file_paths if i.find(ALL_FUZZING_PARAMETERS["buggy_mutant"]) != -1][0]
-            path_to_bug_directory_in_fse_repl = os.path.join(config["home"], "storm", "fse_repl", parsedArguments["reproduce"])
-            print(colored("copying the buggy mutant to: ", "yellow", attrs=["bold"]) + path_to_bug_directory_in_fse_repl)
+            path_to_bug_directory_in_fse_repl = os.path.join(config["home"], "storm", "fse_repl",
+                                                             parsedArguments["reproduce"])
+            print(
+                colored("copying the buggy mutant to: ", "yellow", attrs=["bold"]) + path_to_bug_directory_in_fse_repl)
             shutil.copy2(buggy_mutant, path_to_bug_directory_in_fse_repl)
             if parsedArguments["solverbin"] is None:
                 print("Skipping mutant running since --solverbin and --solver flags are None")
@@ -194,7 +196,8 @@ def run_storm(parsedArguments, core, SEED, wait, reproduce, rq3, fuzzing_params)
         if process.is_alive():
             process.terminate()
             print(colored("TIMEOUT WHILE RUNNING THE MUTANTS", "red", attrs=["bold"]))
-            time.sleep(ALL_FUZZING_PARAMETERS["solver_timeout"])  # Wait for the solver to finish processing the last file before deleting the temp dir
+            time.sleep(ALL_FUZZING_PARAMETERS[
+                           "solver_timeout"])  # Wait for the solver to finish processing the last file before deleting the temp dir
         refresh_directory(path_to_temp_core_directory)
 
 
@@ -232,7 +235,8 @@ def main():
         orig_asserts = count_asserts(parsedArguments["file_path"])
         orig_lines = count_lines(parsedArguments["file_path"])
         orig_size = os.path.getsize(parsedArguments["file_path"])
-        row_2 = "ORIGINAL,-," + str(orig_maxDepth) + "," + str(orig_asserts) + "," + str(orig_lines) + "," + str(orig_size) + ", ,"
+        row_2 = "ORIGINAL,-," + str(orig_maxDepth) + "," + str(orig_asserts) + "," + str(orig_lines) + "," + str(
+            orig_size) + ", ,"
         file = open(stats_file, "w")
         file.writelines("iteration, seed, maxDepth, maxAssert, line_numbers, bytes, number of queries, time\n" + row_2)
         file.close()
@@ -242,9 +246,10 @@ def main():
             shutil.rmtree(temp_dir)
         os.mkdir(temp_dir)
 
-        def minimize_in_parallel(dir_path, file_path, solver_bin, maxDepth, maxAssert, seed, parsed_arguments, iteration):
+        def minimize_in_parallel(dir_path, file_path, solver_bin, maxDepth, maxAssert, seed, parsed_arguments,
+                                 iteration):
             minimizer = minimize(dir_path=dir_path,
-                                 file_path = file_path,
+                                 file_path=file_path,
                                  solverbin=solver_bin,
                                  maxDepth=maxDepth,
                                  maxAssert=maxAssert,
@@ -270,7 +275,6 @@ def main():
             os.system("taskset -p -c " + str(i) + " " + str(process.pid))
         return 0
 
-
     if not reproduction_mode:
         if parsedArguments["benchmark"] is None:
             print(colored("--benchmark argument cannot be None", "red", attrs=["bold"]))
@@ -282,7 +286,6 @@ def main():
             print(colored("--solverbin argument cannot be None", "red", attrs=["bold"]))
             return 1
 
-
     theory_provided = False
     if not parsedArguments["theory"] is None:
         theory_provided = True
@@ -291,12 +294,15 @@ def main():
         if parsedArguments["cores"] is not None:
             for i in range(int(parsedArguments["cores"])):
                 if not theory_provided and not reproduction_mode:
-                    print(colored("--theory argument is None. Automatically selecting theory", "magenta", attrs=["bold"]))
-                    parsedArguments["theory"] = pick_a_supported_theory(parsedArguments["benchmark"], parsedArguments["solver"], SEED)
+                    print(
+                        colored("--theory argument is None. Automatically selecting theory", "magenta", attrs=["bold"]))
+                    parsedArguments["theory"] = pick_a_supported_theory(parsedArguments["benchmark"],
+                                                                        parsedArguments["solver"], SEED)
                     print(colored("Picked theory = " + parsedArguments["theory"], "magenta", attrs=["bold"]))
                 core = str(i)
                 wait = int(parsedArguments["cores"])
-                process = multiprocessing.Process(target=run_storm, args=(parsedArguments,core, SEED, wait, reproduction_mode, False, None))
+                process = multiprocessing.Process(target=run_storm, args=(
+                parsedArguments, core, SEED, wait, reproduction_mode, False, None))
                 process.start()
                 # pin the process to a specific CPU
                 os.system("taskset -p -c " + str(i) + " " + str(process.pid))
@@ -304,7 +310,8 @@ def main():
         else:
             if not theory_provided and not reproduction_mode:
                 print(colored("--theory argument is None. Automatically selecting theory", "magenta", attrs=["bold"]))
-                parsedArguments["theory"] = pick_a_supported_theory(parsedArguments["benchmark"], parsedArguments["solver"], SEED)
+                parsedArguments["theory"] = pick_a_supported_theory(parsedArguments["benchmark"],
+                                                                    parsedArguments["solver"], SEED)
                 print(colored("Picked theory = " + parsedArguments["theory"], "magenta", attrs=["bold"]))
             run_storm(parsedArguments, "0", SEED, 0, reproduction_mode, False, None)
 

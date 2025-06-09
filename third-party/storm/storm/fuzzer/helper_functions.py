@@ -69,11 +69,13 @@ def enrich_true_and_false_nodes(smt_object, enrichment_steps, randomness, max_de
                 node_type = "true"
             if node_type == "false":
                 # if node type is false then negate it and add it to true constructed node
-                false_node = randomness.random_choice(smt_object.get_false_nodes() + smt_object.get_false_constructed_nodes())
+                false_node = randomness.random_choice(
+                    smt_object.get_false_nodes() + smt_object.get_false_constructed_nodes())
                 smt_object.append_true_constructed_node(Not(false_node))
             if node_type == "true":
                 # if node type is true then negate it and add it to false constructed node
-                true_node = randomness.random_choice(smt_object.get_true_nodes() + smt_object.get_true_constructed_nodes())
+                true_node = randomness.random_choice(
+                    smt_object.get_true_nodes() + smt_object.get_true_constructed_nodes())
                 smt_object.append_false_constructed_node(Not(true_node))
 
         #   If AND:
@@ -94,8 +96,12 @@ def enrich_true_and_false_nodes(smt_object, enrichment_steps, randomness, max_de
                 node_1_type = "true"
                 node_2_type = "true"
 
-            node_1 = randomness.random_choice(smt_object.get_true_nodes() + smt_object.get_true_constructed_nodes()) if node_1_type == "true" else randomness.random_choice(smt_object.get_false_nodes() + smt_object.get_false_constructed_nodes())
-            node_2 = randomness.random_choice(smt_object.get_true_nodes() + smt_object.get_true_constructed_nodes()) if node_2_type == "true" else randomness.random_choice(smt_object.get_false_nodes() + smt_object.get_false_constructed_nodes())
+            node_1 = randomness.random_choice(
+                smt_object.get_true_nodes() + smt_object.get_true_constructed_nodes()) if node_1_type == "true" else randomness.random_choice(
+                smt_object.get_false_nodes() + smt_object.get_false_constructed_nodes())
+            node_2 = randomness.random_choice(
+                smt_object.get_true_nodes() + smt_object.get_true_constructed_nodes()) if node_2_type == "true" else randomness.random_choice(
+                smt_object.get_false_nodes() + smt_object.get_false_constructed_nodes())
 
             # Append if depth of both subtrees is <= depth
             if get_tree_depth(node_1, max_depth) <= max_depth and get_tree_depth(node_2, max_depth) <= max_depth:
@@ -112,13 +118,14 @@ def pick_true_and_false_nodes_at_random(smt_object, number_of_mutants, max_asser
         Generate new ASTs
         Appends generation vector
     """
-    mutants = list()    # A list of a list of assertions
+    mutants = list()  # A list of a list of assertions
     for i in range(number_of_mutants):
-        mutant_file = list()    # A list of assertions
+        mutant_file = list()  # A list of assertions
         number_of_assertions = randomness.get_a_non_prime_integer(max_assertions)
         for i in range(number_of_assertions):
             # Make a decision about picking either a simple node or an enriched node
-            node_decision = randomness.random_choice(["simp", "simp","simp","enr","enr","enr","enr","enr","enr","enr"])
+            node_decision = randomness.random_choice(
+                ["simp", "simp", "simp", "enr", "enr", "enr", "enr", "enr", "enr", "enr"])
 
             if node_decision == "simp":
                 # Pick a True or False node
@@ -180,6 +187,7 @@ def get_tree_depth(assertion, maxDepth, optimization=True):
                 if is_and(right_child) or is_or(right_child):
                     q.append(right_child)
                 nodeCount -= 1
+
     try:
         depth = get_tree_depth_iterative(tree=assertion)
     except Exception as e:
@@ -196,7 +204,7 @@ def add_check_sat_using(exported_mutant_file_path, check_sat_using_option):
         with open(exported_mutant_file_path, 'r') as f:
             lines = f.read().splitlines()
     except:
-        print("#######" +  colored("ERROR OCCURRED IN 'check_sat_using'", "red", attrs=["bold"]))
+        print("#######" + colored("ERROR OCCURRED IN 'check_sat_using'", "red", attrs=["bold"]))
     for i in range(len(lines)):
         if lines[i].find("(check-sat)") != -1:
             lines[i] = "(check-sat-using " + check_sat_using_option + ")" + "\n"
@@ -211,6 +219,7 @@ def add_check_sat_using(exported_mutant_file_path, check_sat_using_option):
     Helper functions for generation of incremental instances
 """
 
+
 def count_assertions(file_path):
     with open(file_path, 'r') as f:
         lines = f.read().splitlines()
@@ -220,6 +229,7 @@ def count_assertions(file_path):
             no_assertions += 1
 
     return no_assertions
+
 
 def get_factor(n, randomness):
     """

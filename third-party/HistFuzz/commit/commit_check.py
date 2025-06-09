@@ -9,7 +9,7 @@ def build_project(commit, project_folder, solver, sanitizer=False, jobs=1):
     try:
         # Print the commit being built
         print(f"Building commit: {commit}")
-        
+
         # Create a new folder name based on the commit
         new_folder = f"{project_folder}_{commit}"
 
@@ -20,7 +20,7 @@ def build_project(commit, project_folder, solver, sanitizer=False, jobs=1):
 
         # Copy the project folder to the new folder
         shutil.copytree(project_folder, new_folder)
-        
+
         # Checkout the specified commit in the new folder
         subprocess.run(["git", "checkout", commit], cwd=new_folder, check=True)
 
@@ -38,7 +38,7 @@ def build_project(commit, project_folder, solver, sanitizer=False, jobs=1):
                           f'LDFLAGS+="-fsanitize=address" CC=clang CXX=clang++ {command}'
             else:
                 command = command.replace("--assertions", "--asan --assertions")
-        
+
         # Run the build command, hiding the output
         build_process = subprocess.Popen(command, cwd=new_folder, shell=True, executable='/bin/bash',
                                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -65,10 +65,10 @@ def test_commit(smt2_file, solver_path, message, timeout=10):
 
         # Decode the output from bytes to string
         output = result.stdout.decode('utf-8') + result.stderr.decode('utf-8')
-        
+
         # Print the combined output for debugging purposes
         print(f"Output: {output}")
-        
+
         # Check if the message is in the output and ensure specific conditions are met
         return message in output and not (message.startswith("sat") and output.startswith("unsat"))
 
@@ -104,7 +104,7 @@ def find_commit(commits, project_folder, key_word, bug_file, solver, commit_type
         # Determine the solver path based on the solver type
         solver_path = os.path.join(new_folder, "build")
         if solver == "z3":
-            solver_path = solver_path + "/z3" 
+            solver_path = solver_path + "/z3"
         elif solver == "cvc5":
             solver_path = solver_path + "/bin/cvc5"
         print(f"Solver path: {solver_path}")
@@ -160,9 +160,9 @@ def main(target_project, message, test_file, commit_type, start_commit=None, end
     subprocess.run("git log --oneline --abbrev=7 > commits.txt", cwd=target_project, executable='/bin/bash', shell=True)
     if not os.path.exists(commit_file):
         print("Failed to get the commit file")
-        return 
+        return
 
-    # Read the commits from the commit file
+        # Read the commits from the commit file
     commits = read_commit_file(commit_file)
 
     # Determine the range of commits to search

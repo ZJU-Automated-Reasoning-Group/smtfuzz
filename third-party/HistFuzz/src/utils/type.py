@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 return_type = {"xor": "Bool", "=": "Bool", "distinct": "Bool", "div": "Int", "mod": "Int", "abs": "Int",
                "<": "Bool", ">": "Bool", "<=": "Bool", ">=": "Bool", "to_real": "Real", "to_int": "Int",
                "is_int": "Bool", "str.++": "String", "str.len": "Int", "str.<": "Bool", "str.in_re": "Bool",

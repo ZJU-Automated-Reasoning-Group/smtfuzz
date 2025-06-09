@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import pathlib
 import shutil
 import os
@@ -158,7 +157,6 @@ def export_smt2(script, direct, index):
     # f.write("\n(check-sat)\n")
     f.close()
     return file_path
-
 
 
 def reduce_duplicate(path1, path2):

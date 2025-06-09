@@ -19,20 +19,18 @@ import os
 from termcolor import colored
 
 
-
 def solver_runner(solver_path, smt_file, temp_core_folder, timeout, incremental, solver):
-
     temp_file_name = smt_file.replace(temp_core_folder, "")
     temp_file_name = temp_file_name.replace(".smt2", "")
     temp_file_name += "_output.txt"
-    temp_file_path = temp_core_folder +  temp_file_name
+    temp_file_path = temp_core_folder + temp_file_name
 
     if solver in ["yices", "cvc4", "boolector"] and incremental == "yes":
         command = "timeout " + str(timeout) + "s " + solver_path + " --incremental " + smt_file + " > " + temp_file_path
     else:
         command = "timeout " + str(timeout) + "s " + solver_path + " " + smt_file + " > " + temp_file_path
 
-    #print(colored(command, "yellow"))
+    # print(colored(command, "yellow"))
 
     p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
     terminal_output = p.stderr.read().decode()
@@ -53,17 +51,14 @@ def solver_runner(solver_path, smt_file, temp_core_folder, timeout, incremental,
     return solver_output
 
 
-
-
 def read_result(file_path, incremental):
     try:
         with open(file_path, 'r') as f:
             lines = f.read().splitlines()
-            #print(lines)
+            # print(lines)
     except:
         print(colored("CANT OPEN THE FILE", "red", attrs=["bold"]))
         return "error"
-
 
     for line in lines:
         if line.find("Parse Error") != -1:
@@ -92,7 +87,6 @@ def read_result(file_path, incremental):
             os.remove(file_path)
             return "timeout"
 
-
     # Uninteresting problems
     for line in lines:
         if line.find("error") != -1 or line.find("unsupported reserved word") != -1:
@@ -104,7 +98,6 @@ def read_result(file_path, incremental):
     if len(lines) == 0:
         os.remove(file_path)
         return "timeout"
-
 
     # Incremental mode
     if incremental == "yes":
@@ -121,8 +114,6 @@ def read_result(file_path, incremental):
 
         os.remove(file_path)
         return "sat"
-
-
 
     if len(lines) > 0:
         if lines[0] == "sat" or lines[0] == "unsat" or lines[0] == "unknown":

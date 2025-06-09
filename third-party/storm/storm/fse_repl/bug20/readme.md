@@ -18,6 +18,7 @@
 storm --reproduce=bug20 --seed=1595468702
 ```
 
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the name `mutant_932.smt2`. 
-Both the seed file and the mutant is `sat` but the buggy version of yices return `unsat` on the mutant. 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_932.smt2`.
+Both the seed file and the mutant is `sat` but the buggy version of yices return `unsat` on the mutant.
 You can verify this by running this file with the buggy version of yices. 

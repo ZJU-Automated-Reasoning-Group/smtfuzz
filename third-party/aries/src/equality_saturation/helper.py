@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-
-
 import random
 from typing import NamedTuple, Union, Any
 from snake_egg import EGraph, Rewrite, Var, vars
@@ -152,7 +150,8 @@ def convert_to_IR(term: Term) -> Any:
     if term.op == STR_AT:
         return StrAt(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]))
     if term.op == STR_SUBSTR:
-        return StrSubstr(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]), convert_to_IR(term.subterms[2]))
+        return StrSubstr(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]),
+                         convert_to_IR(term.subterms[2]))
     if term.op == LEXORD:
         return StrLt(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]))
     if term.op == REFLEX_CLOS:
@@ -164,15 +163,20 @@ def convert_to_IR(term: Term) -> Any:
     if term.op == STR_CONTAINS:
         return StrContains(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]))
     if term.op == STR_INDEXOF:
-        return StrIndexof(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]), convert_to_IR(term.subterms[2]))
+        return StrIndexof(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]),
+                          convert_to_IR(term.subterms[2]))
     if term.op == STR_REPLACE:
-        return StrReplace(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]), convert_to_IR(term.subterms[2]))
+        return StrReplace(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]),
+                          convert_to_IR(term.subterms[2]))
     if term.op == STR_REPLACE_ALL:
-        return StrReplaceAll(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]), convert_to_IR(term.subterms[2]))
+        return StrReplaceAll(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]),
+                             convert_to_IR(term.subterms[2]))
     if term.op == STR_REPLACE_RE:
-        return StrReplaceRe(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]), convert_to_IR(term.subterms[2]))
+        return StrReplaceRe(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]),
+                            convert_to_IR(term.subterms[2]))
     if term.op == STR_REPLACE_RE_ALL:
-        return StrReplaceReAll(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]), convert_to_IR(term.subterms[2]))
+        return StrReplaceReAll(convert_to_IR(term.subterms[0]), convert_to_IR(term.subterms[1]),
+                               convert_to_IR(term.subterms[2]))
     if term.op == STR_IS_DIGIT:
         return StrIsDigit(convert_to_IR(term.subterms[0]))
     if term.op == STR_TO_CODE:
@@ -455,13 +459,11 @@ def convert_IR_to_str(ir: Any) -> str:
     #     return f"(sign_extend {ir.x} {convert_IR_to_str(ir.y)})"
     if isinstance(ir, Other):
         return f"({ir.symbol} {convert_IR_to_str(ir.arg1)} {convert_IR_to_str(ir.arg2)})"
-    
+
     return str(ir)
-    
+
 
 a, b, c, d, e, f = vars("a b c d e f")
-
-
 
 ARITH_RULES = [
     Rewrite(Add(a, b), Add(b, a), "commute-add"),
@@ -506,7 +508,7 @@ ARITH_RULES = [
     Rewrite(Div(ToReal(a), b), Div(a, b), "div-to-real-eliminate"),
     # Rewrite(Div(a, ToReal(b)), Div(a, b), "div-to-real-eliminate"),
     Rewrite(Div(a, b), Div(a, ToReal(b)), "re-div-to-real-eliminate"),
-    ]
+]
 
 ARITH_ADDITIONAL_RULES = [
     Rewrite(Eq(Concat(a, b), b), Eq(a, EmptyString()), "concat-c-eq-c-to-eq-empty"),
@@ -529,7 +531,8 @@ ARITH_ADDITIONAL_RULES = [
     Rewrite(Mul(b, Sub(a, c)), Sub(Mul(a, b), Mul(b, c)), "mul-sub-to-sub-mul"),
     Rewrite(Add(Mul(a, b), Mul(b, c)), Mul(b, Add(a, c)), "add-mul-to-mul-add"),
     Rewrite(Mul(b, Add(a, c)), Add(Mul(a, b), Mul(b, c)), "mul-add-to-add-mul"),
-    Rewrite(Ite(Eq(a, 0), Mul(a, Mul(c, Div(b, a))), Mul(a, Mul(b, Div(c, a)))), Mul(a, Mul(c, Div(b, a))), "ite-mul-div-simplify"),
+    Rewrite(Ite(Eq(a, 0), Mul(a, Mul(c, Div(b, a))), Mul(a, Mul(b, Div(c, a)))), Mul(a, Mul(c, Div(b, a))),
+            "ite-mul-div-simplify"),
     # Rewrite(Mul(a, b), Mul(b, a), "commute-mul"),
     # Rewrite(Add(a, b), Add(b, a), "commute-add"),
     Rewrite(Abs(Sub(a, b)), Abs(Sub(b, a)), "abs-sub-swap"),
@@ -537,15 +540,20 @@ ARITH_ADDITIONAL_RULES = [
     Rewrite(Mul(Abs(a), Abs(b)), Abs(Mul(a, b)), "mul-abs-to-abs-mul"),
     Rewrite(Ite(Eq(a, 0), Mul(a, b), Mul(a, Mul(b, Div(a, a)))), Mul(a, b), "ite-mul-div-one"),
     Rewrite(Ite(Eq(a, 0), Mul(a, b), Div(Mul(a, b), Div(a, a))), Mul(a, b), "ite-div-div-cancel"),
-    Rewrite(Ite(Eq(Sub(a, b), 0), Div(Sub(b, a), Sub(a, b)), Div(Sub(a, b), Sub(b, a))), Div(Sub(b, a), Sub(a, b)), "ite-div-swap"),
-    Rewrite(Ite(Eq(Sub(b, a), 0), Div(Sub(b, a), Sub(b, a)), Div(Sub(a, b), Sub(a, b))), Div(Sub(b, a), Sub(b, a)), "ite-div-swap-zero"),
+    Rewrite(Ite(Eq(Sub(a, b), 0), Div(Sub(b, a), Sub(a, b)), Div(Sub(a, b), Sub(b, a))), Div(Sub(b, a), Sub(a, b)),
+            "ite-div-swap"),
+    Rewrite(Ite(Eq(Sub(b, a), 0), Div(Sub(b, a), Sub(b, a)), Div(Sub(a, b), Sub(a, b))), Div(Sub(b, a), Sub(b, a)),
+            "ite-div-swap-zero"),
     # Rewrite(Sub(Mul(a, a), Mul(b, b)), Mul(Sub(a, b), Add(a, b)), "difference-of-squares"),
     Rewrite(Mul(Sub(a, b), Add(a, b)), Sub(Mul(a, a), Mul(b, b)), "product-to-difference-of-squares"),
     Rewrite(Ite(Eq(Sub(b, a), 0), Div(0, Sub(b, a)), Div(0, Sub(a, b))), Div(0, Sub(b, a)), "ite-zero-div-simplify"),
     # Rewrite(Ite(Eq(a, 0), 0, Mul(a, Mul(b, Div(0, a)))), 0, "ite-zero-mul-div-zero"),
-    Rewrite(Ite(Or(Eq(a, 0), Eq(b, 0)), Mul(Div(0, a), Div(0, b)), Mul(Div(0, a), Div(a, b))), Mul(Div(0, a), Div(0, b)), "ite-zero-div-mul-simplify"),
-    Rewrite(Ite(Or(Eq(a, 0), Eq(b, 0)), Mul(Div(0, a), Div(a, b)), Mul(Div(0, a), Div(0, b))), Mul(Div(0, a), Div(a, b)), "ite-zero-div-mul-swap"),
-    Rewrite(Ite(Or(Eq(a, 0), Eq(b, 0)), Mul(Div(0, b), Div(b, a)), Mul(Div(0, a), Div(a, b))), Mul(Div(0, b), Div(b, a)), "ite-zero-div-mul-reorder"),
+    Rewrite(Ite(Or(Eq(a, 0), Eq(b, 0)), Mul(Div(0, a), Div(0, b)), Mul(Div(0, a), Div(a, b))),
+            Mul(Div(0, a), Div(0, b)), "ite-zero-div-mul-simplify"),
+    Rewrite(Ite(Or(Eq(a, 0), Eq(b, 0)), Mul(Div(0, a), Div(a, b)), Mul(Div(0, a), Div(0, b))),
+            Mul(Div(0, a), Div(a, b)), "ite-zero-div-mul-swap"),
+    Rewrite(Ite(Or(Eq(a, 0), Eq(b, 0)), Mul(Div(0, b), Div(b, a)), Mul(Div(0, a), Div(a, b))),
+            Mul(Div(0, b), Div(b, a)), "ite-zero-div-mul-reorder"),
     Rewrite(Abs(Abs(a)), Abs(a), "abs-abs-to-abs"),
     Rewrite(Abs(Mul(a, a)), Mul(a, a), "abs-square-to-square"),
     Rewrite(Ite(Eq(a, 0), Div(Abs(a), a), Div(a, Abs(a))), Div(Abs(a), a), "ite-div-abs-over-x"),
@@ -569,9 +577,12 @@ ARITH_ADDITIONAL_RULES = [
     Rewrite(Ite(Eq(a, 0), Add(a, Div(0, a)), Div(Mul(a, a), a)), Add(a, Div(0, a)), "ite-add-div-zero-over-x"),
     Rewrite(Ite(Eq(a, 0), Div(Mul(a, a), a), Add(a, Div(0, a))), Div(Mul(a, a), a), "ite-div-square-over-x"),
     Rewrite(Ite(Eq(a, 0), Sub(Div(0, a), a), Div(Mul(a, a), Neg(a))), Sub(Div(0, a), a), "ite-sub-div-zero-over-x"),
-    Rewrite(Ite(Eq(a, 0), Div(Mul(a, a), Neg(a)), Sub(Div(0, a), a)), Div(Mul(a, a), Neg(a)), "ite-div-square-over-neg-x"),
-    Rewrite(Ite(Eq(a, 0), Add(Div(0, a), Abs(a)), Div(Mul(a, a), Abs(a))), Add(Div(0, a), Abs(a)), "ite-add-div-zero-over-abs-x"),
-    Rewrite(Ite(Eq(a, 0), Div(Mul(a, a), Abs(a)), Add(Div(0, a), Abs(a))), Div(Mul(a, a), Abs(a)), "ite-div-square-over-abs-x"),
+    Rewrite(Ite(Eq(a, 0), Div(Mul(a, a), Neg(a)), Sub(Div(0, a), a)), Div(Mul(a, a), Neg(a)),
+            "ite-div-square-over-neg-x"),
+    Rewrite(Ite(Eq(a, 0), Add(Div(0, a), Abs(a)), Div(Mul(a, a), Abs(a))), Add(Div(0, a), Abs(a)),
+            "ite-add-div-zero-over-abs-x"),
+    Rewrite(Ite(Eq(a, 0), Div(Mul(a, a), Abs(a)), Add(Div(0, a), Abs(a))), Div(Mul(a, a), Abs(a)),
+            "ite-div-square-over-abs-x"),
     # Rewrite(Mul(a, 0), 0, "mul-x-0-to-0"),
     # Rewrite(Sub(a, 1), Add(a, -1), "sub-x-1-to-add-neg1"),
     # Rewrite(Add(a, -1), Sub(a, 1), "add-x-neg1-to-sub-x-1"),
@@ -581,11 +592,15 @@ ARITH_ADDITIONAL_RULES = [
     Rewrite(Ite(Eq(a, 0), Div(0, a), Div(0, Abs(a))), Div(0, a), "ite-div-zero-over-x"),
     Rewrite(Ite(Eq(a, 0), 0, Mul(a, Div(0, a))), 0, "ite-zero-mul-div-zero"),
     Rewrite(Ite(Eq(a, 0), Div(0, Add(a, a)), Div(0, a)), Div(0, Add(a, a)), "ite-div-zero-over-sum-x"),
-    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Neg(a)), Div(Div(0, a), a)), Div(Div(0, a), Neg(a)), "ite-div-div-zero-over-neg-x"),
+    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Neg(a)), Div(Div(0, a), a)), Div(Div(0, a), Neg(a)),
+            "ite-div-div-zero-over-neg-x"),
     Rewrite(Ite(Eq(a, 0), Div(Div(0, a), a), Div(Div(0, a), Neg(a))), Div(Div(0, a), a), "ite-div-div-zero-over-x"),
-    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Abs(a)), Div(Div(0, a), a)), Div(Div(0, a), Abs(a)), "ite-div-div-zero-over-abs-x"),
-    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Add(a, a)), Div(Div(0, a), a)), Div(Div(0, a), Add(a, a)), "ite-div-div-zero-over-sum-x"),
-    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Mul(a, a)), Div(Div(0, a), a)), Div(Div(0, a), Mul(a, a)), "ite-div-div-zero-over-square-x"),
+    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Abs(a)), Div(Div(0, a), a)), Div(Div(0, a), Abs(a)),
+            "ite-div-div-zero-over-abs-x"),
+    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Add(a, a)), Div(Div(0, a), a)), Div(Div(0, a), Add(a, a)),
+            "ite-div-div-zero-over-sum-x"),
+    Rewrite(Ite(Eq(a, 0), Div(Div(0, a), Mul(a, a)), Div(Div(0, a), a)), Div(Div(0, a), Mul(a, a)),
+            "ite-div-div-zero-over-square-x"),
 ]
 
 CORE_RULES = [
@@ -615,7 +630,7 @@ CORE_RULES = [
     Rewrite(Xor(a, TRUE()), Not(a), "xor-true"),
     Rewrite(Not(Xor(a, b)), Eq(a, b), "not-xor-to-eq"),
     Rewrite(Not(Eq(a, b)), Eq(Not(a), b), "not-eq"),
-    ]
+]
 
 STRING_RULES = [
     Rewrite(Eq(Concat(Concat(a, b), c), d), FALSE(), "eq-string_concat-false"),
@@ -647,11 +662,13 @@ STRING_RULES = [
     Rewrite(StrSubstr(StrSubstr(a, b, c), d, e), StrSubstr(a, Add(b, d), e), "substr-of-substr3"),
     Rewrite(StrSubstr(StrSubstr(a, b, c), d, e), StrSubstr(a, Add(b, d), Sub(c, d)), "substr-of-substr4"),
     Rewrite(StrSubstr(Concat(a, b), c, d), StrSubstr(a, c, d), "substr-of-concat3"),
-    Rewrite(StrSubstr(Concat(Concat(a, b), c), d, e), StrSubstr(Concat(b, c), Sub(d, StrLen(a)), e), "substr-of-concat"),
+    Rewrite(StrSubstr(Concat(Concat(a, b), c), d, e), StrSubstr(Concat(b, c), Sub(d, StrLen(a)), e),
+            "substr-of-concat"),
     Rewrite(StrSubstr(a, 0, b), a, "substr-zero-start"),
     Rewrite(StrContains(a, a), TRUE(), "contains-self"),
     Rewrite(StrContains(Concat(Concat(a, b), c), d), TRUE(), "contains-in-concat1"),
-    Rewrite(StrContains(Concat(Concat(a, b), c), d), Or(StrContains(a, d), StrContains(Concat(b, c), d)), "contains-in-concat2"),
+    Rewrite(StrContains(Concat(Concat(a, b), c), d), Or(StrContains(a, d), StrContains(Concat(b, c), d)),
+            "contains-in-concat2"),
     Rewrite(StrContains(a, b), FALSE(), "contains-false"),
     Rewrite(StrContains(a, b), Eq(a, b), "contains-eq"),
     Rewrite(StrContains(a, b), TRUE(), "contains-true"),
@@ -706,15 +723,17 @@ STRING_RULES = [
     # Rewrite(ReIntersect(a, StrToRe(b), c), StrToRe(b), "regexp-inter-single"),
     # Rewrite(ReIntersect(a, StrToRe(b), c), ReNone(), "regexp-inter-false"),
     Rewrite(StrSubstr(Concat(a, b), c, d), StrSubstr(a, c, d), "substr-of-concat2"),
-    Rewrite(StrSubstr(Concat(Concat(a, b), c), 0, d), Concat(a, StrSubstr(Concat(b, c), 0, Sub(d, StrLen(a)))), "substr-zero-start2"),
-    Rewrite(StrSubstr(Concat(Concat(a, b), c), d, e), StrSubstr(Concat(b, c), Sub(d, StrLen(a)), e), "substr-of-concat1"),
+    Rewrite(StrSubstr(Concat(Concat(a, b), c), 0, d), Concat(a, StrSubstr(Concat(b, c), 0, Sub(d, StrLen(a)))),
+            "substr-zero-start2"),
+    Rewrite(StrSubstr(Concat(Concat(a, b), c), d, e), StrSubstr(Concat(b, c), Sub(d, StrLen(a)), e),
+            "substr-of-concat1"),
     # Rewrite(StrLen(StringRev(a)), StrLen(a), "length-of-reverse"),
     # Rewrite(StringRev(StringRev(a)), a, "reverse-of-reverse"),
     # Rewrite(StringRev(Concat(Concat(a, b), c)), StringRev(Concat(a, b)), "reverse-of-concat"),
     # Rewrite(StrLen(SeqUnit(a)), 1, "length-of-sequnit"),
     # Rewrite(SeqNth(SeqUnit(a), 0), a, "seqnth-sequnit"),
     # Rewrite(StringRev(SeqUnit(a)), SeqUnit(a), "reverse-of-sequnit"),
-    ]
+]
 
 STRING_ADDITIONAL_RULES = [
     Rewrite(StrReplace(a, a, b), b, "replace-x-x-y-to-y"),
@@ -733,8 +752,7 @@ STRING_ADDITIONAL_RULES = [
     Rewrite(StrSubstr(EmptyString(), 1, a), EmptyString(), "substr-empty-1-x-to-empty"),
     Rewrite(StrSubstr(EmptyString(), 0, a), EmptyString(), "substr-empty-0-x-to-empty"),
     Rewrite(StrIndexof(a, EmptyString(), 0), 0, "indexof-x-empty-0-to-0"),
-    ]
-
+]
 
 BV_RULES = [
     # Rewrite(BvConcat(a, BvConcat(b, c), d), BvConcat(a, b, c, d), "concat-assoc"),
@@ -795,13 +813,12 @@ BV_RULES = [
     Rewrite(BvNeg(BvSub(a, b)), BvSub(b, a), "bvneg-bvsub"),
     # Rewrite(BvNeg(BvNeg(a)), a, "bvneg-neg"),
     Rewrite(BvSub(a, b), BvAdd(a, BvNeg(b)), "bvsub-to-bvadd-neg"),
-    ]
+]
 
 ALL_RULES = ARITH_RULES + CORE_RULES + STRING_RULES + STRING_ADDITIONAL_RULES + ARITH_ADDITIONAL_RULES + BV_RULES
 
 
 def RewriteEGG(expr: Expr, rule_set: list, orig_sexpr: list, sample_size: int = 1, attempts: int = 10) -> str:
-
     @exit_after(60)
     def RewriteExpr(expr: Expr, rule_set: list, orig_sexpr: list, sample_size: int = 1, attempts: int = 10) -> list:
         random_exprs = []
@@ -837,7 +854,7 @@ def RewriteEGG(expr: Expr, rule_set: list, orig_sexpr: list, sample_size: int = 
                     random_exprs.append(temp_expr)
 
         return random_exprs
-    
+
     try:
         return RewriteExpr(expr, rule_set, orig_sexpr, sample_size, attempts)
     except KeyboardInterrupt:
@@ -847,11 +864,8 @@ def RewriteEGG(expr: Expr, rule_set: list, orig_sexpr: list, sample_size: int = 
         print(e)
         return None
 
-    
 
 def check_similarity(sexprs1: set, sexprs2: set) -> int:
     total_count = len(sexprs1)
     distinct_count = len(sexprs1 - sexprs2)
     return distinct_count / total_count
-
-

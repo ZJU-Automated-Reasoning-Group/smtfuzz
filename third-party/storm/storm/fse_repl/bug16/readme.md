@@ -14,25 +14,26 @@
 <br>
 **Seed file**: `QF_BV/bruttomesso/lfsr/lfsr_004_015_016.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug16 --solver=z3 --seed=1595789292
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_121.smt2`.
+The mutant is
 
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_121.smt2`. 
-The mutant is 
 ```
 sat
 ``` 
 
-But the buggy version of z3 returns: 
+But the buggy version of z3 returns:
+
 ```
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

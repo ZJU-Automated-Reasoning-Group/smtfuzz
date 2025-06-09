@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from genericpath import exists
 import os
 import random
@@ -38,7 +37,8 @@ from src.solver_run.solver import solver_runner
 from src.utils.file_operation import export_smt2
 
 
-def fuzz(skeleton_path, solver1, solver2, solver1_path, solver2_path, timeout, incremental, core, add_option_flag, rules, buggy, temp, argument, mutant=None, tactic=None):
+def fuzz(skeleton_path, solver1, solver2, solver1_path, solver2_path, timeout, incremental, core, add_option_flag,
+         rules, buggy, temp, argument, mutant=None, tactic=None):
     associate_rule = rule(rules)
     skeleton_obj = Skeleton(skeleton_path)
     initial_skeletons = skeleton_obj.skeleton_list
@@ -123,7 +123,7 @@ def fuzz(skeleton_path, solver1, solver2, solver1_path, solver2_path, timeout, i
                             print(str(total_count) + " test instances solved  |  " + str(bug_count) + " bug found")
                         else:
                             print(str(total_count) + " test instances solved  |  " + str(bug_count) + " bugs found")
-                    
+
                 if file_count > 1000:
                     shutil.rmtree(temp_core_dir)
                     file_count = 0
@@ -146,7 +146,8 @@ def fuzz(skeleton_path, solver1, solver2, solver1_path, solver2_path, timeout, i
             dynamic_list = deepcopy(initial_skeletons)
 
 
-def exist_association(abstract_set: set, rules: rule, seed_type_formula: dict, buggy_type_formula: dict) -> list or None:
+def exist_association(abstract_set: set, rules: rule, seed_type_formula: dict,
+                      buggy_type_formula: dict) -> list or None:
     """
     Check for the existence of association between abstract_set and candidate list.
 
@@ -194,7 +195,6 @@ def exist_association(abstract_set: set, rules: rule, seed_type_formula: dict, b
             return candidate_list
 
     return None
-
 
 
 def construct_formula(skeleton, seed_type_expr, seed_expr_type, seed_var, bug_type_formula, bug_formula_typ,
@@ -309,8 +309,6 @@ def variable_translocation(ast, ast_var: dict):
     return ast
 
 
-
-
 def construct_scripts(ast, var_list, sort, func, incremental, argument):
     """
     Construct scripts for SMT solver.
@@ -409,4 +407,3 @@ def collect_sort(file):
             if "declare-sort" in line or "define-sort" in line:
                 sort_list.append(line)
     return sort_list
-

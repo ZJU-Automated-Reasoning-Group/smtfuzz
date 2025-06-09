@@ -15,7 +15,6 @@ current_parent_dir = current_dir.parent.absolute()
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 sys.path.append(str(current_parent_dir))
 
-
 # sys.path.append('..')
 from src.parsing.Parse import parse_file, parse_str
 from src.parsing.Ast import Const, Script, Term, Var, DeclareFun
@@ -26,12 +25,12 @@ def parse_csv(file_path):
     with open(file_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         return [row for row in reader]
-    
 
 
 def random_var_name():
     # return 'var'.join(random.choices(string.digits, k=5))
     return "var" + ''.join(random.choices(string.digits, k=5))
+
 
 class Op(object):
     def __init__(self, return_type, operands):
@@ -43,6 +42,7 @@ class Op(object):
 
     def __str__(self) -> str:
         return self.__repr__()
+
 
 def read_config():
     config = {}
@@ -76,7 +76,7 @@ def read_config():
                             config[tokens[0]].operands.append(tokens[1:-1])
                         else:
                             config[tokens[0]].operands = [config[tokens[0]].operands, tokens[1:-1]]
-                    
+
     with open(str(current_dir) + "/config/ops.txt", "r") as f2:
         for line in f2.readlines():
             if line.startswith(";"):
@@ -108,6 +108,7 @@ def read_config():
             coversions[before][after] = temp[1]
     return config, mutational_ops, coversions
 
+
 op_map, op_mutator, conversions = read_config()
 
 # print(op_map, "\n")
@@ -115,6 +116,7 @@ op_map, op_mutator, conversions = read_config()
 # print(conversions, "\n")
 
 RULES = parse_csv(str(current_parent_dir) + '/res/RewriteRule.csv')
+
 
 def instantiate_rule(rule):
     smt2_str = ""
@@ -133,7 +135,7 @@ def instantiate_rule(rule):
     s, g = parse_str(smt2_str)
     return s, g
 
-    
+
 # check whether a str is a path
 def is_path(path):
     return os.path.isfile(path)
@@ -164,7 +166,6 @@ class Mutate():
                 if len(rule_ids) > 0:
                     self.candidate_rewrites[str(term)] = [term, rule_ids]
 
-
     def _extract_pattern(self):
         for rule in self.rules:
             target_str = rule['Target']
@@ -194,7 +195,6 @@ class Mutate():
                 # assert_var = Var(name=target_str, type=rule['Type'])
                 self.orig_script.append(None)
 
-
     def _collect_terms(self):
         for i in self.script.op_occs:
             self.terms.append(i)
@@ -216,7 +216,7 @@ class Mutate():
     #             if len(temp_list) > 1:
     #                 euqal_subterms.append(temp_list)
     #     return euqal_subterms
-    
+
     def _get_same_subterm(self, term, path=(), all_subterms=None):
         if all_subterms is None:
             all_subterms = []
@@ -243,7 +243,6 @@ class Mutate():
 
             return equal_subterms_indices
 
-
     def _extract_subterm_with_path(self, term, path):
         """
         Extract the subterm of the term using the path
@@ -255,7 +254,8 @@ class Mutate():
         # if not isinstance(current_term, Term) or current_term.subterms is None:
         #     return None
         for index in path:
-            if not isinstance(current_term, Term) or current_term.subterms is None or index >= len(current_term.subterms):
+            if not isinstance(current_term, Term) or current_term.subterms is None or index >= len(
+                    current_term.subterms):
                 return None
             current_term = current_term.subterms[index]
 
@@ -305,13 +305,14 @@ class Mutate():
                             # Since we're comparing subterms across different levels, we use the str() representation as a fallback.
                             if first_subterm != current_subterm or str(first_subterm) != str(current_subterm):
                                 return False
-                
+
                 # Iterate over the subterms of term2
                 for idx, subterm in enumerate(term2.subterms):
                     # If the operation of the subterm is not None
                     if isinstance(subterm, Term) and subterm.op is not None:
                         # If the subterm of term1 and the subterm are not the same
-                        if not isinstance(term1.subterms[idx], Term) or not self._compare_term(term1.subterms[idx], subterm):
+                        if not isinstance(term1.subterms[idx], Term) or not self._compare_term(term1.subterms[idx],
+                                                                                               subterm):
                             return False
                     else:
                         # If the operation of the subterm of term1 is not None
@@ -319,13 +320,16 @@ class Mutate():
                             return False
                         if isinstance(term1.subterms[idx], Term) and isinstance(subterm, Term):
                             # If the operation of the subterm of term1 is not the same as the type of the subterm
-                            if term1.subterms[idx].is_const != subterm.is_const or judge_type(term1.subterms[idx], self.globs) != subterm.type:
+                            if term1.subterms[idx].is_const != subterm.is_const or judge_type(term1.subterms[idx],
+                                                                                              self.globs) != subterm.type:
                                 return False
                             # If the subterm of term1 is a constant
-                            if term1.subterms[idx].is_const and term1.subterms[idx].name != subterm.name and subterm.name != "c":
+                            if term1.subterms[idx].is_const and term1.subterms[
+                                idx].name != subterm.name and subterm.name != "c":
                                 return False
                             # If the type of the subterm of term1 is not the same as the type of the subterm
-                            if not term1.subterms[idx].is_const and judge_type(term1.subterms[idx], self.globs) != subterm.type:
+                            if not term1.subterms[idx].is_const and judge_type(term1.subterms[idx],
+                                                                               self.globs) != subterm.type:
                                 return False
                         else:
                             # If one is constant and the other is not
@@ -369,7 +373,7 @@ class Mutate():
                     if eq_symbol:
                         rule_ids.append(idx)
         return tuple(rule_ids)
-    
+
     def mutate_term(self, term, rule_id):
         """
         Mutate the term according to the rewrite rule
@@ -488,8 +492,10 @@ class Mutate():
             # Assert that the operator of the current format is not None and the number of subterms match
             # assert current_format.op is not None and len(current_format.subterms) == len(term.subterms)
             if current_format.op is not None and len(current_format.subterms) == len(term.subterms):
-                if len(current_format.subterms) == 1 and current_format.subterms[0].op is not None and term.subterms[0].op is not None:
-                    if current_format.subterms[0].op is not None and len(current_format.subterms[0].subterms) == len(term.subterms[0].subterms):
+                if len(current_format.subterms) == 1 and current_format.subterms[0].op is not None and term.subterms[
+                    0].op is not None:
+                    if current_format.subterms[0].op is not None and len(current_format.subterms[0].subterms) == len(
+                            term.subterms[0].subterms):
                         # Loop through the subterms of the current format
                         for idx, subterm in enumerate(current_format.subterms[0].subterms):
                             # Substitute the old subterm with the new one in the new term
@@ -511,7 +517,7 @@ class Mutate():
                             continue
                         # Substitute the old term with the new one in the term of the assert command
                         assert_cmd.term.substitute_specific_num(term, new_term, random.randint(1, 3))
-                    
+
             elif current_format.op is None and term.op is None:
                 # If the current format and the term are both constants, substitute the current format with the term
                 new_term.substitute(current_format, term)
@@ -525,8 +531,8 @@ class Mutate():
             # assert new_term_str not in str(self.script)
         # Return the script
         return self.script
-    
-        
+
+
 def convert(term, orig, target):
     def random_op(candidates):
         # Split the candidates if multiple options are available, and choose one randomly
@@ -546,7 +552,7 @@ def convert(term, orig, target):
                 # Choose a random operation if multiple options are available
                 op_seq = [random_op(op) for op in ops]
         return op_seq
-    
+
     if orig != target:
         ops = select_op_seq(orig, target)
         if ops:
@@ -564,7 +570,6 @@ def convert(term, orig, target):
             return term
         else:
             return False
-
 
 
 def is_number(s):
@@ -589,6 +594,7 @@ def is_number(s):
     # If all the above checks fail, the string is not a number
     return False
 
+
 def judge_type(term, glob_vars):
     def get_type(term):
         if isinstance(term, Term):
@@ -599,7 +605,8 @@ def judge_type(term, glob_vars):
                         return "Unknown"
                     else:
                         type_map = {"Int": "Int", "Real": "Real", "Bool": "Bool", "String": "String", "RegEx": "RegEx"}
-                        return type_map.get(op_map_value.return_type) if op_map_value.return_type in type_map.keys() else "Unknown"
+                        return type_map.get(
+                            op_map_value.return_type) if op_map_value.return_type in type_map.keys() else "Unknown"
                 else:
                     return "Unknown"
 
@@ -619,7 +626,6 @@ def judge_type(term, glob_vars):
         else:
             return "Unknown"
 
-    
     # if op is not None:
     if isinstance(term, Term) and term.op is not None:
         op = term.op
@@ -639,15 +645,16 @@ def judge_type(term, glob_vars):
                             return subterm_type
                         else:
                             if subterm.subterms:
-                                check_list += subterm.subterms                        
-                # if judge_type(term.subterms[0], glob_vars) == "Int":
+                                check_list += subterm.subterms
+                                # if judge_type(term.subterms[0], glob_vars) == "Int":
                 #     return "Int"
                 # elif judge_type(term.subterms[0], glob_vars) == "Real":
                 #     return "Real"
                 return "Unknown"
             else:
                 type_map = {"Int": "Int", "Real": "Real", "Bool": "Bool", "String": "String", "RegEx": "RegEx"}
-                return type_map.get(op_map_value.return_type) if op_map_value.return_type in type_map.keys() else "Unknown"
+                return type_map.get(
+                    op_map_value.return_type) if op_map_value.return_type in type_map.keys() else "Unknown"
     else:
         if term.is_var:
             return term.type
@@ -662,9 +669,6 @@ def judge_type(term, glob_vars):
                 return "String"
         else:
             return "Unknown"
-
-            
-
 
 
 def mimetic_mutation(smt_file, new_path):
@@ -689,23 +693,27 @@ def mimetic_mutation(smt_file, new_path):
             with open(new_path, "w") as f:
                 f.write(new_script_str)
             return modified_term
-        
+
         return False
     except Exception as e:
         return False
 
+
 def get_terms_from_script(script):
     return script.op_occs + script.free_var_occs
+
 
 def get_random_pattern():
     patterns = [rule['Target'] for rule in RULES]
     return random.choice(patterns)
+
 
 def get_random_term(terms):
     random_term = random.choice(terms)
     # while str(random_term) != "NEW_DGNode_769":
     #     random_term = random.choice(terms)
     return random_term
+
 
 def perform_mutation(orig_term, mimetic_pattern, script, globs):
     orig_term_sort = judge_type(orig_term, globs)
@@ -729,7 +737,8 @@ def perform_mutation(orig_term, mimetic_pattern, script, globs):
         if mimetic_pattern.startswith(":"):
             mimetic_term = Const("\"\"", type="String")
         else:
-            mimetic_term = Const(mimetic_pattern.split(":")[0], type=mimetic_pattern.split(":")[1].replace("_Const", ""))
+            mimetic_term = Const(mimetic_pattern.split(":")[0],
+                                 type=mimetic_pattern.split(":")[1].replace("_Const", ""))
 
     mimetic_term_sort = judge_type(mimetic_term, globs)
     if mimetic_term_sort != "Unknown" and orig_term_sort != "Unknown" and mimetic_term_sort != orig_term_sort:
@@ -740,6 +749,7 @@ def perform_mutation(orig_term, mimetic_pattern, script, globs):
         for assert_cmd in script.assert_cmd:
             assert_cmd.term.substitute_specific_num(orig_term, mimetic_term, random.randint(1, 3))
     return mimetic_term
+
 
 def perform_variable_mutation(orig_term, mimetic_vars, mimetic_term, globs):
     for var in mimetic_vars.keys():
@@ -756,9 +766,9 @@ def perform_variable_mutation(orig_term, mimetic_vars, mimetic_term, globs):
         if new_term != replacee:
             mimetic_term.substitute(replacee, new_term)
 
+
 def get_random_subterm(orig_term):
     if orig_term.subterms:
         return random.choice(orig_term.subterms)
     else:
         return orig_term
-

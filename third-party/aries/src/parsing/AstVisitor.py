@@ -88,7 +88,7 @@ class AstVisitor(SMTLIBv2Visitor):
                 output_sort = self.sorts[output_sort]
             self.global_vars[identifier] = sort2type(output_sort)
         else:
-            self.global_vars[identifier] =\
+            self.global_vars[identifier] = \
                 sort2type(input_sorts + " " + output_sort)
 
     def handleCommand(self, ctx: SMTLIBv2Parser.CommandContext):
@@ -231,11 +231,11 @@ class AstVisitor(SMTLIBv2Visitor):
 
     def visitSorted_var(self, ctx: SMTLIBv2Parser.Sorted_varContext):
         return (
-            "("
-            + self.visitSymbol(ctx.symbol())
-            + " "
-            + self.visitSort(ctx.sort())
-            + ")"
+                "("
+                + self.visitSymbol(ctx.symbol())
+                + " "
+                + self.visitSort(ctx.sort())
+                + ")"
         )
 
     def getString(self, ctx):
@@ -334,11 +334,11 @@ class AstVisitor(SMTLIBv2Visitor):
         """
 
         if (
-            ctx.ParOpen()
-            and ctx.GRW_Exclamation()
-            and ctx.term()
-            and len(ctx.attribute()) >= 1
-            and ctx.ParClose()
+                ctx.ParOpen()
+                and ctx.GRW_Exclamation()
+                and ctx.term()
+                and len(ctx.attribute()) >= 1
+                and ctx.ParClose()
         ):
             term, label = self.visitTerm(ctx.term()[0]), self.visitAttribute(
                 ctx.attribute()[0]
@@ -346,10 +346,10 @@ class AstVisitor(SMTLIBv2Visitor):
             return LabeledTerm(label, [term])
 
         if (
-            len(ctx.ParOpen()) == 2
-            and ctx.GRW_Match()
-            and ctx.term()
-            and len(ctx.match_case()) >= 1
+                len(ctx.ParOpen()) == 2
+                and ctx.GRW_Match()
+                and ctx.term()
+                and len(ctx.match_case()) >= 1
         ):
             raise AstException(
                 "ParOpen GRW_Match term ParOpen match_case+ ParClose ParClose"
@@ -366,31 +366,29 @@ class AstVisitor(SMTLIBv2Visitor):
             return Const(name="(_ bv" + bitwidth + " " + value + ")")
 
         if (
-            len(ctx.ParOpen()) == 2
-            and ctx.GRW_Exists()
-            and len(ctx.sorted_var()) >= 1
-            and len(ctx.ParClose()) == 2
-            and ctx.term()
+                len(ctx.ParOpen()) == 2
+                and ctx.GRW_Exists()
+                and len(ctx.sorted_var()) >= 1
+                and len(ctx.ParClose()) == 2
+                and ctx.term()
         ):
-
             return self.handle_quantifier(ctx, "exists", local_vars)
 
         if (
-            len(ctx.ParOpen()) == 2
-            and ctx.GRW_Forall()
-            and len(ctx.sorted_var()) >= 1
-            and len(ctx.ParClose()) == 2
-            and ctx.term()
+                len(ctx.ParOpen()) == 2
+                and ctx.GRW_Forall()
+                and len(ctx.sorted_var()) >= 1
+                and len(ctx.ParClose()) == 2
+                and ctx.term()
         ):
-
             return self.handle_quantifier(ctx, "forall", local_vars)
 
         if (
-            len(ctx.ParOpen()) == 2
-            and ctx.GRW_Let()
-            and ctx.var_binding()
-            and len(ctx.ParClose()) == 2
-            and ctx.term()
+                len(ctx.ParOpen()) == 2
+                and ctx.GRW_Let()
+                and ctx.var_binding()
+                and len(ctx.ParClose()) == 2
+                and ctx.term()
         ):
 
             terms = []
@@ -405,10 +403,10 @@ class AstVisitor(SMTLIBv2Visitor):
             return LetBinding(var_list, terms, subterms=subterms)
 
         if (
-            ctx.ParOpen()
-            and ctx.qual_identifier()
-            and len(ctx.term()) >= 1
-            and ctx.ParClose()
+                ctx.ParOpen()
+                and ctx.qual_identifier()
+                and len(ctx.term()) >= 1
+                and ctx.ParClose()
         ):
 
             op = self.visitQual_identifier(ctx.qual_identifier(), local_vars)
@@ -427,7 +425,7 @@ class AstVisitor(SMTLIBv2Visitor):
         raise AstException("No match for term : ... |... |... ")
 
     def visitQual_identifier(
-        self, ctx: SMTLIBv2Parser.Qual_identifierContext, local_vars
+            self, ctx: SMTLIBv2Parser.Qual_identifierContext, local_vars
     ):
         """
         qual_identifier
@@ -437,11 +435,11 @@ class AstVisitor(SMTLIBv2Visitor):
         """
 
         if (
-            ctx.ParOpen()
-            and ctx.GRW_As()
-            and ctx.identifier()
-            and ctx.sort()
-            and ctx.ParClose()
+                ctx.ParOpen()
+                and ctx.GRW_As()
+                and ctx.identifier()
+                and ctx.sort()
+                and ctx.ParClose()
         ):
             raise AstException("ParOpen GRW_As identifier sort ParClose")
 
@@ -482,11 +480,11 @@ class AstVisitor(SMTLIBv2Visitor):
         """
 
         if (
-            ctx.ParOpen()
-            and ctx.GRW_Underscore()
-            and ctx.symbol()
-            and len(ctx.index()) >= 1
-            and ctx.ParClose()
+                ctx.ParOpen()
+                and ctx.GRW_Underscore()
+                and ctx.symbol()
+                and len(ctx.index()) >= 1
+                and ctx.ParClose()
         ):
             symbol = self.visitSymbol(ctx.symbol())
             index = ctx.index()[0].getText()

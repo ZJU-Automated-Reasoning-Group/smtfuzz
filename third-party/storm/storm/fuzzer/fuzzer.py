@@ -23,7 +23,6 @@ from z3 import *
 
 
 def generate_mutants(smt_Object, path_to_directory, maxDepth, maxAssert, seed, theory, fuzzing_parameters):
-
     def generate_mutants_in_a_thread(smt_Object, path_to_directory, seed, theory, fuzzing_parameters):
         # We have to create a new randomness object here
         randomness = Randomness(seed)
@@ -31,9 +30,12 @@ def generate_mutants(smt_Object, path_to_directory, maxDepth, maxAssert, seed, t
         print("####### Generating mutants at location: " + colored(path_to_directory, "blue", attrs=["bold"]))
         get_all_truth_values_in_astVector(smt_Object, maxDepth, maxAssert)
         print("####### Some stats: ")
-        print("\t\tNumber of assertions = " + colored(str(smt_Object.get_total_number_of_assertions()), "yellow", attrs=["bold"]))
-        print("\t\tNumber of " + colored("TRUE ", "green", attrs=["bold"]) + "nodes = " + colored(str(len(smt_Object.get_true_nodes())), "yellow", attrs=["bold"]))
-        print("\t\tNumber of " + colored("FALSE ", "red", attrs=["bold"]) + "nodes = " + colored(str(len(smt_Object.get_false_nodes())), "yellow", attrs=["bold"]))
+        print("\t\tNumber of assertions = " + colored(str(smt_Object.get_total_number_of_assertions()), "yellow",
+                                                      attrs=["bold"]))
+        print("\t\tNumber of " + colored("TRUE ", "green", attrs=["bold"]) + "nodes = " + colored(
+            str(len(smt_Object.get_true_nodes())), "yellow", attrs=["bold"]))
+        print("\t\tNumber of " + colored("FALSE ", "red", attrs=["bold"]) + "nodes = " + colored(
+            str(len(smt_Object.get_false_nodes())), "yellow", attrs=["bold"]))
         # Check if there is anything in the true and false nodes in smt_Object
         if len(smt_Object.get_true_nodes()) > 0 or len(smt_Object.get_false_nodes()) > 0:
             enrichment_steps = fuzzing_parameters["enrichment_steps"]
@@ -44,11 +46,13 @@ def generate_mutants(smt_Object, path_to_directory, maxDepth, maxAssert, seed, t
             print("\t\tMax Depth = " + colored(str(maxDepth), "yellow", attrs=["bold"]))
             print("####### Enriching the set of true and false nodes with more complex trees..")
             enrich_true_and_false_nodes(smt_Object, enrichment_steps, randomness, maxDepth)
-            print("\t\tNumber of " + colored("CONSTRUCTED_TRUE ", "green", attrs=["bold"]) + "nodes = " + colored(str(len(smt_Object.get_true_constructed_nodes())), "yellow", attrs=["bold"]))
-            print("\t\tNumber of " + colored("CONSTRUCTED_FALSE ", "red", attrs=["bold"]) + "nodes = " + colored(str(len(smt_Object.get_false_constructed_nodes())), "yellow", attrs=["bold"]))
+            print("\t\tNumber of " + colored("CONSTRUCTED_TRUE ", "green", attrs=["bold"]) + "nodes = " + colored(
+                str(len(smt_Object.get_true_constructed_nodes())), "yellow", attrs=["bold"]))
+            print("\t\tNumber of " + colored("CONSTRUCTED_FALSE ", "red", attrs=["bold"]) + "nodes = " + colored(
+                str(len(smt_Object.get_false_constructed_nodes())), "yellow", attrs=["bold"]))
 
             print("####### Generating the mutants by picking true and false nodes..")
-            mutants = pick_true_and_false_nodes_at_random(smt_object = smt_Object,
+            mutants = pick_true_and_false_nodes_at_random(smt_object=smt_Object,
                                                           number_of_mutants=number_of_mutants,
                                                           max_assertions=maxAssert,
                                                           randomness=randomness)
@@ -57,7 +61,6 @@ def generate_mutants(smt_Object, path_to_directory, maxDepth, maxAssert, seed, t
             print("####### Done with exporting")
         else:
             print(colored("Nothing in TRUE or FALSE node. Nothing we can do here.", "red", attrs=["bold"]))
-
 
     process = multiprocessing.Process(target=generate_mutants_in_a_thread, args=(smt_Object,
                                                                                  path_to_directory,
@@ -121,7 +124,6 @@ def get_all_truth_values_in_astVector(smt_Object, maxDepth, maxAssert):
             smt_Object.append_true_node(node)
         if model.eval(node, model_completion=True) == False:
             smt_Object.append_false_node(node)
-
 
         """
         print(colored("TRUE NODES", "green"))

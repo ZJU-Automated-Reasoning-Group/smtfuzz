@@ -14,18 +14,16 @@
 <br>
 **Seed file**: `QF_S/amazon/z3-regex-1-graft-rotate-fuzz.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug11 --seed=1595648319
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_11.smt2`.
+The mutant is
 
-
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_11.smt2`. 
-The mutant is 
 ```
 sat
 sat
@@ -61,7 +59,8 @@ sat
 sat
 ``` 
 
-But the buggy version of z3str3 returns: 
+But the buggy version of z3str3 returns:
+
 ```
 sat
 sat
@@ -97,6 +96,7 @@ unsat
 unsat
 
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

@@ -14,14 +14,13 @@
 <br>
 **Seed file**: `QF_UF/QG-classification/loops6/gensys_brn029.smt2`
 
-
 ### Storm command
- 
+
 ```
 storm --reproduce=bug1 --seed=1595526152
 ```
 
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_472.smt2`. 
-Both the seed file and the mutant is `sat` but the buggy version of yices returns `unsat` on the mutant. 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_472.smt2`.
+Both the seed file and the mutant is `sat` but the buggy version of yices returns `unsat` on the mutant.
 You can verify this by running this file with the buggy version of yices. 

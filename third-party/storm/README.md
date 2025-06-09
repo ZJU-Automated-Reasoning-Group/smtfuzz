@@ -4,6 +4,7 @@
 ![Python package](https://github.com/Practical-Formal-Methods/storm/workflows/Python%20package/badge.svg)
 
 ## Installation:
+
 ```
 git clone https://github.com/Practical-Formal-Methods/storm
 virtualenv --python=/usr/bin/python3.7 venv
@@ -31,14 +32,16 @@ storm --benchmark=[PATH TO SEED FILES] --solverbin=[PATH TO SOLVER BIN] --solver
 ```
 
 To obtain a smaller SMT instance that revealed a refutational soundness bug in an SMT solver, use:
+
 ```
 storm --min --file_path=[PATH TO SMT INSTANCE] --solver=[SOLVER NAME] --solverbin=[PATH TO SOLVER BIN] --theory=[THEORY NAME] 
 ```
+
 If the SMT instance is in incremental mode, use `--incremental` flag.
 
-
 ## Soundness bugs detected so far:
-STORM has detected many unique and previously unknown "refutational soundness" bugs in 
+
+STORM has detected many unique and previously unknown "refutational soundness" bugs in
 multiple mature SMT solvers. Here is a list of issues we filed on public bug tracking systems
 for various SMT solvers.
 
@@ -73,8 +76,9 @@ https://github.com/Z3Prover/z3/issues/3822 `[z3]` `[BV]` <br>
 https://github.com/Z3Prover/z3/issues/3948 `[z3]` `[AUFDTLIA]` <br>
 https://github.com/Z3Prover/z3/issues/3949 `[z3]` `[QF_UFLRA]` <br>
 https://github.com/Z3Prover/z3/issues/4590 `[z3str3]` `[QF_S]` <br>
-https://github.com/SRI-CSL/yices2/issues/280 `[yices]` `[QF_NRA]` 
- 
+https://github.com/SRI-CSL/yices2/issues/280 `[yices]` `[QF_NRA]`
+
 ## Reproducing bugs used in the evaluation section of our ESEC/FSE 2020 paper:
-Please follow the instructions 
+
+Please follow the instructions
 [here](https://github.com/Practical-Formal-Methods/storm/tree/master/storm/fse_repl).

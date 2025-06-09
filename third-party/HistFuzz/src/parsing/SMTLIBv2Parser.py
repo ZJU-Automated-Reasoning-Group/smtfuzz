@@ -707,7 +707,6 @@ def serializedATN():
 
 
 class SMTLIBv2Parser(Parser):
-
     grammarFileName = "SMTLIBv2.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
@@ -1399,7 +1398,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -1443,7 +1442,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -1487,7 +1486,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -1551,27 +1550,27 @@ class SMTLIBv2Parser(Parser):
             self.state = 248
             _la = self._input.LA(1)
             if not (
-                (
-                    (((_la - 80)) & ~0x3F) == 0
-                    and (
-                        (1 << (_la - 80))
-                        & (
-                            (1 << (SMTLIBv2Parser.GRW_Exclamation - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Underscore - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_As - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Binary - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Decimal - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Exists - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Hexadecimal - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Forall - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Let - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Match - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Numeral - 80))
-                            | (1 << (SMTLIBv2Parser.GRW_Par - 80))
-                        )
+                    (
+                            (((_la - 80)) & ~0x3F) == 0
+                            and (
+                                    (1 << (_la - 80))
+                                    & (
+                                            (1 << (SMTLIBv2Parser.GRW_Exclamation - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Underscore - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_As - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Binary - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Decimal - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Exists - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Hexadecimal - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Forall - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Let - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Match - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Numeral - 80))
+                                            | (1 << (SMTLIBv2Parser.GRW_Par - 80))
+                                    )
+                            )
+                            != 0
                     )
-                    != 0
-                )
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -1589,7 +1588,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -1663,7 +1662,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -1702,7 +1701,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -1782,33 +1781,33 @@ class SMTLIBv2Parser(Parser):
             self.state = 256
             _la = self._input.LA(1)
             if not (
-                (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.PS_Not)
-                            | (1 << SMTLIBv2Parser.PS_Bool)
-                            | (1 << SMTLIBv2Parser.PS_Int)
-                            | (1 << SMTLIBv2Parser.PS_Real)
-                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                            | (1 << SMTLIBv2Parser.PS_Error)
-                            | (1 << SMTLIBv2Parser.PS_False)
-                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                            | (1 << SMTLIBv2Parser.PS_Incomplete)
-                            | (1 << SMTLIBv2Parser.PS_Logic)
-                            | (1 << SMTLIBv2Parser.PS_Memout)
-                            | (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Success)
-                            | (1 << SMTLIBv2Parser.PS_Theory)
-                            | (1 << SMTLIBv2Parser.PS_True)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsupported)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
-                        )
+                    (
+                            ((_la) & ~0x3F) == 0
+                            and (
+                                    (1 << _la)
+                                    & (
+                                            (1 << SMTLIBv2Parser.PS_Not)
+                                            | (1 << SMTLIBv2Parser.PS_Bool)
+                                            | (1 << SMTLIBv2Parser.PS_Int)
+                                            | (1 << SMTLIBv2Parser.PS_Real)
+                                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                            | (1 << SMTLIBv2Parser.PS_Error)
+                                            | (1 << SMTLIBv2Parser.PS_False)
+                                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                            | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                            | (1 << SMTLIBv2Parser.PS_Logic)
+                                            | (1 << SMTLIBv2Parser.PS_Memout)
+                                            | (1 << SMTLIBv2Parser.PS_Sat)
+                                            | (1 << SMTLIBv2Parser.PS_Success)
+                                            | (1 << SMTLIBv2Parser.PS_Theory)
+                                            | (1 << SMTLIBv2Parser.PS_True)
+                                            | (1 << SMTLIBv2Parser.PS_Unknown)
+                                            | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                                    )
+                            )
+                            != 0
                     )
-                    != 0
-                )
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -1826,7 +1825,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -1975,56 +1974,56 @@ class SMTLIBv2Parser(Parser):
             self.state = 258
             _la = self._input.LA(1)
             if not (
-                (
-                    (((_la - 97)) & ~0x3F) == 0
-                    and (
-                        (1 << (_la - 97))
-                        & (
-                            (1 << (SMTLIBv2Parser.PK_AllStatistics - 97))
-                            | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Authors - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Category - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Chainable - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Definition - 97))
-                            | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Extension - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Funs - 97))
-                            | (1 << (SMTLIBv2Parser.PK_FunsDescription - 97))
-                            | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 97))
-                            | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Language - 97))
-                            | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 97))
-                            | (1 << (SMTLIBv2Parser.PK_License - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Named - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Name - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Notes - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Pattern - 97))
-                            | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceModels - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 97))
-                            | (1 << (SMTLIBv2Parser.PK_RandomSeed - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 97))
-                            | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 97))
-                            | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 97))
-                            | (1 << (SMTLIBv2Parser.PK_RightAssoc - 97))
-                            | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Sorts - 97))
-                            | (1 << (SMTLIBv2Parser.PK_SortsDescription - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Source - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Status - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Theories - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Values - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Verbosity - 97))
-                            | (1 << (SMTLIBv2Parser.PK_Version - 97))
-                        )
+                    (
+                            (((_la - 97)) & ~0x3F) == 0
+                            and (
+                                    (1 << (_la - 97))
+                                    & (
+                                            (1 << (SMTLIBv2Parser.PK_AllStatistics - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Authors - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Category - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Chainable - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Definition - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Extension - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Funs - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_FunsDescription - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Language - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_License - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Named - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Name - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Notes - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Pattern - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ProduceModels - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_RandomSeed - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_RightAssoc - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Sorts - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_SortsDescription - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Source - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Status - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Theories - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Values - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Verbosity - 97))
+                                            | (1 << (SMTLIBv2Parser.PK_Version - 97))
+                                    )
+                            )
+                            != 0
                     )
-                    != 0
-                )
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -2042,7 +2041,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2117,7 +2116,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2156,7 +2155,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2195,7 +2194,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2234,7 +2233,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2273,7 +2272,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2312,7 +2311,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2351,7 +2350,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2453,7 +2452,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2575,7 +2574,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2647,90 +2646,90 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.ParOpen)
-                            | (1 << SMTLIBv2Parser.String)
-                            | (1 << SMTLIBv2Parser.QuotedSymbol)
-                            | (1 << SMTLIBv2Parser.RegConst)
-                            | (1 << SMTLIBv2Parser.PS_Not)
-                            | (1 << SMTLIBv2Parser.PS_Bool)
-                            | (1 << SMTLIBv2Parser.PS_Int)
-                            | (1 << SMTLIBv2Parser.PS_Real)
-                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                            | (1 << SMTLIBv2Parser.PS_Error)
-                            | (1 << SMTLIBv2Parser.PS_False)
-                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                            | (1 << SMTLIBv2Parser.PS_Incomplete)
-                            | (1 << SMTLIBv2Parser.PS_Logic)
-                            | (1 << SMTLIBv2Parser.PS_Memout)
-                            | (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Success)
-                            | (1 << SMTLIBv2Parser.PS_Theory)
-                            | (1 << SMTLIBv2Parser.PS_True)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsupported)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                        ((_la) & ~0x3F) == 0
+                        and (
+                                (1 << _la)
+                                & (
+                                        (1 << SMTLIBv2Parser.ParOpen)
+                                        | (1 << SMTLIBv2Parser.String)
+                                        | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                        | (1 << SMTLIBv2Parser.RegConst)
+                                        | (1 << SMTLIBv2Parser.PS_Not)
+                                        | (1 << SMTLIBv2Parser.PS_Bool)
+                                        | (1 << SMTLIBv2Parser.PS_Int)
+                                        | (1 << SMTLIBv2Parser.PS_Real)
+                                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                        | (1 << SMTLIBv2Parser.PS_Error)
+                                        | (1 << SMTLIBv2Parser.PS_False)
+                                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                        | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                        | (1 << SMTLIBv2Parser.PS_Logic)
+                                        | (1 << SMTLIBv2Parser.PS_Memout)
+                                        | (1 << SMTLIBv2Parser.PS_Sat)
+                                        | (1 << SMTLIBv2Parser.PS_Success)
+                                        | (1 << SMTLIBv2Parser.PS_Theory)
+                                        | (1 << SMTLIBv2Parser.PS_True)
+                                        | (1 << SMTLIBv2Parser.PS_Unknown)
+                                        | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ) or (
-                    (((_la - 92)) & ~0x3F) == 0
-                    and (
-                        (1 << (_la - 92))
-                        & (
-                            (1 << (SMTLIBv2Parser.Numeral - 92))
-                            | (1 << (SMTLIBv2Parser.Binary - 92))
-                            | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                            | (1 << (SMTLIBv2Parser.Decimal - 92))
-                            | (1 << (SMTLIBv2Parser.Colon - 92))
-                            | (1 << (SMTLIBv2Parser.PK_AllStatistics - 92))
-                            | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Authors - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Category - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Chainable - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Definition - 92))
-                            | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Extension - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Funs - 92))
-                            | (1 << (SMTLIBv2Parser.PK_FunsDescription - 92))
-                            | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 92))
-                            | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Language - 92))
-                            | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 92))
-                            | (1 << (SMTLIBv2Parser.PK_License - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Named - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Name - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Notes - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Pattern - 92))
-                            | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceModels - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 92))
-                            | (1 << (SMTLIBv2Parser.PK_RandomSeed - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 92))
-                            | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 92))
-                            | (1 << (SMTLIBv2Parser.PK_RightAssoc - 92))
-                            | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Sorts - 92))
-                            | (1 << (SMTLIBv2Parser.PK_SortsDescription - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Source - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Status - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Theories - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Values - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Verbosity - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Version - 92))
-                            | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                        (((_la - 92)) & ~0x3F) == 0
+                        and (
+                                (1 << (_la - 92))
+                                & (
+                                        (1 << (SMTLIBv2Parser.Numeral - 92))
+                                        | (1 << (SMTLIBv2Parser.Binary - 92))
+                                        | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                        | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                        | (1 << (SMTLIBv2Parser.Colon - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Authors - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Category - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Chainable - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Definition - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Extension - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Funs - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Language - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_License - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Named - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Name - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Notes - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Pattern - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Sorts - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Source - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Status - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Theories - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Values - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Version - 92))
+                                        | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ):
                     self.state = 301
                     self.s_expr()
@@ -2754,7 +2753,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2830,7 +2829,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -2917,36 +2916,36 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.Numeral
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.Numeral
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -2968,7 +2967,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3031,90 +3030,90 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.ParOpen)
-                            | (1 << SMTLIBv2Parser.String)
-                            | (1 << SMTLIBv2Parser.QuotedSymbol)
-                            | (1 << SMTLIBv2Parser.RegConst)
-                            | (1 << SMTLIBv2Parser.PS_Not)
-                            | (1 << SMTLIBv2Parser.PS_Bool)
-                            | (1 << SMTLIBv2Parser.PS_Int)
-                            | (1 << SMTLIBv2Parser.PS_Real)
-                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                            | (1 << SMTLIBv2Parser.PS_Error)
-                            | (1 << SMTLIBv2Parser.PS_False)
-                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                            | (1 << SMTLIBv2Parser.PS_Incomplete)
-                            | (1 << SMTLIBv2Parser.PS_Logic)
-                            | (1 << SMTLIBv2Parser.PS_Memout)
-                            | (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Success)
-                            | (1 << SMTLIBv2Parser.PS_Theory)
-                            | (1 << SMTLIBv2Parser.PS_True)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsupported)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                        ((_la) & ~0x3F) == 0
+                        and (
+                                (1 << _la)
+                                & (
+                                        (1 << SMTLIBv2Parser.ParOpen)
+                                        | (1 << SMTLIBv2Parser.String)
+                                        | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                        | (1 << SMTLIBv2Parser.RegConst)
+                                        | (1 << SMTLIBv2Parser.PS_Not)
+                                        | (1 << SMTLIBv2Parser.PS_Bool)
+                                        | (1 << SMTLIBv2Parser.PS_Int)
+                                        | (1 << SMTLIBv2Parser.PS_Real)
+                                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                        | (1 << SMTLIBv2Parser.PS_Error)
+                                        | (1 << SMTLIBv2Parser.PS_False)
+                                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                        | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                        | (1 << SMTLIBv2Parser.PS_Logic)
+                                        | (1 << SMTLIBv2Parser.PS_Memout)
+                                        | (1 << SMTLIBv2Parser.PS_Sat)
+                                        | (1 << SMTLIBv2Parser.PS_Success)
+                                        | (1 << SMTLIBv2Parser.PS_Theory)
+                                        | (1 << SMTLIBv2Parser.PS_True)
+                                        | (1 << SMTLIBv2Parser.PS_Unknown)
+                                        | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ) or (
-                    (((_la - 92)) & ~0x3F) == 0
-                    and (
-                        (1 << (_la - 92))
-                        & (
-                            (1 << (SMTLIBv2Parser.Numeral - 92))
-                            | (1 << (SMTLIBv2Parser.Binary - 92))
-                            | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                            | (1 << (SMTLIBv2Parser.Decimal - 92))
-                            | (1 << (SMTLIBv2Parser.Colon - 92))
-                            | (1 << (SMTLIBv2Parser.PK_AllStatistics - 92))
-                            | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Authors - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Category - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Chainable - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Definition - 92))
-                            | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Extension - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Funs - 92))
-                            | (1 << (SMTLIBv2Parser.PK_FunsDescription - 92))
-                            | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 92))
-                            | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Language - 92))
-                            | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 92))
-                            | (1 << (SMTLIBv2Parser.PK_License - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Named - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Name - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Notes - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Pattern - 92))
-                            | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceModels - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 92))
-                            | (1 << (SMTLIBv2Parser.PK_RandomSeed - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 92))
-                            | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 92))
-                            | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 92))
-                            | (1 << (SMTLIBv2Parser.PK_RightAssoc - 92))
-                            | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Sorts - 92))
-                            | (1 << (SMTLIBv2Parser.PK_SortsDescription - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Source - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Status - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Theories - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Values - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Verbosity - 92))
-                            | (1 << (SMTLIBv2Parser.PK_Version - 92))
-                            | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                        (((_la - 92)) & ~0x3F) == 0
+                        and (
+                                (1 << (_la - 92))
+                                & (
+                                        (1 << (SMTLIBv2Parser.Numeral - 92))
+                                        | (1 << (SMTLIBv2Parser.Binary - 92))
+                                        | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                        | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                        | (1 << (SMTLIBv2Parser.Colon - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Authors - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Category - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Chainable - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Definition - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Extension - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Funs - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Language - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_License - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Named - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Name - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Notes - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Pattern - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Sorts - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Source - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Status - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Theories - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Values - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 92))
+                                        | (1 << (SMTLIBv2Parser.PK_Version - 92))
+                                        | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ):
                     self.state = 330
                     self.s_expr()
@@ -3138,7 +3137,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3194,7 +3193,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3256,36 +3255,36 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -3305,7 +3304,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3376,7 +3375,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3430,7 +3429,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3484,7 +3483,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3563,35 +3562,35 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -3613,7 +3612,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3667,7 +3666,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -3806,51 +3805,51 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.String)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.RegConst)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.String)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.RegConst)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or (
-                            (((_la - 92)) & ~0x3F) == 0
-                            and (
-                                (1 << (_la - 92))
-                                & (
-                                    (1 << (SMTLIBv2Parser.Numeral - 92))
-                                    | (1 << (SMTLIBv2Parser.Binary - 92))
-                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
-                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
-                                )
+                            or (
+                                    (((_la - 92)) & ~0x3F) == 0
+                                    and (
+                                            (1 << (_la - 92))
+                                            & (
+                                                    (1 << (SMTLIBv2Parser.Numeral - 92))
+                                                    | (1 << (SMTLIBv2Parser.Binary - 92))
+                                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
                     ):
                         break
 
@@ -3878,51 +3877,51 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.String)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.RegConst)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.String)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.RegConst)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or (
-                            (((_la - 92)) & ~0x3F) == 0
-                            and (
-                                (1 << (_la - 92))
-                                & (
-                                    (1 << (SMTLIBv2Parser.Numeral - 92))
-                                    | (1 << (SMTLIBv2Parser.Binary - 92))
-                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
-                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
-                                )
+                            or (
+                                    (((_la - 92)) & ~0x3F) == 0
+                                    and (
+                                            (1 << (_la - 92))
+                                            & (
+                                                    (1 << (SMTLIBv2Parser.Numeral - 92))
+                                                    | (1 << (SMTLIBv2Parser.Binary - 92))
+                                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
                     ):
                         break
 
@@ -4062,81 +4061,81 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            (((_la - 96)) & ~0x3F) == 0
-                            and (
-                                (1 << (_la - 96))
-                                & (
-                                    (1 << (SMTLIBv2Parser.Colon - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                                    | (
-                                        1
-                                        << (SMTLIBv2Parser.PK_AssertionStackLevels - 96)
+                            (
+                                    (((_la - 96)) & ~0x3F) == 0
+                                    and (
+                                            (1 << (_la - 96))
+                                            & (
+                                                    (1 << (SMTLIBv2Parser.Colon - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                                    | (
+                                                            1
+                                                            << (SMTLIBv2Parser.PK_AssertionStackLevels - 96)
+                                                    )
+                                                    | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                                    | (
+                                                            1
+                                                            << (
+                                                                    SMTLIBv2Parser.PK_DiagnosticOutputChannel
+                                                                    - 96
+                                                            )
+                                                    )
+                                                    | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                                    | (
+                                                            1
+                                                            << (
+                                                                    SMTLIBv2Parser.PK_ProduceUnsatAssumptions
+                                                                    - 96
+                                                            )
+                                                    )
+                                                    | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                                    | (
+                                                            1
+                                                            << (SMTLIBv2Parser.PK_RegularOutputChannel - 96)
+                                                    )
+                                                    | (
+                                                            1
+                                                            << (
+                                                                    SMTLIBv2Parser.PK_ReproducibleResourceLimit
+                                                                    - 96
+                                                            )
+                                                    )
+                                                    | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                                    | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                                            )
                                     )
-                                    | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                                    | (
-                                        1
-                                        << (
-                                            SMTLIBv2Parser.PK_DiagnosticOutputChannel
-                                            - 96
-                                        )
-                                    )
-                                    | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_License - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                                    | (
-                                        1
-                                        << (
-                                            SMTLIBv2Parser.PK_ProduceUnsatAssumptions
-                                            - 96
-                                        )
-                                    )
-                                    | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                                    | (
-                                        1
-                                        << (SMTLIBv2Parser.PK_RegularOutputChannel - 96)
-                                    )
-                                    | (
-                                        1
-                                        << (
-                                            SMTLIBv2Parser.PK_ReproducibleResourceLimit
-                                            - 96
-                                        )
-                                    )
-                                    | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                                    | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                                )
+                                    != 0
                             )
-                            != 0
-                        )
                     ):
                         break
 
@@ -4156,7 +4155,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -4207,51 +4206,51 @@ class SMTLIBv2Parser(Parser):
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la - 96)) & ~0x3F) == 0 and (
-                (1 << (_la - 96))
-                & (
-                    (1 << (SMTLIBv2Parser.Colon - 96))
-                    | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                    | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                    | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                    | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                    | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                    | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                    | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                    | (1 << (SMTLIBv2Parser.PK_License - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                    | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                    | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                    | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                    | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                    | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                    | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                    | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                    | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                )
+                    (1 << (_la - 96))
+                    & (
+                            (1 << (SMTLIBv2Parser.Colon - 96))
+                            | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                            | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                            | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                            | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                            | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                            | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                            | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                            | (1 << (SMTLIBv2Parser.PK_License - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                            | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                            | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                            | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                            | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                            | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                            | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                            | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                            | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                    )
             ) != 0:
                 self.state = 485
                 self.attribute()
@@ -4273,7 +4272,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -4305,7 +4304,7 @@ class SMTLIBv2Parser(Parser):
             self.state = 493
             _la = self._input.LA(1)
             if not (
-                _la == SMTLIBv2Parser.GRW_Decimal or _la == SMTLIBv2Parser.GRW_Numeral
+                    _la == SMTLIBv2Parser.GRW_Decimal or _la == SMTLIBv2Parser.GRW_Numeral
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -4323,7 +4322,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -4387,51 +4386,51 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la - 96)) & ~0x3F) == 0 and (
-                    (1 << (_la - 96))
-                    & (
-                        (1 << (SMTLIBv2Parser.Colon - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_License - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                    )
+                        (1 << (_la - 96))
+                        & (
+                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                        )
                 ) != 0:
                     self.state = 498
                     self.attribute()
@@ -4455,51 +4454,51 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la - 96)) & ~0x3F) == 0 and (
-                    (1 << (_la - 96))
-                    & (
-                        (1 << (SMTLIBv2Parser.Colon - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_License - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                    )
+                        (1 << (_la - 96))
+                        & (
+                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                        )
                 ) != 0:
                     self.state = 509
                     self.attribute()
@@ -4527,36 +4526,36 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -4564,51 +4563,51 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la - 96)) & ~0x3F) == 0 and (
-                    (1 << (_la - 96))
-                    & (
-                        (1 << (SMTLIBv2Parser.Colon - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_License - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                    )
+                        (1 << (_la - 96))
+                        & (
+                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                        )
                 ) != 0:
                     self.state = 524
                     self.attribute()
@@ -4632,7 +4631,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -4722,35 +4721,35 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -4770,36 +4769,36 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -4807,51 +4806,51 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la - 96)) & ~0x3F) == 0 and (
-                    (1 << (_la - 96))
-                    & (
-                        (1 << (SMTLIBv2Parser.Colon - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_License - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                    )
+                        (1 << (_la - 96))
+                        & (
+                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                        )
                 ) != 0:
                     self.state = 551
                     self.attribute()
@@ -4877,7 +4876,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5055,7 +5054,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5114,68 +5113,68 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (
-                    (
-                        (((_la - 96)) & ~0x3F) == 0
-                        and (
-                            (1 << (_la - 96))
-                            & (
-                                (1 << (SMTLIBv2Parser.Colon - 96))
-                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                                | (
-                                    1
-                                    << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96)
+                        (
+                                (((_la - 96)) & ~0x3F) == 0
+                                and (
+                                        (1 << (_la - 96))
+                                        & (
+                                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                                | (
+                                                        1
+                                                        << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96)
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                                | (
+                                                        1
+                                                        << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96)
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                                | (
+                                                        1
+                                                        << (
+                                                                SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96
+                                                        )
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                                        )
                                 )
-                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                                | (1 << (SMTLIBv2Parser.PK_License - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                                | (
-                                    1
-                                    << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96)
-                                )
-                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                                | (
-                                    1
-                                    << (
-                                        SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96
-                                    )
-                                )
-                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                            )
+                                != 0
                         )
-                        != 0
-                    )
                 ):
                     break
 
@@ -5193,7 +5192,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5267,35 +5266,35 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -5353,7 +5352,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5410,68 +5409,68 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (
-                    (
-                        (((_la - 96)) & ~0x3F) == 0
-                        and (
-                            (1 << (_la - 96))
-                            & (
-                                (1 << (SMTLIBv2Parser.Colon - 96))
-                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                                | (
-                                    1
-                                    << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96)
+                        (
+                                (((_la - 96)) & ~0x3F) == 0
+                                and (
+                                        (1 << (_la - 96))
+                                        & (
+                                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                                | (
+                                                        1
+                                                        << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96)
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                                | (
+                                                        1
+                                                        << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96)
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                                | (
+                                                        1
+                                                        << (
+                                                                SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96
+                                                        )
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                                        )
                                 )
-                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                                | (1 << (SMTLIBv2Parser.PK_License - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                                | (
-                                    1
-                                    << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96)
-                                )
-                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                                | (
-                                    1
-                                    << (
-                                        SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96
-                                    )
-                                )
-                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                            )
+                                != 0
                         )
-                        != 0
-                    )
                 ):
                     break
 
@@ -5489,7 +5488,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5543,7 +5542,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5597,7 +5596,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5663,7 +5662,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5755,35 +5754,35 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -5821,7 +5820,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5902,7 +5901,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -5978,7 +5977,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6066,7 +6065,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6117,7 +6116,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6156,7 +6155,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6195,7 +6194,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6234,7 +6233,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6273,7 +6272,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6314,7 +6313,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6353,7 +6352,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6392,7 +6391,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6431,7 +6430,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6470,7 +6469,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6511,7 +6510,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6552,7 +6551,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6593,7 +6592,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6634,7 +6633,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6673,7 +6672,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6712,7 +6711,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6751,7 +6750,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6790,7 +6789,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6829,7 +6828,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6868,7 +6867,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6907,7 +6906,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6946,7 +6945,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -6985,7 +6984,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7024,7 +7023,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7063,7 +7062,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7102,7 +7101,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7141,7 +7140,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7180,7 +7179,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7219,7 +7218,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7258,7 +7257,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7297,7 +7296,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7336,7 +7335,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7375,7 +7374,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7414,7 +7413,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7455,7 +7454,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7494,7 +7493,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7533,7 +7532,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7572,7 +7571,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7611,7 +7610,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7650,7 +7649,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7689,7 +7688,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7728,7 +7727,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7769,7 +7768,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7808,7 +7807,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7847,7 +7846,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7886,7 +7885,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7925,7 +7924,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -7964,7 +7963,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -8003,7 +8002,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -8042,7 +8041,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -8081,7 +8080,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -8120,7 +8119,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -8159,7 +8158,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -8198,7 +8197,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -8313,51 +8312,51 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if (((_la - 96)) & ~0x3F) == 0 and (
-                    (1 << (_la - 96))
-                    & (
-                        (1 << (SMTLIBv2Parser.Colon - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_License - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                    )
+                        (1 << (_la - 96))
+                        & (
+                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                        )
                 ) != 0:
                     self.state = 831
                     self.attribute()
@@ -8382,37 +8381,37 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                    | (1 << SMTLIBv2Parser.Simplify)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                                    | (1 << SMTLIBv2Parser.Simplify)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -8436,37 +8435,37 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                    | (1 << SMTLIBv2Parser.Simplify)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                                    | (1 << SMTLIBv2Parser.Simplify)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -8542,37 +8541,37 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                    | (1 << SMTLIBv2Parser.Simplify)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                                    | (1 << SMTLIBv2Parser.Simplify)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -8596,37 +8595,37 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                    | (1 << SMTLIBv2Parser.Simplify)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                                    | (1 << SMTLIBv2Parser.Simplify)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -8650,37 +8649,37 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                    | (1 << SMTLIBv2Parser.Simplify)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                                    | (1 << SMTLIBv2Parser.Simplify)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -8753,36 +8752,36 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.String)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.String)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -8802,7 +8801,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -9078,51 +9077,51 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la - 96)) & ~0x3F) == 0 and (
-                    (1 << (_la - 96))
-                    & (
-                        (1 << (SMTLIBv2Parser.Colon - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_License - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                    )
+                        (1 << (_la - 96))
+                        & (
+                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                        )
                 ) != 0:
                     self.state = 928
                     self.attribute()
@@ -9144,48 +9143,48 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.ParOpen)
-                            | (1 << SMTLIBv2Parser.String)
-                            | (1 << SMTLIBv2Parser.QuotedSymbol)
-                            | (1 << SMTLIBv2Parser.RegConst)
-                            | (1 << SMTLIBv2Parser.PS_Not)
-                            | (1 << SMTLIBv2Parser.PS_Bool)
-                            | (1 << SMTLIBv2Parser.PS_Int)
-                            | (1 << SMTLIBv2Parser.PS_Real)
-                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                            | (1 << SMTLIBv2Parser.PS_Error)
-                            | (1 << SMTLIBv2Parser.PS_False)
-                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                            | (1 << SMTLIBv2Parser.PS_Incomplete)
-                            | (1 << SMTLIBv2Parser.PS_Logic)
-                            | (1 << SMTLIBv2Parser.PS_Memout)
-                            | (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Success)
-                            | (1 << SMTLIBv2Parser.PS_Theory)
-                            | (1 << SMTLIBv2Parser.PS_True)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsupported)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                        ((_la) & ~0x3F) == 0
+                        and (
+                                (1 << _la)
+                                & (
+                                        (1 << SMTLIBv2Parser.ParOpen)
+                                        | (1 << SMTLIBv2Parser.String)
+                                        | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                        | (1 << SMTLIBv2Parser.RegConst)
+                                        | (1 << SMTLIBv2Parser.PS_Not)
+                                        | (1 << SMTLIBv2Parser.PS_Bool)
+                                        | (1 << SMTLIBv2Parser.PS_Int)
+                                        | (1 << SMTLIBv2Parser.PS_Real)
+                                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                        | (1 << SMTLIBv2Parser.PS_Error)
+                                        | (1 << SMTLIBv2Parser.PS_False)
+                                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                        | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                        | (1 << SMTLIBv2Parser.PS_Logic)
+                                        | (1 << SMTLIBv2Parser.PS_Memout)
+                                        | (1 << SMTLIBv2Parser.PS_Sat)
+                                        | (1 << SMTLIBv2Parser.PS_Success)
+                                        | (1 << SMTLIBv2Parser.PS_Theory)
+                                        | (1 << SMTLIBv2Parser.PS_True)
+                                        | (1 << SMTLIBv2Parser.PS_Unknown)
+                                        | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ) or (
-                    (((_la - 92)) & ~0x3F) == 0
-                    and (
-                        (1 << (_la - 92))
-                        & (
-                            (1 << (SMTLIBv2Parser.Numeral - 92))
-                            | (1 << (SMTLIBv2Parser.Binary - 92))
-                            | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                            | (1 << (SMTLIBv2Parser.Decimal - 92))
-                            | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                        (((_la - 92)) & ~0x3F) == 0
+                        and (
+                                (1 << (_la - 92))
+                                & (
+                                        (1 << (SMTLIBv2Parser.Numeral - 92))
+                                        | (1 << (SMTLIBv2Parser.Binary - 92))
+                                        | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                        | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                        | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ):
                     self.state = 938
                     self.term()
@@ -9209,48 +9208,48 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.ParOpen)
-                            | (1 << SMTLIBv2Parser.String)
-                            | (1 << SMTLIBv2Parser.QuotedSymbol)
-                            | (1 << SMTLIBv2Parser.RegConst)
-                            | (1 << SMTLIBv2Parser.PS_Not)
-                            | (1 << SMTLIBv2Parser.PS_Bool)
-                            | (1 << SMTLIBv2Parser.PS_Int)
-                            | (1 << SMTLIBv2Parser.PS_Real)
-                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                            | (1 << SMTLIBv2Parser.PS_Error)
-                            | (1 << SMTLIBv2Parser.PS_False)
-                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                            | (1 << SMTLIBv2Parser.PS_Incomplete)
-                            | (1 << SMTLIBv2Parser.PS_Logic)
-                            | (1 << SMTLIBv2Parser.PS_Memout)
-                            | (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Success)
-                            | (1 << SMTLIBv2Parser.PS_Theory)
-                            | (1 << SMTLIBv2Parser.PS_True)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsupported)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                        ((_la) & ~0x3F) == 0
+                        and (
+                                (1 << _la)
+                                & (
+                                        (1 << SMTLIBv2Parser.ParOpen)
+                                        | (1 << SMTLIBv2Parser.String)
+                                        | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                        | (1 << SMTLIBv2Parser.RegConst)
+                                        | (1 << SMTLIBv2Parser.PS_Not)
+                                        | (1 << SMTLIBv2Parser.PS_Bool)
+                                        | (1 << SMTLIBv2Parser.PS_Int)
+                                        | (1 << SMTLIBv2Parser.PS_Real)
+                                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                        | (1 << SMTLIBv2Parser.PS_Error)
+                                        | (1 << SMTLIBv2Parser.PS_False)
+                                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                        | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                        | (1 << SMTLIBv2Parser.PS_Logic)
+                                        | (1 << SMTLIBv2Parser.PS_Memout)
+                                        | (1 << SMTLIBv2Parser.PS_Sat)
+                                        | (1 << SMTLIBv2Parser.PS_Success)
+                                        | (1 << SMTLIBv2Parser.PS_Theory)
+                                        | (1 << SMTLIBv2Parser.PS_True)
+                                        | (1 << SMTLIBv2Parser.PS_Unknown)
+                                        | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ) or (
-                    (((_la - 92)) & ~0x3F) == 0
-                    and (
-                        (1 << (_la - 92))
-                        & (
-                            (1 << (SMTLIBv2Parser.Numeral - 92))
-                            | (1 << (SMTLIBv2Parser.Binary - 92))
-                            | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                            | (1 << (SMTLIBv2Parser.Decimal - 92))
-                            | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                        (((_la - 92)) & ~0x3F) == 0
+                        and (
+                                (1 << (_la - 92))
+                                & (
+                                        (1 << (SMTLIBv2Parser.Numeral - 92))
+                                        | (1 << (SMTLIBv2Parser.Binary - 92))
+                                        | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                        | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                        | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ):
                     self.state = 949
                     self.term()
@@ -9300,51 +9299,51 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la - 96)) & ~0x3F) == 0 and (
-                    (1 << (_la - 96))
-                    & (
-                        (1 << (SMTLIBv2Parser.Colon - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                        | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                        | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                        | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                        | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_License - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                        | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                        | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
-                        | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                        | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                        | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                    )
+                        (1 << (_la - 96))
+                        & (
+                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                | (1 << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                | (1 << (SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96))
+                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                        )
                 ) != 0:
                     self.state = 971
                     self.attribute()
@@ -9500,33 +9499,33 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.ParOpen)
-                            | (1 << SMTLIBv2Parser.QuotedSymbol)
-                            | (1 << SMTLIBv2Parser.PS_Not)
-                            | (1 << SMTLIBv2Parser.PS_Bool)
-                            | (1 << SMTLIBv2Parser.PS_Int)
-                            | (1 << SMTLIBv2Parser.PS_Real)
-                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                            | (1 << SMTLIBv2Parser.PS_Error)
-                            | (1 << SMTLIBv2Parser.PS_False)
-                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                            | (1 << SMTLIBv2Parser.PS_Incomplete)
-                            | (1 << SMTLIBv2Parser.PS_Logic)
-                            | (1 << SMTLIBv2Parser.PS_Memout)
-                            | (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Success)
-                            | (1 << SMTLIBv2Parser.PS_Theory)
-                            | (1 << SMTLIBv2Parser.PS_True)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsupported)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                        ((_la) & ~0x3F) == 0
+                        and (
+                                (1 << _la)
+                                & (
+                                        (1 << SMTLIBv2Parser.ParOpen)
+                                        | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                        | (1 << SMTLIBv2Parser.PS_Not)
+                                        | (1 << SMTLIBv2Parser.PS_Bool)
+                                        | (1 << SMTLIBv2Parser.PS_Int)
+                                        | (1 << SMTLIBv2Parser.PS_Real)
+                                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                        | (1 << SMTLIBv2Parser.PS_Error)
+                                        | (1 << SMTLIBv2Parser.PS_False)
+                                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                        | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                        | (1 << SMTLIBv2Parser.PS_Logic)
+                                        | (1 << SMTLIBv2Parser.PS_Memout)
+                                        | (1 << SMTLIBv2Parser.PS_Sat)
+                                        | (1 << SMTLIBv2Parser.PS_Success)
+                                        | (1 << SMTLIBv2Parser.PS_Theory)
+                                        | (1 << SMTLIBv2Parser.PS_True)
+                                        | (1 << SMTLIBv2Parser.PS_Unknown)
+                                        | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ) or _la == SMTLIBv2Parser.UndefinedSymbol:
                     self.state = 1039
                     self.sort()
@@ -9649,51 +9648,51 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.String)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.RegConst)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.String)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.RegConst)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or (
-                            (((_la - 92)) & ~0x3F) == 0
-                            and (
-                                (1 << (_la - 92))
-                                & (
-                                    (1 << (SMTLIBv2Parser.Numeral - 92))
-                                    | (1 << (SMTLIBv2Parser.Binary - 92))
-                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
-                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
-                                )
+                            or (
+                                    (((_la - 92)) & ~0x3F) == 0
+                                    and (
+                                            (1 << (_la - 92))
+                                            & (
+                                                    (1 << (SMTLIBv2Parser.Numeral - 92))
+                                                    | (1 << (SMTLIBv2Parser.Binary - 92))
+                                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
                     ):
                         break
 
@@ -9729,32 +9728,32 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.QuotedSymbol)
-                            | (1 << SMTLIBv2Parser.PS_Not)
-                            | (1 << SMTLIBv2Parser.PS_Bool)
-                            | (1 << SMTLIBv2Parser.PS_Int)
-                            | (1 << SMTLIBv2Parser.PS_Real)
-                            | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                            | (1 << SMTLIBv2Parser.PS_Error)
-                            | (1 << SMTLIBv2Parser.PS_False)
-                            | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                            | (1 << SMTLIBv2Parser.PS_Incomplete)
-                            | (1 << SMTLIBv2Parser.PS_Logic)
-                            | (1 << SMTLIBv2Parser.PS_Memout)
-                            | (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Success)
-                            | (1 << SMTLIBv2Parser.PS_Theory)
-                            | (1 << SMTLIBv2Parser.PS_True)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsupported)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                        ((_la) & ~0x3F) == 0
+                        and (
+                                (1 << _la)
+                                & (
+                                        (1 << SMTLIBv2Parser.QuotedSymbol)
+                                        | (1 << SMTLIBv2Parser.PS_Not)
+                                        | (1 << SMTLIBv2Parser.PS_Bool)
+                                        | (1 << SMTLIBv2Parser.PS_Int)
+                                        | (1 << SMTLIBv2Parser.PS_Real)
+                                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                        | (1 << SMTLIBv2Parser.PS_Error)
+                                        | (1 << SMTLIBv2Parser.PS_False)
+                                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                        | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                        | (1 << SMTLIBv2Parser.PS_Logic)
+                                        | (1 << SMTLIBv2Parser.PS_Memout)
+                                        | (1 << SMTLIBv2Parser.PS_Sat)
+                                        | (1 << SMTLIBv2Parser.PS_Success)
+                                        | (1 << SMTLIBv2Parser.PS_Theory)
+                                        | (1 << SMTLIBv2Parser.PS_True)
+                                        | (1 << SMTLIBv2Parser.PS_Unknown)
+                                        | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                                )
                         )
-                    )
-                    != 0
+                        != 0
                 ) or _la == SMTLIBv2Parser.UndefinedSymbol:
                     self.state = 1107
                     self.symbol()
@@ -9819,36 +9818,36 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.String)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.String)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or _la == SMTLIBv2Parser.UndefinedSymbol
+                            or _la == SMTLIBv2Parser.UndefinedSymbol
                     ):
                         break
 
@@ -10000,51 +9999,51 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.String)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.RegConst)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.String)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.RegConst)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or (
-                            (((_la - 92)) & ~0x3F) == 0
-                            and (
-                                (1 << (_la - 92))
-                                & (
-                                    (1 << (SMTLIBv2Parser.Numeral - 92))
-                                    | (1 << (SMTLIBv2Parser.Binary - 92))
-                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
-                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
-                                )
+                            or (
+                                    (((_la - 92)) & ~0x3F) == 0
+                                    and (
+                                            (1 << (_la - 92))
+                                            & (
+                                                    (1 << (SMTLIBv2Parser.Numeral - 92))
+                                                    | (1 << (SMTLIBv2Parser.Binary - 92))
+                                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
                     ):
                         break
 
@@ -10200,7 +10199,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -10248,7 +10247,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -10456,7 +10455,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -10564,7 +10563,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -10596,8 +10595,8 @@ class SMTLIBv2Parser(Parser):
             self.state = 1289
             _la = self._input.LA(1)
             if not (
-                _la == SMTLIBv2Parser.PS_ContinuedExecution
-                or _la == SMTLIBv2Parser.PS_ImmediateExit
+                    _la == SMTLIBv2Parser.PS_ContinuedExecution
+                    or _la == SMTLIBv2Parser.PS_ImmediateExit
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -10615,7 +10614,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -10678,7 +10677,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -10797,51 +10796,51 @@ class SMTLIBv2Parser(Parser):
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (
-                        (
-                            ((_la) & ~0x3F) == 0
-                            and (
-                                (1 << _la)
-                                & (
-                                    (1 << SMTLIBv2Parser.ParOpen)
-                                    | (1 << SMTLIBv2Parser.String)
-                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
-                                    | (1 << SMTLIBv2Parser.RegConst)
-                                    | (1 << SMTLIBv2Parser.PS_Not)
-                                    | (1 << SMTLIBv2Parser.PS_Bool)
-                                    | (1 << SMTLIBv2Parser.PS_Int)
-                                    | (1 << SMTLIBv2Parser.PS_Real)
-                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                                    | (1 << SMTLIBv2Parser.PS_Error)
-                                    | (1 << SMTLIBv2Parser.PS_False)
-                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
-                                    | (1 << SMTLIBv2Parser.PS_Logic)
-                                    | (1 << SMTLIBv2Parser.PS_Memout)
-                                    | (1 << SMTLIBv2Parser.PS_Sat)
-                                    | (1 << SMTLIBv2Parser.PS_Success)
-                                    | (1 << SMTLIBv2Parser.PS_Theory)
-                                    | (1 << SMTLIBv2Parser.PS_True)
-                                    | (1 << SMTLIBv2Parser.PS_Unknown)
-                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
-                                    | (1 << SMTLIBv2Parser.PS_Unsat)
-                                )
+                            (
+                                    ((_la) & ~0x3F) == 0
+                                    and (
+                                            (1 << _la)
+                                            & (
+                                                    (1 << SMTLIBv2Parser.ParOpen)
+                                                    | (1 << SMTLIBv2Parser.String)
+                                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                                    | (1 << SMTLIBv2Parser.RegConst)
+                                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                                    | (1 << SMTLIBv2Parser.PS_False)
+                                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                                    | (1 << SMTLIBv2Parser.PS_True)
+                                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
-                        or (
-                            (((_la - 92)) & ~0x3F) == 0
-                            and (
-                                (1 << (_la - 92))
-                                & (
-                                    (1 << (SMTLIBv2Parser.Numeral - 92))
-                                    | (1 << (SMTLIBv2Parser.Binary - 92))
-                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
-                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
-                                )
+                            or (
+                                    (((_la - 92)) & ~0x3F) == 0
+                                    and (
+                                            (1 << (_la - 92))
+                                            & (
+                                                    (1 << (SMTLIBv2Parser.Numeral - 92))
+                                                    | (1 << (SMTLIBv2Parser.Binary - 92))
+                                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                                            )
+                                    )
+                                    != 0
                             )
-                            != 0
-                        )
                     ):
                         break
 
@@ -10863,7 +10862,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -10986,7 +10985,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11040,7 +11039,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11094,7 +11093,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11129,18 +11128,18 @@ class SMTLIBv2Parser(Parser):
             self.state = 1351
             _la = self._input.LA(1)
             if not (
-                (
-                    ((_la) & ~0x3F) == 0
-                    and (
-                        (1 << _la)
-                        & (
-                            (1 << SMTLIBv2Parser.PS_Sat)
-                            | (1 << SMTLIBv2Parser.PS_Unknown)
-                            | (1 << SMTLIBv2Parser.PS_Unsat)
-                        )
+                    (
+                            ((_la) & ~0x3F) == 0
+                            and (
+                                    (1 << _la)
+                                    & (
+                                            (1 << SMTLIBv2Parser.PS_Sat)
+                                            | (1 << SMTLIBv2Parser.PS_Unknown)
+                                            | (1 << SMTLIBv2Parser.PS_Unsat)
+                                    )
+                            )
+                            != 0
                     )
-                    != 0
-                )
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -11158,7 +11157,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11197,7 +11196,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11240,48 +11239,48 @@ class SMTLIBv2Parser(Parser):
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (
-                ((_la) & ~0x3F) == 0
-                and (
-                    (1 << _la)
-                    & (
-                        (1 << SMTLIBv2Parser.ParOpen)
-                        | (1 << SMTLIBv2Parser.String)
-                        | (1 << SMTLIBv2Parser.QuotedSymbol)
-                        | (1 << SMTLIBv2Parser.RegConst)
-                        | (1 << SMTLIBv2Parser.PS_Not)
-                        | (1 << SMTLIBv2Parser.PS_Bool)
-                        | (1 << SMTLIBv2Parser.PS_Int)
-                        | (1 << SMTLIBv2Parser.PS_Real)
-                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                        | (1 << SMTLIBv2Parser.PS_Error)
-                        | (1 << SMTLIBv2Parser.PS_False)
-                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                        | (1 << SMTLIBv2Parser.PS_Incomplete)
-                        | (1 << SMTLIBv2Parser.PS_Logic)
-                        | (1 << SMTLIBv2Parser.PS_Memout)
-                        | (1 << SMTLIBv2Parser.PS_Sat)
-                        | (1 << SMTLIBv2Parser.PS_Success)
-                        | (1 << SMTLIBv2Parser.PS_Theory)
-                        | (1 << SMTLIBv2Parser.PS_True)
-                        | (1 << SMTLIBv2Parser.PS_Unknown)
-                        | (1 << SMTLIBv2Parser.PS_Unsupported)
-                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                    ((_la) & ~0x3F) == 0
+                    and (
+                            (1 << _la)
+                            & (
+                                    (1 << SMTLIBv2Parser.ParOpen)
+                                    | (1 << SMTLIBv2Parser.String)
+                                    | (1 << SMTLIBv2Parser.QuotedSymbol)
+                                    | (1 << SMTLIBv2Parser.RegConst)
+                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                    | (1 << SMTLIBv2Parser.PS_False)
+                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                    | (1 << SMTLIBv2Parser.PS_True)
+                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                            )
                     )
-                )
-                != 0
+                    != 0
             ) or (
-                (((_la - 92)) & ~0x3F) == 0
-                and (
-                    (1 << (_la - 92))
-                    & (
-                        (1 << (SMTLIBv2Parser.Numeral - 92))
-                        | (1 << (SMTLIBv2Parser.Binary - 92))
-                        | (1 << (SMTLIBv2Parser.HexDecimal - 92))
-                        | (1 << (SMTLIBv2Parser.Decimal - 92))
-                        | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                    (((_la - 92)) & ~0x3F) == 0
+                    and (
+                            (1 << (_la - 92))
+                            & (
+                                    (1 << (SMTLIBv2Parser.Numeral - 92))
+                                    | (1 << (SMTLIBv2Parser.Binary - 92))
+                                    | (1 << (SMTLIBv2Parser.HexDecimal - 92))
+                                    | (1 << (SMTLIBv2Parser.Decimal - 92))
+                                    | (1 << (SMTLIBv2Parser.UndefinedSymbol - 92))
+                            )
                     )
-                )
-                != 0
+                    != 0
             ):
                 self.state = 1356
                 self.term()
@@ -11303,7 +11302,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11368,7 +11367,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11415,68 +11414,68 @@ class SMTLIBv2Parser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (
-                    (
-                        (((_la - 96)) & ~0x3F) == 0
-                        and (
-                            (1 << (_la - 96))
-                            & (
-                                (1 << (SMTLIBv2Parser.Colon - 96))
-                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
-                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
-                                | (
-                                    1
-                                    << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96)
+                        (
+                                (((_la - 96)) & ~0x3F) == 0
+                                and (
+                                        (1 << (_la - 96))
+                                        & (
+                                                (1 << (SMTLIBv2Parser.Colon - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_AllStatistics - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_AssertionStackLevels - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Authors - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Category - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Chainable - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Definition - 96))
+                                                | (
+                                                        1
+                                                        << (SMTLIBv2Parser.PK_DiagnosticOutputChannel - 96)
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_License - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
+                                                | (
+                                                        1
+                                                        << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96)
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
+                                                | (
+                                                        1
+                                                        << (
+                                                                SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96
+                                                        )
+                                                )
+                                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
+                                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
+                                        )
                                 )
-                                | (1 << (SMTLIBv2Parser.PK_ErrorBehaviour - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Extension - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Funs - 96))
-                                | (1 << (SMTLIBv2Parser.PK_FunsDescription - 96))
-                                | (1 << (SMTLIBv2Parser.PK_GlobalDeclarations - 96))
-                                | (1 << (SMTLIBv2Parser.PK_InteractiveMode - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Language - 96))
-                                | (1 << (SMTLIBv2Parser.PK_LeftAssoc - 96))
-                                | (1 << (SMTLIBv2Parser.PK_License - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Named - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Name - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Notes - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Pattern - 96))
-                                | (1 << (SMTLIBv2Parser.PK_PrintSuccess - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceAssertions - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceAssignments - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceModels - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ProduceProofs - 96))
-                                | (
-                                    1
-                                    << (SMTLIBv2Parser.PK_ProduceUnsatAssumptions - 96)
-                                )
-                                | (1 << (SMTLIBv2Parser.PK_ProduceUnsatCores - 96))
-                                | (1 << (SMTLIBv2Parser.PK_RandomSeed - 96))
-                                | (1 << (SMTLIBv2Parser.PK_ReasonUnknown - 96))
-                                | (1 << (SMTLIBv2Parser.PK_RegularOutputChannel - 96))
-                                | (
-                                    1
-                                    << (
-                                        SMTLIBv2Parser.PK_ReproducibleResourceLimit - 96
-                                    )
-                                )
-                                | (1 << (SMTLIBv2Parser.PK_RightAssoc - 96))
-                                | (1 << (SMTLIBv2Parser.PK_SmtLibVersion - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Sorts - 96))
-                                | (1 << (SMTLIBv2Parser.PK_SortsDescription - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Source - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Status - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Theories - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Values - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Verbosity - 96))
-                                | (1 << (SMTLIBv2Parser.PK_Version - 96))
-                            )
+                                != 0
                         )
-                        != 0
-                    )
                 ):
                     break
 
@@ -11494,7 +11493,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11555,7 +11554,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11596,7 +11595,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11635,7 +11634,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11678,32 +11677,32 @@ class SMTLIBv2Parser(Parser):
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (
-                ((_la) & ~0x3F) == 0
-                and (
-                    (1 << _la)
-                    & (
-                        (1 << SMTLIBv2Parser.QuotedSymbol)
-                        | (1 << SMTLIBv2Parser.PS_Not)
-                        | (1 << SMTLIBv2Parser.PS_Bool)
-                        | (1 << SMTLIBv2Parser.PS_Int)
-                        | (1 << SMTLIBv2Parser.PS_Real)
-                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                        | (1 << SMTLIBv2Parser.PS_Error)
-                        | (1 << SMTLIBv2Parser.PS_False)
-                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                        | (1 << SMTLIBv2Parser.PS_Incomplete)
-                        | (1 << SMTLIBv2Parser.PS_Logic)
-                        | (1 << SMTLIBv2Parser.PS_Memout)
-                        | (1 << SMTLIBv2Parser.PS_Sat)
-                        | (1 << SMTLIBv2Parser.PS_Success)
-                        | (1 << SMTLIBv2Parser.PS_Theory)
-                        | (1 << SMTLIBv2Parser.PS_True)
-                        | (1 << SMTLIBv2Parser.PS_Unknown)
-                        | (1 << SMTLIBv2Parser.PS_Unsupported)
-                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                    ((_la) & ~0x3F) == 0
+                    and (
+                            (1 << _la)
+                            & (
+                                    (1 << SMTLIBv2Parser.QuotedSymbol)
+                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                    | (1 << SMTLIBv2Parser.PS_False)
+                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                    | (1 << SMTLIBv2Parser.PS_True)
+                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                            )
                     )
-                )
-                != 0
+                    != 0
             ) or _la == SMTLIBv2Parser.UndefinedSymbol:
                 self.state = 1395
                 self.symbol()
@@ -11725,7 +11724,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11768,32 +11767,32 @@ class SMTLIBv2Parser(Parser):
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (
-                ((_la) & ~0x3F) == 0
-                and (
-                    (1 << _la)
-                    & (
-                        (1 << SMTLIBv2Parser.QuotedSymbol)
-                        | (1 << SMTLIBv2Parser.PS_Not)
-                        | (1 << SMTLIBv2Parser.PS_Bool)
-                        | (1 << SMTLIBv2Parser.PS_Int)
-                        | (1 << SMTLIBv2Parser.PS_Real)
-                        | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
-                        | (1 << SMTLIBv2Parser.PS_Error)
-                        | (1 << SMTLIBv2Parser.PS_False)
-                        | (1 << SMTLIBv2Parser.PS_ImmediateExit)
-                        | (1 << SMTLIBv2Parser.PS_Incomplete)
-                        | (1 << SMTLIBv2Parser.PS_Logic)
-                        | (1 << SMTLIBv2Parser.PS_Memout)
-                        | (1 << SMTLIBv2Parser.PS_Sat)
-                        | (1 << SMTLIBv2Parser.PS_Success)
-                        | (1 << SMTLIBv2Parser.PS_Theory)
-                        | (1 << SMTLIBv2Parser.PS_True)
-                        | (1 << SMTLIBv2Parser.PS_Unknown)
-                        | (1 << SMTLIBv2Parser.PS_Unsupported)
-                        | (1 << SMTLIBv2Parser.PS_Unsat)
+                    ((_la) & ~0x3F) == 0
+                    and (
+                            (1 << _la)
+                            & (
+                                    (1 << SMTLIBv2Parser.QuotedSymbol)
+                                    | (1 << SMTLIBv2Parser.PS_Not)
+                                    | (1 << SMTLIBv2Parser.PS_Bool)
+                                    | (1 << SMTLIBv2Parser.PS_Int)
+                                    | (1 << SMTLIBv2Parser.PS_Real)
+                                    | (1 << SMTLIBv2Parser.PS_ContinuedExecution)
+                                    | (1 << SMTLIBv2Parser.PS_Error)
+                                    | (1 << SMTLIBv2Parser.PS_False)
+                                    | (1 << SMTLIBv2Parser.PS_ImmediateExit)
+                                    | (1 << SMTLIBv2Parser.PS_Incomplete)
+                                    | (1 << SMTLIBv2Parser.PS_Logic)
+                                    | (1 << SMTLIBv2Parser.PS_Memout)
+                                    | (1 << SMTLIBv2Parser.PS_Sat)
+                                    | (1 << SMTLIBv2Parser.PS_Success)
+                                    | (1 << SMTLIBv2Parser.PS_Theory)
+                                    | (1 << SMTLIBv2Parser.PS_True)
+                                    | (1 << SMTLIBv2Parser.PS_Unknown)
+                                    | (1 << SMTLIBv2Parser.PS_Unsupported)
+                                    | (1 << SMTLIBv2Parser.PS_Unsat)
+                            )
                     )
-                )
-                != 0
+                    != 0
             ) or _la == SMTLIBv2Parser.UndefinedSymbol:
                 self.state = 1404
                 self.symbol()
@@ -11815,7 +11814,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -11878,7 +11877,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser
@@ -12025,7 +12024,7 @@ class SMTLIBv2Parser(Parser):
         __slots__ = "parser"
 
         def __init__(
-            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+                self, parser, parent: ParserRuleContext = None, invokingState: int = -1
         ):
             super().__init__(parent, invokingState)
             self.parser = parser

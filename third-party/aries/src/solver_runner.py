@@ -7,8 +7,6 @@ import sys
 import time
 
 
-
-
 def record_bug(temp, bug_type, buggy_mutant_path1, buggy_mutant_path2, solver1=None, result1=None, solver2=None,
                result2=None, option=None, rules=None):
     # Set the directory to store temporary files
@@ -74,6 +72,7 @@ def create_file(data, path):
     file.write(data)
     file.close()
 
+
 def run_solver(solver_path, solver, smt_file, timeout, incremental, output_path, temp, opt, default=False, rules=None):
     temp_file = output_path
     if default is True:
@@ -96,6 +95,7 @@ def run_solver(solver_path, solver, smt_file, timeout, incremental, output_path,
     if os.path.isfile(temp_file):
         os.remove(temp_file)
     return solver_output, error_msg, exe_time, command
+
 
 def solver_runner(solver1_path, solver2_path, smt_file, timeout, incremental, solver1, solver2,
                   theory, add_option, temp, tactic=None, base_solver1=None, base_solver2=None, target_bug=None):
@@ -154,7 +154,8 @@ def solver_runner(solver1_path, solver2_path, smt_file, timeout, incremental, so
     print("solver_output2: ", solver_output2)
     # Check the solvers' outputs
     soundness, invalid_model, crash, invalid = check_result(solver_output1, solver_output2, solver1, solver2, smt_file1,
-                                                   smt_file2, incremental, temp, error_msg1, error_msg2, solver1_opt_note, solver2_opt_note, exe_time1, exe_time2)
+                                                            smt_file2, incremental, temp, error_msg1, error_msg2,
+                                                            solver1_opt_note, solver2_opt_note, exe_time1, exe_time2)
     if "_tactic" in smt_file1:
         os.remove(smt_file1)
     if "_tactic" in smt_file2:
@@ -191,7 +192,8 @@ def read_result(file_path, incremental):
             os.remove(file_path)
             return "nullpointer"
 
-        if line.find("invalid model") != -1 or line.find("ERRORS SATISFYING") != -1 or line.find("model doesn't satisfy") != -1:
+        if line.find("invalid model") != -1 or line.find("ERRORS SATISFYING") != -1 or line.find(
+                "model doesn't satisfy") != -1:
             os.remove(file_path)
             return "invalid model"
 
@@ -246,7 +248,8 @@ def read_result(file_path, incremental):
 
 
 def check_result(result1, result2, solver1, solver2, bug_file1_path, bug_file2_path,
-                 incremental, temp, message1, message2, solver1_opt=None, solver2_opt=None, exe_time1=None, exe_time2=None):
+                 incremental, temp, message1, message2, solver1_opt=None, solver2_opt=None, exe_time1=None,
+                 exe_time2=None):
     crash_flag = False
     soundness_flag = False
     invalid_model_flag = False
@@ -290,7 +293,8 @@ def check_result(result1, result2, solver1, solver2, bug_file1_path, bug_file2_p
         record_bug(temp, "completeness", bug_file1_path, bug_file2_path, solver1, result1, "",
                    "regression completeness", option=opt)
     if result2 == "completeness":
-       record_bug(temp, "completeness", bug_file1_path, bug_file2_path, "", "regression completeness", solver2, result2,
+        record_bug(temp, "completeness", bug_file1_path, bug_file2_path, "", "regression completeness", solver2,
+                   result2,
                    option=opt)
     if result1 == "performance":
         record_bug(temp, "performance", bug_file1_path, bug_file2_path, solver1, result1, "",
@@ -404,7 +408,7 @@ class z3_tactic:
         for i in range(len(lines)):
             if lines[i].find("(check-sat)") != -1:
                 lines[i] = lines[i].replace("(check-sat)", "(check-sat-using " + check_sat_using_option + ")") + "\n"
-                #"(check-sat-using " + check_sat_using_option + ")" + "\n"
+                # "(check-sat-using " + check_sat_using_option + ")" + "\n"
             else:
                 lines[i] = lines[i] + "\n"
         new_file = self.file.replace(".smt2", "_tactic.smt2")
@@ -433,7 +437,8 @@ def add_specific_tactic(file_path, tactics):
 
 
 def cvc5_candidate_option(theory, mode):
-    common = [' --abstract-values', ' --ackermann', ' --early-ite-removal', ' --expand-definitions', ' --ext-rew-prep=use',
+    common = [' --abstract-values', ' --ackermann', ' --early-ite-removal', ' --expand-definitions',
+              ' --ext-rew-prep=use',
               ' --ext-rew-prep=agg', ' --foreign-theory-rewrite', ' --ite-simp', ' --learned-rewrite',
               ' --model-witness-value', ' --on-repeat-ite-simp', ' --produce-abducts', ' --produce-assignments',
               ' --produce-difficulty', ' --produce-proofs', ' --produce-unsat-assumptions', ' --produce-unsat-cores',
@@ -481,40 +486,58 @@ def cvc5_candidate_option(theory, mode):
                '--bv-print-consts-as-indexed-symbols', '--bv-solver=bitblast-internal', '--bv-to-bool',
                '--cbqi-all-conflict', '--cbqi-mode=conflict', '--cegis-sample=trust', '--cegis-sample=use', '--cegqi',
                '--cegqi-bv-ineq=keep', '--cegqi-inf-int', '--cegqi-inf-real', '--cegqi-midpoint', '--cegqi-nested-qe',
-               '--check-interpolants', '--check-proofs', '--check-synth-sol', '--check-unsat-cores', '--decision=justification',
-               '--decision=stoponly',  '--enum-inst', '--enum-inst-interleave', '--enum-inst-sum', '--ext-rew-prep=agg',
-               '--ext-rew-prep=use', '--ext-rewrite-quant', '--finite-model-find', '--fmf-bound', '--fmf-fun', '--fmf-fun-rlv',
-               '--full-saturate-quant', '--ho-elim', '--inst-when=full', '--inst-when=full-delay', '--inst-when=full-delay-last-call',
-               '--inst-when=last-call', '--interpolants-mode=default', '--interpolants-mode=assumptions', '--interpolants-mode=conjecture',
-               '--interpolants-mode=shared', '--interpolants-mode=all',  '--cegqi-bv-ineq=eq-slack', '--check-abducts',
-               '--ite-lift-quant=all', '--ite-lift-quant=none', '--learned-rewrite', '--macros-quant', '--macros-quant-mode=all',
-               '--macros-quant-mode=ground', '--mbqi-one-inst-per-round', '--miniscope-quant=off', '--miniscope-quant=conj',
+               '--check-interpolants', '--check-proofs', '--check-synth-sol', '--check-unsat-cores',
+               '--decision=justification',
+               '--decision=stoponly', '--enum-inst', '--enum-inst-interleave', '--enum-inst-sum', '--ext-rew-prep=agg',
+               '--ext-rew-prep=use', '--ext-rewrite-quant', '--finite-model-find', '--fmf-bound', '--fmf-fun',
+               '--fmf-fun-rlv',
+               '--full-saturate-quant', '--ho-elim', '--inst-when=full', '--inst-when=full-delay',
+               '--inst-when=full-delay-last-call',
+               '--inst-when=last-call', '--interpolants-mode=default', '--interpolants-mode=assumptions',
+               '--interpolants-mode=conjecture',
+               '--interpolants-mode=shared', '--interpolants-mode=all', '--cegqi-bv-ineq=eq-slack', '--check-abducts',
+               '--ite-lift-quant=all', '--ite-lift-quant=none', '--learned-rewrite', '--macros-quant',
+               '--macros-quant-mode=all',
+               '--macros-quant-mode=ground', '--mbqi-one-inst-per-round', '--miniscope-quant=off',
+               '--miniscope-quant=conj',
                '--miniscope-quant=fv', '--miniscope-quant=agg', '--multi-trigger-cache', '--multi-trigger-priority',
                '--nl-ext-tplanes-interleave', '--nl-ext=none', '--nl-ext=light', '--no-arith-brab', '--nl-cov',
                '--no-arrays-eager-index', '--no-bitwise-eq', '--no-cbqi', '--no-cegqi-bv', '--no-cegqi-innermost',
-               '--no-dt-share-sel', '--no-e-matching', '--no-elim-taut-quant', '--no-ho-elim-store-ax', '--no-inst-no-entail',
+               '--no-dt-share-sel', '--no-e-matching', '--no-elim-taut-quant', '--no-ho-elim-store-ax',
+               '--no-inst-no-entail',
                '--no-multi-trigger-linear', '--no-nl-ext-factor', '--no-nl-ext-rewrite', '--no-nl-ext-tf-tplanes',
                '--no-nl-ext-tplanes', '--no-print-inst-full', '--no-produce-assertions', '--no-quant-alpha-equiv',
-               '--no-static-learning', '--no-strings-check-entail-len', '--no-strings-eager-eval', '--no-strings-eager-solver',
-               '--no-strings-lazy-pp', '--no-strings-mbr', '--no-strings-regexp-inclusion', '--no-sygus-add-const-grammar',
-               '--no-sygus-min-grammar', '--no-sygus-pbe', '--no-sygus-sym-break-pbe', '--no-uf-ss-fair', '--no-var-elim-quant',
+               '--no-static-learning', '--no-strings-check-entail-len', '--no-strings-eager-eval',
+               '--no-strings-eager-solver',
+               '--no-strings-lazy-pp', '--no-strings-mbr', '--no-strings-regexp-inclusion',
+               '--no-sygus-add-const-grammar',
+               '--no-sygus-min-grammar', '--no-sygus-pbe', '--no-sygus-sym-break-pbe', '--no-uf-ss-fair',
+               '--no-var-elim-quant',
                '--no-var-ineq-elim-quant', '--pre-skolem-quant=agg', '--pre-skolem-quant=on', '--prenex-quant-user',
-               '--prenex-quant=none', '--print-unsat-cores-full', '--produce-abducts', '--produce-assignments', '--produce-difficulty',
-               '--produce-interpolants', '--produce-learned-literals', '--produce-proofs', '--produce-unsat-assumptions',
+               '--prenex-quant=none', '--print-unsat-cores-full', '--produce-abducts', '--produce-assignments',
+               '--produce-difficulty',
+               '--produce-interpolants', '--produce-learned-literals', '--produce-proofs',
+               '--produce-unsat-assumptions',
                '--produce-unsat-cores', '--quant-dsplit=agg', '--quant-dsplit=none', '--re-elim=agg', '--re-elim=on',
-               '--multi-trigger-when-single', '--relevant-triggers', '--sets-ext', '--solve-real-as-int', '--simplification=none',
+               '--multi-trigger-when-single', '--relevant-triggers', '--sets-ext', '--solve-real-as-int',
+               '--simplification=none',
                '--sort-inference', '--static-learning', '--strings-deq-ext', '--strings-eager-len-re', '--strings-exp',
                '--strings-fmf', '--strings-process-loop-mode=none', '--sygus', '--sygus-core-connective',
                '--sygus-enum=random', '--sygus-enum=smart', '--sygus-enum=fast', '--sygus-enum=var-agnostic',
-               '--sygus-eval-unfold=none', '--sygus-eval-unfold=single', '--sygus-eval-unfold=multi', '--sygus-fair=none',
-               '--sygus-fair=direct', '--sygus-fair=dt-height-bound', '--sygus-fair=dt-size-bound', '--prenex-quant=norm',
-               '--sygus-grammar-cons=any-term-concise', '--sygus-grammar-cons=any-const', '--sygus-grammar-cons=any-term',
+               '--sygus-eval-unfold=none', '--sygus-eval-unfold=single', '--sygus-eval-unfold=multi',
+               '--sygus-fair=none',
+               '--sygus-fair=direct', '--sygus-fair=dt-height-bound', '--sygus-fair=dt-size-bound',
+               '--prenex-quant=norm',
+               '--sygus-grammar-cons=any-term-concise', '--sygus-grammar-cons=any-const',
+               '--sygus-grammar-cons=any-term',
                '--sygus-inst', '--sygus-inv-templ=none', '--sygus-inv-templ=pre', '--sygus-out=status',
                '--sygus-out=status-and-def', '--sygus-repair-const', '--sygus-rewriter=none', '--sygus-rewriter=basic',
                '--sygus-si-abort', '--sygus-si-rcons=none', '--sygus-si-rcons=try', '--sygus-si-rcons=all-limit',
                '--sygus-si=all', '--sygus-si=use', '--sygus-simple-sym-break=none', '--sygus-simple-sym-break=basic',
-               '--sygus-stream', '--sygus-unif-pi=cond-enum-igain', '--sygus-unif-pi=complete', '--sygus-unif-pi=cond-enum',
-               '--term-db-mode=relevant', '--trigger-sel=all', '--trigger-sel=max', '--trigger-sel=min-s-max', '--trigger-sel=min-s-all',
+               '--sygus-stream', '--sygus-unif-pi=cond-enum-igain', '--sygus-unif-pi=complete',
+               '--sygus-unif-pi=cond-enum',
+               '--term-db-mode=relevant', '--trigger-sel=all', '--trigger-sel=max', '--trigger-sel=min-s-max',
+               '--trigger-sel=min-s-all',
                '--uf-lazy-ll', '--uf-ss=none', '--uf-ss=no-minimal', '--unconstrained-simp']
     unique = []
     if theory in ["int", "real"]:
@@ -682,7 +705,7 @@ def creat_process_and_get_result(command, temp_file, incremental):
     :param temp_file: the output file solver gives
     :param incremental: the formula mode
     :return: the solver output
-    """ 
+    """
     exe_time = None
     start_time = time.time()
     p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
@@ -709,7 +732,7 @@ def creat_process_and_get_result(command, temp_file, incremental):
     #     else:
     #         solver_output = None
     #         exe_time = p1_time
-        
+
     # Process terminal output first before result parsing
     if check_crash(terminal_output) and ignore_crash(terminal_output):
         solver_output = "crash"
@@ -719,7 +742,8 @@ def creat_process_and_get_result(command, temp_file, incremental):
         solver_output = "option error"
     if terminal_output.find("approximate values") != -1:
         solver_output = "approximation"
-    if terminal_output.find("invalid model") != -1 or terminal_output.find("ERRORS SATISFYING") != -1 or terminal_output.find("model doesn't satisfy") != -1:
+    if terminal_output.find("invalid model") != -1 or terminal_output.find(
+            "ERRORS SATISFYING") != -1 or terminal_output.find("model doesn't satisfy") != -1:
         solver_output = "invalid model"
     if terminal_output.find("Error") != -1 and solver_output is None:
         solver_output = "error"
@@ -775,7 +799,6 @@ def check_special(buggy_file):
         return True
 
 
-
 def check_crash(output: str):
     crash_list = ["Exception", "lang.AssertionError", "lang.Error", "runtime error", "LEAKED", "Leaked",
                   "Segmentation fault", "segmentation fault", "segfault", "ASSERTION", "Assertion", "Fatal failure",
@@ -823,7 +846,8 @@ def extract_assistant_contents(text):
     for line in lines:
         if line.find("(set-option") != -1 or line.find("(set-info") != -1:
             continue
-        elif line.strip().startswith("(set") or line.strip().startswith("(declare") or line.strip().startswith("(define") or line.strip().startswith("(assert") or line.strip().startswith("(check-sat"):
+        elif line.strip().startswith("(set") or line.strip().startswith("(declare") or line.strip().startswith(
+                "(define") or line.strip().startswith("(assert") or line.strip().startswith("(check-sat"):
             new_lines.append(line)
     new_lines.append("\n(check-sat)")
     return "\n".join(new_lines).strip()
@@ -841,5 +865,3 @@ def get_all_txt_files_recursively(path_to_directory):
 
 # err_info = ["floatingpoint_literal_symfpu_traits.cpp", "Unimplemented code encountered", "pb_solver.cpp", "pb_constraint.cpp", "bzlafp.cpp:728", "bzlafp.cpp:1891", "smt2_term_parser.cpp"]
 err_info = ["floatingpoint_literal_symfpu_traits.cpp", "lar_solver.cpp"]
-
-

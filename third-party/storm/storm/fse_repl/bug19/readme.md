@@ -14,25 +14,26 @@
 <br>
 **Seed file**: `QF_S/concats-extracts-small/concats-extracts-small-00024-0.smt25`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug19 --seed=1595782865
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_105.smt2`.
+The mutant is
 
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_105.smt2`. 
-The mutant is 
 ```
 sat
 ``` 
 
-But the buggy version of z3 returns: 
+But the buggy version of z3 returns:
+
 ```
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

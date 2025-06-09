@@ -1,5 +1,3 @@
-
-
 import copy
 
 
@@ -167,9 +165,9 @@ class DeclareConst(Commands):
         self.sort = sort
 
     def __str__(self):
-        return "(declare-const "\
-               + self.symbol + " "\
-               + self.sort.__str__() + ")"
+        return "(declare-const " \
+            + self.symbol + " " \
+            + self.sort.__str__() + ")"
 
 
 class DeclareFun:
@@ -180,13 +178,13 @@ class DeclareFun:
 
     def __str__(self):
         return (
-            "(declare-fun "
-            + str(self.symbol)
-            + " ("
-            + str(self.input_sort)
-            + ") "
-            + str(self.output_sort)
-            + ")"
+                "(declare-fun "
+                + str(self.symbol)
+                + " ("
+                + str(self.input_sort)
+                + ") "
+                + str(self.output_sort)
+                + ")"
         )
 
 
@@ -234,13 +232,13 @@ class DefineConst:
 
     def __str__(self):
         return (
-            "(define-const "
-            + self.symbol
-            + " "
-            + self.sort
-            + " "
-            + self.term.__str__()
-            + ")"
+                "(define-const "
+                + self.symbol
+                + " "
+                + self.sort
+                + " "
+                + self.term.__str__()
+                + ")"
         )
 
 
@@ -253,15 +251,15 @@ class DefineFun:
 
     def __str__(self):
         return (
-            "(define-fun "
-            + self.symbol
-            + " ("
-            + self.sorted_vars
-            + ") "
-            + self.sort
-            + " "
-            + self.term.__str__()
-            + ")"
+                "(define-fun "
+                + self.symbol
+                + " ("
+                + self.sorted_vars
+                + ") "
+                + self.sort
+                + " "
+                + self.term.__str__()
+                + ")"
         )
 
 
@@ -279,15 +277,15 @@ class DefineFunRec:
             for var in self.sorted_vars[1:]:
                 s += " " + var
         return (
-            "(define-fun-rec "
-            + self.symbol
-            + " ("
-            + s
-            + ") "
-            + self.sort
-            + " "
-            + self.term.__str__()
-            + ")"
+                "(define-fun-rec "
+                + self.symbol
+                + " ("
+                + s
+                + ") "
+                + self.sort
+                + " "
+                + self.term.__str__()
+                + ")"
         )
 
 
@@ -494,21 +492,21 @@ def LabeledTerm(label, subterms):
 
 class Term:
     def __init__(
-        self,
-        name=None,
-        type=None,
-        is_const=None,
-        is_var=None,
-        label=None,
-        indices=None,
-        quantifier=None,
-        quantified_vars={},
-        var_binders=None,
-        let_terms=None,
-        op=None,
-        subterms=None,
-        is_indexed_id=False,
-        parent=None,
+            self,
+            name=None,
+            type=None,
+            is_const=None,
+            is_var=None,
+            label=None,
+            indices=None,
+            quantifier=None,
+            quantified_vars={},
+            var_binders=None,
+            let_terms=None,
+            op=None,
+            subterms=None,
+            is_indexed_id=False,
+            parent=None,
     ):
 
         self._initialize(
@@ -530,21 +528,21 @@ class Term:
         self._add_parent_pointer()
 
     def _initialize(
-        self,
-        name=None,
-        type=None,
-        is_const=None,
-        is_var=None,
-        label=None,
-        indices=None,
-        quantifier=None,
-        quantified_vars={},
-        var_binders=None,
-        let_terms=None,
-        op=None,
-        subterms=None,
-        is_indexed_id=None,
-        parent=None,
+            self,
+            name=None,
+            type=None,
+            is_const=None,
+            is_var=None,
+            label=None,
+            indices=None,
+            quantifier=None,
+            quantified_vars={},
+            var_binders=None,
+            let_terms=None,
+            op=None,
+            subterms=None,
+            is_indexed_id=None,
+            parent=None,
     ):
         self.name = name
         self.type = type
@@ -659,20 +657,20 @@ class Term:
             subs_str = self.__get_subterm_str__()
             n_vars = len(self.quantified_vars[0])
             s = (
-                "("
-                + str(self.quantified_vars[0][0])
-                + " "
-                + str(self.quantified_vars[1][0])
-                + ")"
+                    "("
+                    + str(self.quantified_vars[0][0])
+                    + " "
+                    + str(self.quantified_vars[1][0])
+                    + ")"
             )
             if len(self.quantified_vars[0]) > 1:
                 for i in range(1, n_vars):
                     s += (
-                        " ("
-                        + str(self.quantified_vars[0][i])
-                        + " "
-                        + str(self.quantified_vars[1][i])
-                        + ")"
+                            " ("
+                            + str(self.quantified_vars[0][i])
+                            + " "
+                            + str(self.quantified_vars[1][i])
+                            + ")"
                     )
             return "(" + self.quantifier + " (" + s + ") " + subs_str + ")"
 
@@ -688,9 +686,9 @@ class Term:
 
         elif self.label:
             subs_str = self.__get_subterm_str__()
-            return "(! "\
-                   + subs_str + " "\
-                   + self.label[0] + " " + self.label[1] + ")"
+            return "(! " \
+                + subs_str + " " \
+                + self.label[0] + " " + self.label[1] + ")"
         else:
             subs_str = self.__get_subterm_str__()
             return "(" + self.op.__str__() + " " + subs_str + ")"

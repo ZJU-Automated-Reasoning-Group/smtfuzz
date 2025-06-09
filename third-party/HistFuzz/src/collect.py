@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import os
 import re
 
@@ -105,6 +104,7 @@ def collect_buggy_formula(github_token, solver, stored_dir):
         except:
             pass
 
+
 import re
 
 
@@ -112,13 +112,13 @@ def extract_formula(con):
     # Initialize potential formula and final formula strings
     potential_formula = None
     formula = ""
-    
+
     # Check if the content contains markdown-style code blocks
     if "```" in con:
         potential_formula = con.split("```")
     elif "~~~~" in con:
         potential_formula = con.split("~~~~")
-    
+
     # If markdown-style code blocks are present
     if potential_formula is not None:
         for content in potential_formula:
@@ -129,7 +129,7 @@ def extract_formula(con):
                 index_3 = re.search(r"\(declare", content)
                 index_4 = re.search(r"\(assert", content)
                 index_5 = re.search(r"cat\s+\S+\.smt2", content)
-                
+
                 # Determine the start and end positions of the formula content
                 min_index = None
                 if index_1 is not None:
@@ -156,10 +156,10 @@ def extract_formula(con):
                         min_index = index_5.span()[1]
                 if min_index is None:
                     min_index = 0
-                
+
                 # Add the formula content to the final formula string
                 formula = formula + content[min_index:] + "\n"
-    
+
     # Return the final formula string
     return formula
 
@@ -170,4 +170,3 @@ def check_ref(issue):
         if e.event == "referenced":
             return True
     return False
-

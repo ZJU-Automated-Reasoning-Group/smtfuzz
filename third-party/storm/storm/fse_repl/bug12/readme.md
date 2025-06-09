@@ -14,26 +14,26 @@
 <br>
 **Seed file**: `QF_BV/sage/app7/bench_7183.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug12 --solver=z3 --seed=1596100721
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_138.smt2`.
+The mutant is
 
-
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_138.smt2`. 
-The mutant is 
 ```
 sat
 ``` 
 
-But the buggy version of z3str3 returns: 
+But the buggy version of z3str3 returns:
+
 ```
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

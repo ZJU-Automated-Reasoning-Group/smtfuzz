@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import random
 
 from efficient_apriori import apriori
@@ -47,16 +46,16 @@ def export_association_rules(file_path, output_path, sup, conf):
         file_list = get_smt_files_list(file_path)
     elif isinstance(file_path, list):
         file_list = file_path
-    
+
     # Get the total count of files
     file_count = len(file_list)
-    
+
     # Calculate the support for association analysis
     sup = sup / file_count
-    
+
     # Obtain the association rules
     rules = association_analysis(file_list, sup, conf)
-    
+
     # Write the association rules to the output file
     with open(output_path, "w") as f:
         for r in rules:

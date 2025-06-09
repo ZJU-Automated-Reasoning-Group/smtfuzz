@@ -17,6 +17,8 @@ import itertools
 import random
 
 from z3 import *
+
+
 # from z3.z3util import get_vars  # this one is slow
 
 

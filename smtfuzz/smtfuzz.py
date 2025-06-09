@@ -308,11 +308,11 @@ q_bv_logic_options = ['BV', 'UFBV', 'ABV', 'AUFBV']
 bv_logic_options = qf_bv_logic_options + q_bv_logic_options
 
 qf_logic_options = qf_int_logic_options + \
-    qf_real_logic_options + qf_bv_logic_options
+                   qf_real_logic_options + qf_bv_logic_options
 qf_logic_options.append('BOOL')
 qf_logic_options.append('QF_UF')
 q_logic_options = q_int_logic_options + \
-    q_real_logic_options + q_bv_logic_options
+                  q_real_logic_options + q_bv_logic_options
 q_logic_options.append('QBF')
 q_logic_options.append('UF')
 
@@ -1721,7 +1721,7 @@ class Clauses:
                     print('(assert {})'.format(new_cnf))
                 else:
                     print('(assert-soft {} :weight {})'.format(new_cnf,
-                          str(random.randint(1, 20))))
+                                                               str(random.randint(1, 20))))
             elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                 m_assert_id += 1
                 print(
@@ -2654,7 +2654,7 @@ class Nodes:
                             operand = str(par1)
                             par2 = random.choice(self.qdict[sort])
                             if not m_test_datalog_chc_nonlinear and int_op_use in [
-                                    "div", "*", "mod"]:
+                                "div", "*", "mod"]:
                                 par2 = str(random.randint(1, 1000))
                             operand += (" " + str(par2))
                             new_int = IntOp(int_op_use, operand)
@@ -3252,7 +3252,7 @@ class Nodes:
                 op_to_use = random.choice(IntNOp)
                 if m_global_logic in lia_logics:
                     if (op_to_use == "*" or op_to_use ==
-                            "mod" or op_to_use == "div") and num_int_var >= 2:
+                        "mod" or op_to_use == "div") and num_int_var >= 2:
                         continue
                     else:
                         new_int = IntOp(op_to_use, operand)
@@ -3282,7 +3282,7 @@ class Nodes:
                 op_to_use = random.choice(IntNOp)
                 if m_global_logic in lia_logics:
                     if (op_to_use == "*" or op_to_use ==
-                            "mod" or op_to_use == "div") and num_int_var >= 2:
+                        "mod" or op_to_use == "div") and num_int_var >= 2:
                         continue
                     else:
                         new_int = IntOp(op_to_use, operand)
@@ -3829,7 +3829,7 @@ class Nodes:
                 op_to_use = random.choice(RealNOp)
                 if m_global_logic in lra_logics:
                     if (op_to_use == "*" or op_to_use ==
-                            "/") and num_real_var >= 2:
+                        "/") and num_real_var >= 2:
                         continue
                     else:
                         new_real = RealOp(op_to_use, operands)
@@ -4949,7 +4949,7 @@ def strict_cnf_fuz(logic, vcratio, cntsize):
                     else:
                         # print('(assert-soft {})'.format(new_node))
                         print('(assert-soft {} :weight {})'.format(new_node,
-                              str(random.randint(1, 20))))
+                                                                   str(random.randint(1, 20))))
                 elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                     m_assert_id += 1
                     print(
@@ -5103,7 +5103,7 @@ def non_inc_fuzz(logic, vcratio, cntsize):
                     else:
                         # print('(assert-soft {})'.format(new_node))
                         print('(assert-soft {} :weight {})'.format(new_node,
-                              str(random.randint(1, 20))))
+                                                                   str(random.randint(1, 20))))
                 elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                     # maxsmt and unsat_core do not conflict. TODO: core for
                     # maxsmt
@@ -5219,7 +5219,7 @@ def non_inc_fuzz(logic, vcratio, cntsize):
                     else:
                         # print('(assert-soft {})'.format(new_node))
                         print('(assert-soft {} :weight {})'.format(new_node,
-                              str(random.randint(1, 20))))
+                                                                   str(random.randint(1, 20))))
                 elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                     m_assert_id += 1
                     print(
@@ -5439,7 +5439,7 @@ def non_inc_fuzz(logic, vcratio, cntsize):
                         print('(assert {})'.format(new_node))
                     else:
                         print('(assert-soft {} :weight {})'.format(new_node,
-                              str(random.randint(1, 20))))
+                                                                   str(random.randint(1, 20))))
                 elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                     m_assert_id += 1
                     print(
@@ -5460,12 +5460,12 @@ def non_inc_fuzz(logic, vcratio, cntsize):
                         print('(assert {})'.format(node1))
                     else:
                         print('(assert-soft {} :weight {})'.format(node1,
-                              str(random.randint(1, 20))))
+                                                                   str(random.randint(1, 20))))
                     if random.random() < m_max_smt_rate:
                         print('(assert {})'.format(node2))
                     else:
                         print('(assert-soft {} :weight {})'.format(node2,
-                              str(random.randint(1, 20))))
+                                                                   str(random.randint(1, 20))))
                 elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                     m_assert_id += 1
                     print(
@@ -5623,7 +5623,7 @@ def bool_fuzz(logic, cntsize):
                 else:
                     # print('(assert-soft {})'.format(new_node))
                     print('(assert-soft {} :weight {})'.format(new_node,
-                          str(random.randint(1, 20))))
+                                                               str(random.randint(1, 20))))
             elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                 m_assert_id += 1
                 print(
@@ -5810,7 +5810,7 @@ def cnf_fuzz(logic, vcratio, cntsize):
                 else:
                     # print('(assert-soft {})'.format(new_node))
                     print('(assert-soft {} :weight {})'.format(new_node,
-                          str(random.randint(1, 20))))
+                                                               str(random.randint(1, 20))))
             elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                 m_assert_id += 1
                 print(
@@ -6132,7 +6132,7 @@ def CNFexp_fuzz(logic, vcratio, cntsize):
                 else:
                     # print('(assert-soft {})'.format(new_node))
                     print('(assert-soft {} :weight {})'.format(new_node,
-                          str(random.randint(1, 20))))
+                                                               str(random.randint(1, 20))))
             elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                 m_assert_id += 1
                 print(
@@ -6154,13 +6154,13 @@ def CNFexp_fuzz(logic, vcratio, cntsize):
                 else:
                     # print('(assert-soft {})'.format(node1))
                     print('(assert-soft {} :weight {})'.format(node1,
-                          str(random.randint(1, 20))))
+                                                               str(random.randint(1, 20))))
                 if random.random() < m_max_smt_rate:
                     print('(assert {})'.format(node2))
                 else:
                     # print('(assert-soft {})'.format(node2))
                     print('(assert-soft {} :weight {})'.format(node2,
-                          str(random.randint(1, 20))))
+                                                               str(random.randint(1, 20))))
             elif m_test_unsat_core or m_test_interpolant or m_test_proof or m_test_named_assert:
                 m_assert_id += 1
                 print(
@@ -6239,7 +6239,7 @@ def main():
         default='noinc',
         type=str,
         help="Strategy for generation: noinc (non-incremental), "
-        "bool, cnf, ncnf, CNFexp, strictcnf, or random (default: noinc)")
+             "bool, cnf, ncnf, CNFexp, strictcnf, or random (default: noinc)")
     parser.add_argument('--logic', dest='logic', default='random', type=str,
                         help="Set the logic to generate (default: random)")
     parser.add_argument(

@@ -14,25 +14,26 @@
 <br>
 **Seed file**: `cmu-prereg-fmf.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug17 --seed=1595783287
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_0.smt2`.
+The mutant is
 
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_0.smt2`. 
-The mutant is 
 ```
 sat
 ``` 
 
-But the buggy version of z3 returns: 
+But the buggy version of z3 returns:
+
 ```
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

@@ -18,11 +18,10 @@
 storm --reproduce=bug4 --seed=1595620813
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_700.smt2`.
+The mutant has eleven levels in the assertion stack and is
 
-
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_700.smt2`. 
-The mutant has eleven levels in the assertion stack and is 
 ```
 sat
 sat
@@ -37,7 +36,8 @@ sat
 sat
 ``` 
 
-But the buggy version of z3 returns: 
+But the buggy version of z3 returns:
+
 ```
 sat
 sat
@@ -51,6 +51,7 @@ unsat
 sat
 sat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

@@ -5,16 +5,17 @@ layout: default
 ## Detecting Critical Bugs in SMT Solvers Using Blackbox Mutational Fuzzing
 
 Formal methods use SMT solvers extensively for deciding formula
-satisfiability, for instance, in software verification, 
-systematic test generation, symbolic execution and program synthesis. However, 
-due to their complex implementations, solvers may contain critical bugs that lead to 
-unsound results. Given the wide applicability of solvers in software reliability, 
+satisfiability, for instance, in software verification,
+systematic test generation, symbolic execution and program synthesis. However,
+due to their complex implementations, solvers may contain critical bugs that lead to
+unsound results. Given the wide applicability of solvers in software reliability,
 relying on such unsound results may have catastrophic consequences. STORM is
-a novel blackbox mutational fuzzer for detecting critical bugs (also known as 
+a novel blackbox mutational fuzzer for detecting critical bugs (also known as
 refutational soundness bugs) in SMT solvers.
 
 ## Soundness bugs detected so far:
-STORM has detected many unique and previously unknown "refutational soundness" bugs in 
+
+STORM has detected many unique and previously unknown "refutational soundness" bugs in
 multiple mature SMT solvers. Here is a list of issues we filed on public bug tracking systems
 for various SMT solvers.
 

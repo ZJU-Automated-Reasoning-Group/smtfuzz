@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import time
 
 
@@ -46,7 +45,6 @@ class MainArgumentParser(object):
         self.bugfolder = None
         self.c1 = None
 
-
     def parse_arguments(self, parser):
         parser.add_argument("--update", nargs='?', const=True, default=False,
                             help="update historical data.\nYou should use `--token` to add your GitHub token")
@@ -63,7 +61,8 @@ class MainArgumentParser(object):
         parser.add_argument("--solverbin2", help="path to the second solver bin")
         parser.add_argument("--solver2", help=" the second solver name e.g. z3, cvc5")
         parser.add_argument("--incremental", nargs='?', const=True, default=False, help="incremental")
-        parser.add_argument("--c1", nargs='?', const=True, default=False, help="Employ the resource files for replicate evaluation C-1")
+        parser.add_argument("--c1", nargs='?', const=True, default=False,
+                            help="Employ the resource files for replicate evaluation C-1")
         parser.add_argument("--conf", help=" the min Confidence for association analysis")
         parser.add_argument("--sup", help=" the min Support for association analysis. Here, we use the number of "
                                           "occurrences of atomic formulas as Support.")

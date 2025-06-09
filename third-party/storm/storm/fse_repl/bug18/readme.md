@@ -14,27 +14,28 @@
 <br>
 **Seed file**: `LIA/nested9_true-unreach-call.i_1887.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug18 --seed=1595779325
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_102.smt2`.
+The mutant is
 
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_102.smt2`. 
-The mutant is 
 ```
 sat
 sat
 ``` 
 
-But the buggy version of z3 returns: 
+But the buggy version of z3 returns:
+
 ```
 unknown
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

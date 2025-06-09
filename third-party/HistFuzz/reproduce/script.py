@@ -34,7 +34,6 @@ cvc5_folder = "/home/coverage/cvc5-cov/build"
 z3_bin = "/home/coverage/z3-cov/build/z3"
 cvc5_bin = "/home/coverage/cvc5-cov/build/bin/cvc5"
 
-
 """
 def random_sample(files, dst_path):
     selected_files = random.sample(files, 10000)
@@ -42,6 +41,7 @@ def random_sample(files, dst_path):
         print(i)
         shutil.copy2(file, dst_path)
 """
+
 
 def get_all_smt_files_recursively(path_to_directory):
     file_paths = list()
@@ -58,7 +58,7 @@ def get_all_smt_files_recursively(path_to_directory):
 def classify_seeds(file_list, solver_bin, file_count=100):
     # op_set = set()
     # result = []
-    #print(smt_file)
+    # print(smt_file)
     file_num = 0
     current_files = []
     if os.path.exists("/home/histfuzz/seeds/LIA/sat") and os.path.exists("/home/histfuzz/seeds/LIA/unsat"):
@@ -93,16 +93,20 @@ def run_solver(solver_bin, smt_file):
 def run_seeds_coverage(z3_folder, cvc5_folder):
     z3_clear_data = "lcov -d ./ -z"
     cvc_clear_data = "make coverage-reset"
-    p1 = subprocess.Popen(z3_clear_data, shell=True, cwd=z3_folder, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-    p2 = subprocess.Popen(cvc_clear_data, shell=True, cwd=cvc5_folder, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    p1 = subprocess.Popen(z3_clear_data, shell=True, cwd=z3_folder, stderr=subprocess.DEVNULL,
+                          stdout=subprocess.DEVNULL)
+    p2 = subprocess.Popen(cvc_clear_data, shell=True, cwd=cvc5_folder, stderr=subprocess.DEVNULL,
+                          stdout=subprocess.DEVNULL)
     p1.wait()
     p2.wait()
     files = get_all_smt_files_recursively("/home/histfuzz/seeds")
     for file in files:
         run_solver(z3_bin, file)
         run_solver(cvc5_bin, file)
-    fastcov = subprocess.Popen("fastcov -l -o coverage-seed100.info", shell=True, cwd=z3_folder, stdout=subprocess.DEVNULL)
-    coverage = subprocess.Popen("make coverage; mv coverage.info coverage-seed100.info", shell=True, cwd=cvc5_folder, stdout=subprocess.DEVNULL)
+    fastcov = subprocess.Popen("fastcov -l -o coverage-seed100.info", shell=True, cwd=z3_folder,
+                               stdout=subprocess.DEVNULL)
+    coverage = subprocess.Popen("make coverage; mv coverage.info coverage-seed100.info", shell=True, cwd=cvc5_folder,
+                                stdout=subprocess.DEVNULL)
     fastcov.wait()
     coverage.wait()
 
@@ -113,7 +117,7 @@ def run_tool_and_record_coverage(fuzzer, z3_folder, cvc5_folder, times=1, cores=
         f1.write("\n{} code coverage:\n".format(fuzzer))
     with open(cvc5_folder + "/coverage.txt", "a") as f2:
         f2.write("\n{} code coverage:\n".format(fuzzer))
-        
+
     # Initialize commands for clearing previous coverage data
     z3_clear_data = "lcov -d ./ -z"
     cvc_clear_data = "make coverage-reset"
@@ -123,8 +127,10 @@ def run_tool_and_record_coverage(fuzzer, z3_folder, cvc5_folder, times=1, cores=
         files = get_all_smt_files_recursively("/home/histfuzz/seeds")
     for time in range(times):
         # Clear previous coverage data for Z3 and CVC5
-        p1 = subprocess.Popen(z3_clear_data, shell=True, cwd=z3_folder, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        p2 = subprocess.Popen(cvc_clear_data, shell=True, cwd=cvc5_folder, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        p1 = subprocess.Popen(z3_clear_data, shell=True, cwd=z3_folder, stderr=subprocess.DEVNULL,
+                              stdout=subprocess.DEVNULL)
+        p2 = subprocess.Popen(cvc_clear_data, shell=True, cwd=cvc5_folder, stderr=subprocess.DEVNULL,
+                              stdout=subprocess.DEVNULL)
         p1.wait()
         p2.wait()
         if fuzzer in ["opfuzz", "typefuzz", "yinyang"]:
@@ -147,9 +153,15 @@ def run_tool_and_record_coverage(fuzzer, z3_folder, cvc5_folder, times=1, cores=
             pool.join()
         if fuzzer == "storm":
             # Run Storm fuzzer
-            p1 = subprocess.Popen("""/bin/bash -c "source venv/bin/activate; storm --solver=z3 --solverbin={} --benchmark=/home/histfuzz/seeds --theory=LIA" """.format(z3_bin), shell=True, cwd="/home/histfuzz/baselines/storm", stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            p1 = subprocess.Popen(
+                """/bin/bash -c "source venv/bin/activate; storm --solver=z3 --solverbin={} --benchmark=/home/histfuzz/seeds --theory=LIA" """.format(
+                    z3_bin), shell=True, cwd="/home/histfuzz/baselines/storm", stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL)
             p1.wait()
-            p2 = subprocess.Popen("""/bin/bash -c "source venv/bin/activate; storm --solver=cvc4 --solverbin={} --benchmark=/home/histfuzz/seeds --theory=LIA" """.format(cvc5_bin), shell=True, cwd="/home/histfuzz/baselines/storm", stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            p2 = subprocess.Popen(
+                """/bin/bash -c "source venv/bin/activate; storm --solver=cvc4 --solverbin={} --benchmark=/home/histfuzz/seeds --theory=LIA" """.format(
+                    cvc5_bin), shell=True, cwd="/home/histfuzz/baselines/storm", stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL)
             p2.wait()
         if fuzzer == "histfuzz":
             # Run HistFuzz 
@@ -157,14 +169,19 @@ def run_tool_and_record_coverage(fuzzer, z3_folder, cvc5_folder, times=1, cores=
             pro.wait()
 
         # Record code coverage using fastcov and lcov
-        fastcov = subprocess.Popen("fastcov -l -o cover-run" + str(time) + ".info; lcov -a cover-run" + str(time) + ".info" + " -a coverage-seed100.info -o output.txt >> coverage.txt", shell=True, cwd=z3_folder, stdout=subprocess.DEVNULL)
-        coverage = subprocess.Popen("make coverage; lcov -a coverage.info -a coverage-seed100.info -o output.info >> coverage.txt", shell=True, cwd=cvc5_folder, stdout=subprocess.DEVNULL)
+        fastcov = subprocess.Popen("fastcov -l -o cover-run" + str(time) + ".info; lcov -a cover-run" + str(
+            time) + ".info" + " -a coverage-seed100.info -o output.txt >> coverage.txt", shell=True, cwd=z3_folder,
+                                   stdout=subprocess.DEVNULL)
+        coverage = subprocess.Popen(
+            "make coverage; lcov -a coverage.info -a coverage-seed100.info -o output.info >> coverage.txt", shell=True,
+            cwd=cvc5_folder, stdout=subprocess.DEVNULL)
         fastcov.wait()
         coverage.wait()
 
 
 def run_histfuzz():
-    command = "/home/histfuzz/bin/histfuzz --solver1=z3 --solverbin1={} --solver2=cvc5 --solverbin2={} --incremental --option=default --mutant=1000".format(z3_bin, cvc5_bin)
+    command = "/home/histfuzz/bin/histfuzz --solver1=z3 --solverbin1={} --solver2=cvc5 --solverbin2={} --incremental --option=default --mutant=1000".format(
+        z3_bin, cvc5_bin)
     p = subprocess.Popen(command, shell=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     return p
 
@@ -175,15 +192,18 @@ def run_op(file):
     p.wait()
     return
 
+
 def run_type(file):
-    command = "/home/histfuzz/baselines/yinyang/bin/typefuzz -i 1" + """ "{} model_validate=true;{} --check-models --strings-exp " """.format(z3_bin, cvc5_bin) + file
+    command = "/home/histfuzz/baselines/yinyang/bin/typefuzz -i 1" + """ "{} model_validate=true;{} --check-models --strings-exp " """.format(
+        z3_bin, cvc5_bin) + file
     p = subprocess.Popen(command, shell=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     p.wait()
     return
 
 
 def run_yinyang(file1, file2):
-    command = "/home/histfuzz/baselines/yinyang/bin/yinyang -i 1 -o sat" + """ "{} model_validate=true;{} --check-models --strings-exp " """.format(z3_bin, cvc5_bin) + file1 + " " + file2
+    command = "/home/histfuzz/baselines/yinyang/bin/yinyang -i 1 -o sat" + """ "{} model_validate=true;{} --check-models --strings-exp " """.format(
+        z3_bin, cvc5_bin) + file1 + " " + file2
     p = subprocess.Popen(command, shell=True, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     p.wait()
     return
@@ -205,7 +225,8 @@ if __name__ == "__main__":
     current_time = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
 
     shutil.move("{}/coverage.txt".format(z3_folder), "/home/histfuzz/reproduce/result/z3-{}.txt".format(current_time))
-    shutil.move("{}/coverage.txt".format(cvc5_folder), "/home/histfuzz/reproduce/result/cvc5-{}.txt".format(current_time))
+    shutil.move("{}/coverage.txt".format(cvc5_folder),
+                "/home/histfuzz/reproduce/result/cvc5-{}.txt".format(current_time))
 
     if os.path.exists("/home/histfuzz/reproduce/bugs"):
         shutil.rmtree("/home/histfuzz/reproduce/bugs")

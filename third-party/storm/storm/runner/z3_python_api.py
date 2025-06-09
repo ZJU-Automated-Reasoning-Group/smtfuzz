@@ -19,9 +19,6 @@ from termcolor import colored
 from z3 import *
 
 
-
-
-
 def check_satisfiability(ast, timeout):
     """
 
@@ -29,6 +26,7 @@ def check_satisfiability(ast, timeout):
     :param timeout: Integer
     :return: string
     """
+
     def check_sat(ast, output):
         sol = Solver()
         sol.add(ast)
@@ -37,7 +35,6 @@ def check_satisfiability(ast, timeout):
             output.value = "sat".encode()
         if satis == unsat:
             output.value = "unsat".encode()
-
 
     output = multiprocessing.Array('c', b'unknown')
     process = multiprocessing.Process(target=check_sat, args=(ast, output))
@@ -49,7 +46,6 @@ def check_satisfiability(ast, timeout):
     else:
         satisfiability = output.value.decode()
         return satisfiability
-
 
 
 def convert_ast_to_expression(ast):

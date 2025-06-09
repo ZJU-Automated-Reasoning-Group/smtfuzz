@@ -14,26 +14,26 @@
 <br>
 **Seed file**: `QF_S/sanitizer/ipv4-address2-translate-reverse-translate.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug10 --seed=1596099711
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_184.smt2`.
+The mutant is
 
-
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_184.smt2`. 
-The mutant is 
 ```
 sat
 ``` 
 
-But the buggy version of z3str3 returns: 
+But the buggy version of z3str3 returns:
+
 ```
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3str3. 
 
 

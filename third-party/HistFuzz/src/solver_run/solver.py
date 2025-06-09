@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import subprocess
 import os
 import random
@@ -82,7 +81,8 @@ def solver_runner(solver1_path, solver2_path, smt_file, timeout, incremental, so
     solver_output2, error_msg2 = creat_process_and_get_result(command2, temp_file_path2, incremental)
     # Check the solvers' outputs
     soundness, invalid_model, crash = check_result(solver_output1, solver_output2, solver1, solver2, smt_file1,
-                                                   smt_file2, incremental, temp, error_msg1, error_msg2, solver1_opt_note, solver2_opt_note)
+                                                   smt_file2, incremental, temp, error_msg1, error_msg2,
+                                                   solver1_opt_note, solver2_opt_note)
     if soundness or invalid_model or crash:
         return True
     else:
@@ -319,7 +319,8 @@ def add_specific_tactic(file_path, tactics):
 
 
 def cvc5_candidate_option(theory, mode):
-    common = [' --abstract-values', ' --ackermann', ' --early-ite-removal', ' --expand-definitions', ' --ext-rew-prep=use',
+    common = [' --abstract-values', ' --ackermann', ' --early-ite-removal', ' --expand-definitions',
+              ' --ext-rew-prep=use',
               ' --ext-rew-prep=agg', ' --foreign-theory-rewrite', ' --ite-simp', ' --learned-rewrite',
               ' --model-witness-value', ' --on-repeat-ite-simp', ' --produce-abducts', ' --produce-assignments',
               ' --produce-difficulty', ' --produce-proofs', ' --produce-unsat-assumptions', ' --produce-unsat-cores',
@@ -367,40 +368,58 @@ def cvc5_candidate_option(theory, mode):
                '--bv-print-consts-as-indexed-symbols', '--bv-solver=bitblast-internal', '--bv-to-bool',
                '--cbqi-all-conflict', '--cbqi-mode=conflict', '--cegis-sample=trust', '--cegis-sample=use', '--cegqi',
                '--cegqi-bv-ineq=keep', '--cegqi-inf-int', '--cegqi-inf-real', '--cegqi-midpoint', '--cegqi-nested-qe',
-               '--check-interpolants', '--check-proofs', '--check-synth-sol', '--check-unsat-cores', '--decision=justification',
-               '--decision=stoponly',  '--enum-inst', '--enum-inst-interleave', '--enum-inst-sum', '--ext-rew-prep=agg',
-               '--ext-rew-prep=use', '--ext-rewrite-quant', '--finite-model-find', '--fmf-bound', '--fmf-fun', '--fmf-fun-rlv',
-               '--full-saturate-quant', '--ho-elim', '--inst-when=full', '--inst-when=full-delay', '--inst-when=full-delay-last-call',
-               '--inst-when=last-call', '--interpolants-mode=default', '--interpolants-mode=assumptions', '--interpolants-mode=conjecture',
-               '--interpolants-mode=shared', '--interpolants-mode=all',  '--cegqi-bv-ineq=eq-slack', '--check-abducts',
-               '--ite-lift-quant=all', '--ite-lift-quant=none', '--learned-rewrite', '--macros-quant', '--macros-quant-mode=all',
-               '--macros-quant-mode=ground', '--mbqi-one-inst-per-round', '--miniscope-quant=off', '--miniscope-quant=conj',
+               '--check-interpolants', '--check-proofs', '--check-synth-sol', '--check-unsat-cores',
+               '--decision=justification',
+               '--decision=stoponly', '--enum-inst', '--enum-inst-interleave', '--enum-inst-sum', '--ext-rew-prep=agg',
+               '--ext-rew-prep=use', '--ext-rewrite-quant', '--finite-model-find', '--fmf-bound', '--fmf-fun',
+               '--fmf-fun-rlv',
+               '--full-saturate-quant', '--ho-elim', '--inst-when=full', '--inst-when=full-delay',
+               '--inst-when=full-delay-last-call',
+               '--inst-when=last-call', '--interpolants-mode=default', '--interpolants-mode=assumptions',
+               '--interpolants-mode=conjecture',
+               '--interpolants-mode=shared', '--interpolants-mode=all', '--cegqi-bv-ineq=eq-slack', '--check-abducts',
+               '--ite-lift-quant=all', '--ite-lift-quant=none', '--learned-rewrite', '--macros-quant',
+               '--macros-quant-mode=all',
+               '--macros-quant-mode=ground', '--mbqi-one-inst-per-round', '--miniscope-quant=off',
+               '--miniscope-quant=conj',
                '--miniscope-quant=fv', '--miniscope-quant=agg', '--multi-trigger-cache', '--multi-trigger-priority',
                '--nl-ext-tplanes-interleave', '--nl-ext=none', '--nl-ext=light', '--no-arith-brab', '--nl-cov',
                '--no-arrays-eager-index', '--no-bitwise-eq', '--no-cbqi', '--no-cegqi-bv', '--no-cegqi-innermost',
-               '--no-dt-share-sel', '--no-e-matching', '--no-elim-taut-quant', '--no-ho-elim-store-ax', '--no-inst-no-entail',
+               '--no-dt-share-sel', '--no-e-matching', '--no-elim-taut-quant', '--no-ho-elim-store-ax',
+               '--no-inst-no-entail',
                '--no-multi-trigger-linear', '--no-nl-ext-factor', '--no-nl-ext-rewrite', '--no-nl-ext-tf-tplanes',
                '--no-nl-ext-tplanes', '--no-print-inst-full', '--no-produce-assertions', '--no-quant-alpha-equiv',
-               '--no-static-learning', '--no-strings-check-entail-len', '--no-strings-eager-eval', '--no-strings-eager-solver',
-               '--no-strings-lazy-pp', '--no-strings-mbr', '--no-strings-regexp-inclusion', '--no-sygus-add-const-grammar',
-               '--no-sygus-min-grammar', '--no-sygus-pbe', '--no-sygus-sym-break-pbe', '--no-uf-ss-fair', '--no-var-elim-quant',
+               '--no-static-learning', '--no-strings-check-entail-len', '--no-strings-eager-eval',
+               '--no-strings-eager-solver',
+               '--no-strings-lazy-pp', '--no-strings-mbr', '--no-strings-regexp-inclusion',
+               '--no-sygus-add-const-grammar',
+               '--no-sygus-min-grammar', '--no-sygus-pbe', '--no-sygus-sym-break-pbe', '--no-uf-ss-fair',
+               '--no-var-elim-quant',
                '--no-var-ineq-elim-quant', '--pre-skolem-quant=agg', '--pre-skolem-quant=on', '--prenex-quant-user',
-               '--prenex-quant=none', '--print-unsat-cores-full', '--produce-abducts', '--produce-assignments', '--produce-difficulty',
-               '--produce-interpolants', '--produce-learned-literals', '--produce-proofs', '--produce-unsat-assumptions',
+               '--prenex-quant=none', '--print-unsat-cores-full', '--produce-abducts', '--produce-assignments',
+               '--produce-difficulty',
+               '--produce-interpolants', '--produce-learned-literals', '--produce-proofs',
+               '--produce-unsat-assumptions',
                '--produce-unsat-cores', '--quant-dsplit=agg', '--quant-dsplit=none', '--re-elim=agg', '--re-elim=on',
-               '--multi-trigger-when-single', '--relevant-triggers', '--sets-ext', '--solve-real-as-int', '--simplification=none',
+               '--multi-trigger-when-single', '--relevant-triggers', '--sets-ext', '--solve-real-as-int',
+               '--simplification=none',
                '--sort-inference', '--static-learning', '--strings-deq-ext', '--strings-eager-len-re', '--strings-exp',
                '--strings-fmf', '--strings-process-loop-mode=none', '--sygus', '--sygus-core-connective',
                '--sygus-enum=random', '--sygus-enum=smart', '--sygus-enum=fast', '--sygus-enum=var-agnostic',
-               '--sygus-eval-unfold=none', '--sygus-eval-unfold=single', '--sygus-eval-unfold=multi', '--sygus-fair=none',
-               '--sygus-fair=direct', '--sygus-fair=dt-height-bound', '--sygus-fair=dt-size-bound', '--prenex-quant=norm',
-               '--sygus-grammar-cons=any-term-concise', '--sygus-grammar-cons=any-const', '--sygus-grammar-cons=any-term',
+               '--sygus-eval-unfold=none', '--sygus-eval-unfold=single', '--sygus-eval-unfold=multi',
+               '--sygus-fair=none',
+               '--sygus-fair=direct', '--sygus-fair=dt-height-bound', '--sygus-fair=dt-size-bound',
+               '--prenex-quant=norm',
+               '--sygus-grammar-cons=any-term-concise', '--sygus-grammar-cons=any-const',
+               '--sygus-grammar-cons=any-term',
                '--sygus-inst', '--sygus-inv-templ=none', '--sygus-inv-templ=pre', '--sygus-out=status',
                '--sygus-out=status-and-def', '--sygus-repair-const', '--sygus-rewriter=none', '--sygus-rewriter=basic',
                '--sygus-si-abort', '--sygus-si-rcons=none', '--sygus-si-rcons=try', '--sygus-si-rcons=all-limit',
                '--sygus-si=all', '--sygus-si=use', '--sygus-simple-sym-break=none', '--sygus-simple-sym-break=basic',
-               '--sygus-stream', '--sygus-unif-pi=cond-enum-igain', '--sygus-unif-pi=complete', '--sygus-unif-pi=cond-enum',
-               '--term-db-mode=relevant', '--trigger-sel=all', '--trigger-sel=max', '--trigger-sel=min-s-max', '--trigger-sel=min-s-all',
+               '--sygus-stream', '--sygus-unif-pi=cond-enum-igain', '--sygus-unif-pi=complete',
+               '--sygus-unif-pi=cond-enum',
+               '--term-db-mode=relevant', '--trigger-sel=all', '--trigger-sel=max', '--trigger-sel=min-s-max',
+               '--trigger-sel=min-s-all',
                '--uf-lazy-ll', '--uf-ss=none', '--uf-ss=no-minimal', '--unconstrained-simp']
     unique = []
     if theory in ["int", "real"]:

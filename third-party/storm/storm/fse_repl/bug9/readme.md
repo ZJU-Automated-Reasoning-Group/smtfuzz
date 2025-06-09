@@ -14,26 +14,26 @@
 <br>
 **Seed file**: `UF/instantiated/dl_remove_postcondition_of_dl_remove_16_4.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug9 --solver=z3 --seed=1595636275
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_116.smt2`.
+The mutant is
 
-
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_116.smt2`. 
-The mutant is 
 ```
 sat
 ``` 
 
-But the buggy version of z3 returns: 
+But the buggy version of z3 returns:
+
 ```
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

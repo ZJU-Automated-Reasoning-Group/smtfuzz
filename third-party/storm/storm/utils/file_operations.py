@@ -20,6 +20,7 @@ from termcolor import colored
 from storm.parameters import get_supported_theories
 from storm.parameters import get_parameters_dict
 
+
 def get_all_smt_files_recursively(path_to_directory):
     file_paths = list()
     for r, d, f in os.walk(path_to_directory):
@@ -27,7 +28,7 @@ def get_all_smt_files_recursively(path_to_directory):
             if ".smt20" in file:
                 continue
             if ".smt2" in file:
-                file_paths.append(os.path.join(r,file))
+                file_paths.append(os.path.join(r, file))
 
     return file_paths
 
@@ -37,10 +38,12 @@ def create_smt2_file(path, string):
     file.write(string)
     file.close()
 
+
 def create_file(data, path):
     file = open(path, "w")
     file.write(data)
     file.close()
+
 
 def append_row(data, path):
     file = open(path, "a")
@@ -64,7 +67,7 @@ def create_server_core_directory(temp_dir, server, core):
         os.mkdir(core_dir)
     else:
         os.mkdir(core_dir)
-    print("####### [Created core dir] - " + core_dir )
+    print("####### [Created core dir] - " + core_dir)
     return core_dir
 
 
@@ -92,7 +95,8 @@ def pick_a_supported_theory(path_to_benchmark, solver, seed):
             return theory
 
 
-def record_soundness(home_directory, seed_file_path, buggy_mutant_path, seed, mutant_number, seed_theory, fuzzing_parameters):
+def record_soundness(home_directory, seed_file_path, buggy_mutant_path, seed, mutant_number, seed_theory,
+                     fuzzing_parameters):
     temp_dir = os.path.join(home_directory, "temp")
     print(colored("Creating a soundness folder at: ", "magenta", attrs=["bold"]) + temp_dir)
     print(colored("seed file path: ", "magenta", attrs=["bold"]) + seed_file_path)

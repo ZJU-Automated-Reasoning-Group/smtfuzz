@@ -1,4 +1,3 @@
-
 # MIT License
 #
 # Copyright (c) [2020 - 2021] The yinyang authors
@@ -24,6 +23,7 @@
 # Generated from SMTLIBv2.g4 by ANTLR 4.8
 from antlr4 import *
 from src.parsing.SMTLIBv2Parser import SMTLIBv2Parser
+
 
 # This class defines a complete generic visitor for a parse tree produced by SMTLIBv2Parser.
 class SMTLIBv2Visitor(ParseTreeVisitor):
@@ -193,7 +193,7 @@ class SMTLIBv2Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SMTLIBv2Parser#cmd_checkSatAssuming.
     def visitCmd_checkSatAssuming(
-        self, ctx: SMTLIBv2Parser.Cmd_checkSatAssumingContext
+            self, ctx: SMTLIBv2Parser.Cmd_checkSatAssumingContext
     ):
         return self.visitChildren(ctx)
 
@@ -207,7 +207,7 @@ class SMTLIBv2Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SMTLIBv2Parser#cmd_declareDatatypes.
     def visitCmd_declareDatatypes(
-        self, ctx: SMTLIBv2Parser.Cmd_declareDatatypesContext
+            self, ctx: SMTLIBv2Parser.Cmd_declareDatatypesContext
     ):
         return self.visitChildren(ctx)
 
@@ -269,7 +269,7 @@ class SMTLIBv2Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SMTLIBv2Parser#cmd_getUnsatAssumptions.
     def visitCmd_getUnsatAssumptions(
-        self, ctx: SMTLIBv2Parser.Cmd_getUnsatAssumptionsContext
+            self, ctx: SMTLIBv2Parser.Cmd_getUnsatAssumptionsContext
     ):
         return self.visitChildren(ctx)
 
@@ -355,13 +355,13 @@ class SMTLIBv2Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SMTLIBv2Parser#get_assertions_response.
     def visitGet_assertions_response(
-        self, ctx: SMTLIBv2Parser.Get_assertions_responseContext
+            self, ctx: SMTLIBv2Parser.Get_assertions_responseContext
     ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by SMTLIBv2Parser#get_assignment_response.
     def visitGet_assignment_response(
-        self, ctx: SMTLIBv2Parser.Get_assignment_responseContext
+            self, ctx: SMTLIBv2Parser.Get_assignment_responseContext
     ):
         return self.visitChildren(ctx)
 
@@ -383,13 +383,13 @@ class SMTLIBv2Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SMTLIBv2Parser#get_unsat_assump_response.
     def visitGet_unsat_assump_response(
-        self, ctx: SMTLIBv2Parser.Get_unsat_assump_responseContext
+            self, ctx: SMTLIBv2Parser.Get_unsat_assump_responseContext
     ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by SMTLIBv2Parser#get_unsat_core_response.
     def visitGet_unsat_core_response(
-        self, ctx: SMTLIBv2Parser.Get_unsat_core_responseContext
+            self, ctx: SMTLIBv2Parser.Get_unsat_core_responseContext
     ):
         return self.visitChildren(ctx)
 
@@ -399,7 +399,7 @@ class SMTLIBv2Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SMTLIBv2Parser#specific_success_response.
     def visitSpecific_success_response(
-        self, ctx: SMTLIBv2Parser.Specific_success_responseContext
+            self, ctx: SMTLIBv2Parser.Specific_success_responseContext
     ):
         return self.visitChildren(ctx)
 

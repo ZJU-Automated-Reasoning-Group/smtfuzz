@@ -14,30 +14,30 @@
 <br>
 **Seed file**: `/QF_LIA/CAV_2009_benchmarks/smt/20-vars/problem__003.smt2`
 
-
 ### Storm command
 
 ```
 storm --reproduce=bug13 --seed=1595772671
 ```
 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
+name `mutant_10.smt2`.
+The mutant is
 
-
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
-name `mutant_10.smt2`. 
-The mutant is 
 ```
 sat
 sat
 sat
 ``` 
 
-But the buggy version of cvc4 returns: 
+But the buggy version of cvc4 returns:
+
 ```
 sat
 sat
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of cvc4. 
 
 

@@ -5,7 +5,6 @@ from equality_saturation.helper import RewriteEGG, convert_to_IR, convert_IR_to_
 from parsing.Parse import parse_file
 from parsing.TimeoutDecorator import exit_after
 
-
 import traceback
 import os
 import random
@@ -20,6 +19,7 @@ from argument_parser.parser import MainArgumentParser
 from src.parsing.Ast import CheckSat, Assert
 
 MIMETIC_TIMES = 10
+
 
 def fuzz(seeds, solver, solver_bin, temp_dir, modulo=2, max_iter=10, core=0, bug_type="common", extra_fuzzer=None):
     @exit_after(300)
@@ -52,12 +52,13 @@ def fuzz(seeds, solver, solver_bin, temp_dir, modulo=2, max_iter=10, core=0, bug
                     seed_file = original_smt2
                     orig_file_path = seed_file
         temp_output = script_dir + "/temp.txt"
-        orig_output, _, orig_time, command = run_solver(solver_bin, solver, seed_file, 10, "incremental", temp_output, temp_dir, "None", default=True)
+        orig_output, _, orig_time, command = run_solver(solver_bin, solver, seed_file, 10, "incremental", temp_output,
+                                                        temp_dir, "None", default=True)
         print("Original output: {}".format(orig_output))
         if orig_output == "timeout":
             pass
         new_script = []
-        
+
         for iter in range(max_iter):
             previous_command = command
             TargetScript, TargetGlobal = parse_file(seed_file)
@@ -73,7 +74,8 @@ def fuzz(seeds, solver, solver_bin, temp_dir, modulo=2, max_iter=10, core=0, bug
                         pass
                     else:
                         new_script.append(str(cmd))
-            replacee_terms = random.sample(TargetScript.op_occs, 3 if len(TargetScript.op_occs) > 3 else len(TargetScript.op_occs))
+            replacee_terms = random.sample(TargetScript.op_occs,
+                                           3 if len(TargetScript.op_occs) > 3 else len(TargetScript.op_occs))
             replace_pairs = []
             for term in replacee_terms:
                 term_ir = convert_to_IR(term)
@@ -97,7 +99,8 @@ def fuzz(seeds, solver, solver_bin, temp_dir, modulo=2, max_iter=10, core=0, bug
                         current_ast_str += str(ast_cmd) + "\n"
                     for replace_pair in replace_pairs:
                         current_ast_str = current_ast_str.replace(replace_pair[0], replace_pair[1], 1)
-                        applied_rules += "Original term is: {}\nRewritten term is: {}\n".format(replace_pair[0], replace_pair[1])
+                        applied_rules += "Original term is: {}\nRewritten term is: {}\n".format(replace_pair[0],
+                                                                                                replace_pair[1])
                 else:
                     # do not skip this iteration
                     current_ast_str = ""
@@ -110,40 +113,52 @@ def fuzz(seeds, solver, solver_bin, temp_dir, modulo=2, max_iter=10, core=0, bug
                 # f.write(str(mutated_formula))
                 f.write(logic + "\n" + str(mutated_formula))
             if bug_type == "common":
-                mutant_output, _, mutant_time, command = run_solver(solver_bin, solver, mutant_path, 10, "incremental", temp_output, temp_dir, "None", default=False, rules=applied_rules)
+                mutant_output, _, mutant_time, command = run_solver(solver_bin, solver, mutant_path, 10, "incremental",
+                                                                    temp_output, temp_dir, "None", default=False,
+                                                                    rules=applied_rules)
             else:
                 if bug_type == "all":
                     # default = "options"
                     default = True
-                mutant_output, _, mutant_time, command = run_solver(solver_bin, solver, mutant_path, 10, "incremental", temp_output, temp_dir, "None", default, rules=applied_rules)
+                mutant_output, _, mutant_time, command = run_solver(solver_bin, solver, mutant_path, 10, "incremental",
+                                                                    temp_output, temp_dir, "None", default,
+                                                                    rules=applied_rules)
             # print("Mutant output: {}".format(mutant_output))
             if bug_type == "all":
                 if mutant_time / orig_time > 10 or ("sat" in orig_output and mutant_output == "timeout"):
                     if not performance_flag:
                         performance_flag = True
-                        record_bug(temp_dir, "performance", mutant_path, orig_file_path, solver, mutant_output, "", "", option=command + "\n" + previous_command, rules=applied_rules)
-                if orig_time / mutant_time > 10 or (orig_output == "timeout" and "sat" in mutant_output ):
+                        record_bug(temp_dir, "performance", mutant_path, orig_file_path, solver, mutant_output, "", "",
+                                   option=command + "\n" + previous_command, rules=applied_rules)
+                if orig_time / mutant_time > 10 or (orig_output == "timeout" and "sat" in mutant_output):
                     if not performance_flag:
                         performance_flag = True
-                        record_bug(temp_dir, "performance", mutant_path, orig_file_path, solver, mutant_output, "", "", option=command + "\n" + previous_command, rules=applied_rules)
-                if ("unknown" not in orig_output and "unknown" in mutant_output) or ("unknown" in orig_output and "unknown" not in mutant_output): 
-                    if orig_output not in ["parseerror", "error", "timeout"] and mutant_output not in ["parseerror", "error", "timeout"]:
+                        record_bug(temp_dir, "performance", mutant_path, orig_file_path, solver, mutant_output, "", "",
+                                   option=command + "\n" + previous_command, rules=applied_rules)
+                if ("unknown" not in orig_output and "unknown" in mutant_output) or (
+                        "unknown" in orig_output and "unknown" not in mutant_output):
+                    if orig_output not in ["parseerror", "error", "timeout"] and mutant_output not in ["parseerror",
+                                                                                                       "error",
+                                                                                                       "timeout"]:
                         if not completeness_flag:
                             completeness_flag = True
-                            record_bug(temp_dir, "completeness", mutant_path, orig_file_path, solver, mutant_output, "", "", option=command + "\n" + previous_command, rules=applied_rules)
+                            record_bug(temp_dir, "completeness", mutant_path, orig_file_path, solver, mutant_output, "",
+                                       "", option=command + "\n" + previous_command, rules=applied_rules)
             if mutant_output not in [orig_output, "crash", "parseerror", "timeout", "error"]:
                 # record_bug(seed_file, mutated_formula, orig_output, mutant_output, orig_time, mutant_time)
                 if isinstance(orig_output, list) and isinstance(mutant_output, list):
                     result_len = min(len(orig_output), len(mutant_output))
                     bug_found = False
                     for i in range(result_len):
-                        if orig_output[i] != mutant_output[i] and orig_output[i] in ["sat", "unsat"] and mutant_output[i] in ["sat", "unsat"]:
+                        if orig_output[i] != mutant_output[i] and orig_output[i] in ["sat", "unsat"] and mutant_output[
+                            i] in ["sat", "unsat"]:
                             bug_found = True
                             break
                     if bug_found and not soundness_flag:
                         soundness_flag = True
-                        record_bug(temp_dir, "soundness", mutant_path, orig_file_path, solver, mutant_output, "", "", option=command + "\n" + previous_command, rules=applied_rules)
-                            
+                        record_bug(temp_dir, "soundness", mutant_path, orig_file_path, solver, mutant_output, "", "",
+                                   option=command + "\n" + previous_command, rules=applied_rules)
+
                 # record_bug(temp_dir, "soundness", mutant_path, orig_file_path, solver, mutant_output, "", "", option=command)
             seed_file = mutant_path
             orig_file_path = mutant_path
@@ -224,13 +239,13 @@ def main():
     processes = []
     for idx in range(core_num):
         print("Fuzzing core {}".format(idx))
-        p = multiprocessing.Process(target=fuzz, args=(seed_files[idx], solver, solver_bin, temp_dir, 2, timeout, idx, bug_type))
+        p = multiprocessing.Process(target=fuzz,
+                                    args=(seed_files[idx], solver, solver_bin, temp_dir, 2, timeout, idx, bug_type))
         processes.append(p)
         p.start()
     for process in processes:
         process.join()
-        
+
 
 if __name__ == "__main__":
     main()
-    

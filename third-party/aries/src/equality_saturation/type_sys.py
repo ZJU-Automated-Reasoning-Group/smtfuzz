@@ -1,52 +1,62 @@
-
 from __future__ import annotations
 
 from typing import NamedTuple, Union, Any
 
 
-#operators for arithmetic
+# operators for arithmetic
 class Add(NamedTuple):
     x: Any
     y: Any
-    
+
+
 class Sub(NamedTuple):
     x: Any
     y: Any
+
 
 class Mul(NamedTuple):
     x: Any
     y: Any
 
+
 class IntDiv(NamedTuple):
     x: Any
     y: Any
+
 
 class Mod(NamedTuple):
     x: Any
     y: Any
 
+
 class Div(NamedTuple):
     x: Any
     y: Any
+
 
 class Leq(NamedTuple):
     x: Any
     y: Any
 
+
 class Geq(NamedTuple):
     x: Any
     y: Any
+
 
 class Lt(NamedTuple):
     x: Any
     y: Any
 
+
 class Gt(NamedTuple):
     x: Any
     y: Any
 
+
 class Neg(NamedTuple):
     x: Any
+
 
 class Abs(NamedTuple):
     x: Any
@@ -58,14 +68,17 @@ class Abs(NamedTuple):
 class ToReal(NamedTuple):
     x: Any
 
+
 class ToInt(NamedTuple):
     x: Any
+
 
 class IsInt(NamedTuple):
     x: Any
 
 
 ARITH_OPS = [Add, Sub, Mul, Div, Mod, IntDiv, Leq, Geq, Lt, Gt, Neg, Abs, ToReal, ToInt, IsInt]
+
 
 # # Allow constant folding via an eval function
 # def eval_math(car, cdr):
@@ -92,7 +105,6 @@ ARITH_OPS = [Add, Sub, Mul, Div, Mod, IntDiv, Leq, Geq, Lt, Gt, Neg, Abs, ToReal
 #     except:
 #         pass
 #     return None
-
 
 
 def eval_arith(car, cdr):
@@ -157,21 +169,26 @@ def eval_arith(car, cdr):
         pass
     return None
 
+
 # operators for bool
 class Not(NamedTuple):
     x: Any
+
 
 class Implies(NamedTuple):
     x: Any
     y: Any
 
+
 class And(NamedTuple):
     x: Any
     y: Any
 
+
 class Or(NamedTuple):
     x: Any
     y: Any
+
 
 class Xor(NamedTuple):
     x: Any
@@ -182,30 +199,38 @@ class Eq(NamedTuple):
     x: Any
     y: Any
 
+
 class Distinct(NamedTuple):
     x: Any
     y: Any
+
 
 class Ite(NamedTuple):
     x: Any
     y: Any
     z: Any
 
+
 class TRUE(NamedTuple):
     def __str__(self):
         return "true"
+
     def __repr__(self):
         return "true"
+
 
 class FALSE(NamedTuple):
     def __str__(self):
         return "false"
+
     def __repr__(self):
         return "false"
-    
+
+
 class EmptyString(NamedTuple):
     def __str__(self):
         return '""'
+
     def __repr__(self):
         return '""'
 
@@ -224,12 +249,15 @@ class Concat(NamedTuple):
     x: Any
     y: Any
 
+
 class StrLen(NamedTuple):
     x: Any
+
 
 class StrLt(NamedTuple):
     x: Any
     y: Any
+
 
 # ;
 # ; ## Regular expression functions
@@ -246,24 +274,30 @@ class StrLt(NamedTuple):
 class StrToRe(NamedTuple):
     x: Any
 
+
 class StrInRe(NamedTuple):
     x: Any
     y: Any
+
 
 class ReConcat(NamedTuple):
     x: Any
     y: Any
 
+
 class ReUnion(NamedTuple):
     x: Any
     y: Any
+
 
 class ReIntersect(NamedTuple):
     x: Any
     y: Any
 
+
 class ReStar(NamedTuple):
     x: Any
+
 
 # ;
 # ; ## Regular expression functions
@@ -288,51 +322,62 @@ class StrLeq(NamedTuple):
     x: Any
     y: Any
 
+
 class StrAt(NamedTuple):
     x: Any
     y: Any
+
 
 class StrSubstr(NamedTuple):
     x: Any
     y: Any
     z: Any
 
+
 class StrPrefixof(NamedTuple):
     x: Any
     y: Any
+
 
 class StrSuffixof(NamedTuple):
     x: Any
     y: Any
 
+
 class StrContains(NamedTuple):
     x: Any
     y: Any
+
 
 class StrIndexof(NamedTuple):
     x: Any
     y: Any
     z: Any
 
+
 class StrReplace(NamedTuple):
     x: Any
     y: Any
     z: Any
+
 
 class StrReplaceAll(NamedTuple):
     x: Any
     y: Any
     z: Any
 
+
 class StrReplaceRe(NamedTuple):
     x: Any
     y: Any
     z: Any
 
+
 class StrReplaceReAll(NamedTuple):
     x: Any
     y: Any
     z: Any
+
 
 class ReComp(NamedTuple):
     x: Any
@@ -342,11 +387,14 @@ class ReDiff(NamedTuple):
     x: Any
     y: Any
 
+
 class RePlus(NamedTuple):
     x: Any
 
+
 class ReOpt(NamedTuple):
     x: Any
+
 
 class ReRange(NamedTuple):
     x: Any
@@ -364,99 +412,120 @@ class ReRange(NamedTuple):
 class StrIsDigit(NamedTuple):
     x: Any
 
+
 class StrToCode(NamedTuple):
     x: Any
+
 
 class StrFromCode(NamedTuple):
     x: Any
 
+
 class StrToInt(NamedTuple):
     x: Any
+
 
 class IntToStr(NamedTuple):
     x: Any
 
+
 class StrFromInt(NamedTuple):
     x: Any
+
 
 class ReNone(NamedTuple):
     pass
 
+
 class ReAll(NamedTuple):
     pass
+
 
 class ReAllChar(NamedTuple):
     pass
 
+
 class BvConcat(NamedTuple):
     x: Any
     y: Any
+
 
 class Extract(NamedTuple):
     x: Any
     y: Any
     z: Any
 
+
 class BvSub(NamedTuple):
     x: Any
     y: Any
+
 
 class BvAdd(NamedTuple):
     x: Any
     y: Any
 
+
 class BvConst(NamedTuple):
     x: Any
+
 
 class BvOr(NamedTuple):
     x: Any
     y: Any
 
+
 class BvAnd(NamedTuple):
     x: Any
     y: Any
+
 
 class BvXor(NamedTuple):
     x: Any
     y: Any
 
+
 class BvNot(NamedTuple):
     x: Any
+
 
 class BvUlt(NamedTuple):
     x: Any
     y: Any
 
+
 class BvSlt(NamedTuple):
     x: Any
     y: Any
+
 
 class BvMul(NamedTuple):
     x: Any
     y: Any
 
+
 class BvNeg(NamedTuple):
     x: Any
+
 
 class ZeroExtend(NamedTuple):
     x: Any
     y: Any
 
+
 class SignExtend(NamedTuple):
     x: Any
     y: Any
 
+
 class BvSgt(NamedTuple):
     x: Any
     y: Any
+
 
 class Other(NamedTuple):
     symbol: Any
     arg1: Any
     arg2: Any
 
-
-
-
 # STR_OPS = [StrLen, StrLt, StrToRe, StrInRe, ReUnion, ReInter, ReStar, StrLeq, StrAt, StrSubstr, StrPrefixof, StrSuffixof, StrContains, StrIndexof, StrReplace, StrReplaceAll, StrReplaceRe, StrReplaceReAll, ReComp, ReDiff, RePlus, ReOpt, ReRange, StrIsDigit, StrToCode, StrFromCode, StrToInt, StrFromInt]
-

@@ -20,18 +20,19 @@
 storm --reproduce=bug7 --solver=z3 --seed=1595635131
 ```
 
-
-
-This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the 
+This will generate 1000 mutants of the seed file `seed.smt2` and copy the buggy mutant to this folder with the
 name `mutant_104.smt2`. The file is
+
 ```
 sat
 ``` 
 
-But the buggy version of z3 returns: 
+But the buggy version of z3 returns:
+
 ```
 unsat
 ``` 
+
 You can verify this by running this file with the buggy version of z3. 
 
 

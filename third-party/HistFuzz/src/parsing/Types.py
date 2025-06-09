@@ -60,8 +60,8 @@ class ARRAY_TYPE:
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return (
-                self.index_type == other.index_type
-                and self.payload_type == other.payload_type
+                    self.index_type == other.index_type
+                    and self.payload_type == other.payload_type
             )
 
 
@@ -122,7 +122,6 @@ LTE = "<="
 LT = "<"
 
 NUMERICAL_OPS = [UNARY_MINUS, MINUS, PLUS, MULTIPLY, ABS, GTE, GT, LTE, LT]
-
 
 # specific Int ops
 DIV = "div"
@@ -240,7 +239,6 @@ BVULE = "bvule"
 BVSLT = "bvslt"
 BVSGT = "bvsgt"
 BVSDIV = "bvsdiv"
-
 
 BV_OPS = [
     BV_CONCAT,

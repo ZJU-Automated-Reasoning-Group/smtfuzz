@@ -4,7 +4,6 @@ import random
 import shutil
 
 
-
 def recursively_get_files(path: str, extension: str):
     """
     Recursively get all files with a specified extension in a directory.
@@ -25,6 +24,7 @@ def recursively_get_files(path: str, extension: str):
                 files.append(os.path.join(dirpath, filename))
     return files
 
+
 def extract_comments(filename):
     with open(filename, 'r') as file:
         content = file.read()
@@ -34,12 +34,14 @@ def extract_comments(filename):
 
     return comments
 
+
 def eliminate_duplicate_lines(comments):
     unique_comments = []
     for comment in comments:
         if comment not in unique_comments:
             unique_comments.append(comment)
     return unique_comments
+
 
 def get_all_files_recursively(path_to_directory):
     file_paths = list()
@@ -48,6 +50,7 @@ def get_all_files_recursively(path_to_directory):
             file_path = os.path.join(r, file)
             file_paths.append(file_path)
     return file_paths
+
 
 def get_all_smt_files_within_size(path_to_directory, size=1000000):
     file_paths = list()
@@ -58,4 +61,3 @@ def get_all_smt_files_within_size(path_to_directory, size=1000000):
                 if os.path.getsize(file_path) <= size:
                     file_paths.append(file_path)
     return file_paths
-

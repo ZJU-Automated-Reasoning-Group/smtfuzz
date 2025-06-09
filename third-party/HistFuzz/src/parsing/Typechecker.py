@@ -72,7 +72,7 @@ class Context:
 
 class TypeCheckError(Exception):
     def __init__(self, expr, subterm=None, expected=None, actual=None):
-        self.message = "Ill-typed expression \nterm: \t \t"\
+        self.message = "Ill-typed expression \nterm: \t \t" \
                        + expr.__str__() + "\n"
         if isinstance(subterm, list):
             s = "[" + subterm[0].__str__() + " "
@@ -405,9 +405,9 @@ def typecheck_replace_re(expr, ctxt):
     t2 = typecheck_expr(expr.subterms[1], ctxt)
     t3 = typecheck_expr(expr.subterms[2], ctxt)
     if (
-        typecheck_expr(expr.subterms[0], ctxt) != STRING_TYPE
-        or typecheck_expr(expr.subterms[1], ctxt) != REGEXP_TYPE
-        or typecheck_expr(expr.subterms[2], ctxt) != STRING_TYPE
+            typecheck_expr(expr.subterms[0], ctxt) != STRING_TYPE
+            or typecheck_expr(expr.subterms[1], ctxt) != REGEXP_TYPE
+            or typecheck_expr(expr.subterms[2], ctxt) != STRING_TYPE
     ):
         raise TypeCheckError(
             expr, expr, [STRING_TYPE, STRING_TYPE, STRING_TYPE], [t1, t2, t3]
@@ -466,7 +466,7 @@ def typecheck_string_ops(expr, ctxt):
     if expr.op == STRLEN:
         return typecheck_strlen(expr, ctxt)
     if expr.op in [
-            LEXORD, REFLEX_CLOS, STR_PREFIXOF, STR_SUFFIXOF, STR_CONTAINS
+        LEXORD, REFLEX_CLOS, STR_PREFIXOF, STR_SUFFIXOF, STR_CONTAINS
     ]:
         return typecheck_nary_string_rt_bool(expr, ctxt)
     if expr.op in [RE_NONE, RE_ALL, RE_ALLCHAR]:
@@ -545,8 +545,8 @@ def typecheck_bv_concat(expr, ctxt):
     arg1, arg2 = expr.subterms[0], expr.subterms[1]
     t1 = typecheck_expr(expr.subterms[0], ctxt)
     t2 = typecheck_expr(expr.subterms[1], ctxt)
-    if not isinstance(t1, BITVECTOR_TYPE) or\
-       not isinstance(t2, BITVECTOR_TYPE):
+    if not isinstance(t1, BITVECTOR_TYPE) or \
+            not isinstance(t2, BITVECTOR_TYPE):
         raise TypeCheckError(
             expr, [arg1, arg2], [BITVECTOR_TYPE, BITVECTOR_TYPE], [t1, t2]
         )
@@ -572,8 +572,8 @@ def typecheck_bv_binary(expr, ctxt):
     arg1, _ = expr.subterms[0], expr.subterms[1]
     t1 = typecheck_expr(expr.subterms[0], ctxt)
     t2 = typecheck_expr(expr.subterms[1], ctxt)
-    if not isinstance(t1, BITVECTOR_TYPE) or\
-       not isinstance(t2, BITVECTOR_TYPE):
+    if not isinstance(t1, BITVECTOR_TYPE) or \
+            not isinstance(t2, BITVECTOR_TYPE):
         expected = "[" + str(BITVECTOR_TYPE) + "," + str(BITVECTOR_TYPE) + "]"
         actual = "[" + str(t1) + "," + str(t2) + "]"
         raise TypeCheckError(expr, arg1, expected, actual)
@@ -590,8 +590,8 @@ def typecheck_binary_bool_rt(expr, ctxt):
     t1 = typecheck_expr(expr.subterms[0], ctxt)
     t2 = typecheck_expr(expr.subterms[1], ctxt)
 
-    if not isinstance(arg1, BITVECTOR_TYPE) or\
-       not isinstance(arg2, BITVECTOR_TYPE):
+    if not isinstance(arg1, BITVECTOR_TYPE) or \
+            not isinstance(arg2, BITVECTOR_TYPE):
         raise TypeCheckError(
             expr, [arg1, arg2], [BITVECTOR_TYPE, BITVECTOR_TYPE], [t1, t2]
         )
@@ -703,11 +703,11 @@ def typecheck_fp_minmax(expr, ctxt):
     """
     (fp.min (_ FloatingPoint eb sb) (_ FloatingPoint eb sb) (_ FloatingPoint eb sb)) 
     (fp.max (_ FloatingPoint eb sb) (_ FloatingPoint eb sb) (_ FloatingPoint eb sb))
-    """ # noqa E501
+    """  # noqa E501
     arg1 = expr.subterms[0]
     arg2 = expr.subterms[1]
     if not isinstance(typecheck_expr(arg1, ctxt), FP_TYPE) or not isinstance(
-        typecheck_expr(arg2, ctxt), FP_TYPE
+            typecheck_expr(arg2, ctxt), FP_TYPE
     ):
         raise TypeCheckError(expr)
     return typecheck_expr(arg1, ctxt)
@@ -716,14 +716,14 @@ def typecheck_fp_minmax(expr, ctxt):
 def typecheck_fp_fma(expr, ctxt):
     """
     (fp.fma RoundingMode (_ FloatingPoint eb sb) (_ FloatingPoint eb sb) (_ FloatingPoint eb sb) (_ FloatingPoint eb sb))
-    """ # noqa E501
+    """  # noqa E501
     arg1 = expr.subterms[0]
     arg2 = expr.subterms[1]
     arg3 = expr.subterms[2]
     if (
-        not isinstance(typecheck_expr(arg1, ctxt), FP_TYPE)
-        or not isinstance(typecheck_expr(arg2, ctxt), FP_TYPE)
-        or not isinstance(typecheck_expr(arg3, ctxt), FP_TYPE)
+            not isinstance(typecheck_expr(arg1, ctxt), FP_TYPE)
+            or not isinstance(typecheck_expr(arg2, ctxt), FP_TYPE)
+            or not isinstance(typecheck_expr(arg3, ctxt), FP_TYPE)
     ):
         raise TypeCheckError(expr)
     return typecheck_expr(arg1, ctxt)
@@ -831,8 +831,8 @@ def typecheck_to_fp_unsigned(expr, ctxt):
     eb, sb = int(expr.op.split(" ")[2]), int(expr.op.split(" ")[3].strip(")"))
     t1 = typecheck_expr(expr.subterms[0], ctxt)
     t2 = typecheck_expr(expr.subterms[1], ctxt)
-    if not isinstance(t1, ROUNDINGMODE_TYPE)\
-       or isinstance(t2, BITVECTOR_TYPE):
+    if not isinstance(t1, ROUNDINGMODE_TYPE) \
+            or isinstance(t2, BITVECTOR_TYPE):
         raise TypeCheckError(expr)
     return FP_TYPE(eb, sb)
 
@@ -855,12 +855,12 @@ def typecheck_to_fp(expr, ctxt):
         t1 = typecheck_expr(expr.subterms[0], ctxt)
         t2 = typecheck_expr(expr.subterms[1], ctxt)
         if (
-            not (isinstance(t1, ROUNDINGMODE_TYPE) and isinstance(t2, FP_TYPE))
-            or not (isinstance(t1, ROUNDINGMODE_TYPE) and t2 == REAL_TYPE)
-            or not (
+                not (isinstance(t1, ROUNDINGMODE_TYPE) and isinstance(t2, FP_TYPE))
+                or not (isinstance(t1, ROUNDINGMODE_TYPE) and t2 == REAL_TYPE)
+                or not (
                 isinstance(t1, ROUNDINGMODE_TYPE) and
                 isinstance(t2, BITVECTOR_TYPE)
-            )
+        )
         ):
             raise TypeCheckError(expr)
 
@@ -919,9 +919,9 @@ def typecheck_expr(expr, ctxt=Context({}, {})):
 
         # BV infix ops
         if (
-            BV_EXTRACT in expr.op
-            or BV_ZERO_EXTEND in expr.op
-            or BV_SIGN_EXTEND in expr.op
+                BV_EXTRACT in expr.op
+                or BV_ZERO_EXTEND in expr.op
+                or BV_SIGN_EXTEND in expr.op
         ):
             return annotate(typecheck_bv_unary, expr, ctxt)
 

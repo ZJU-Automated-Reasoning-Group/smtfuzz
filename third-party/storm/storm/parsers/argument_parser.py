@@ -16,6 +16,7 @@ limitations under the License.
 
 import time
 
+
 class MainArgumentParser(object):
 
     def __init__(self):
@@ -36,7 +37,6 @@ class MainArgumentParser(object):
         self.check_sat_using = None
         self.incremental = None
 
-
     def parse_arguments(self, parser):
         parser.add_argument("--verbose", help="Verbose")
         parser.add_argument("--core", help="core to run on")
@@ -53,7 +53,6 @@ class MainArgumentParser(object):
         parser.add_argument("--file_path", help="path to a SMT file")
         parser.add_argument("--check_sat_using", help="check_sat_using (only for minimizer)")
         parser.add_argument("--incremental", nargs='?', const=True, default=False, help="incremental")
-
 
         arguments = vars(parser.parse_args())
 
@@ -80,7 +79,6 @@ class MainArgumentParser(object):
         self.file_path = arguments["file_path"]
         self.check_sat_using = arguments["check_sat_using"]
         self.incremental = arguments["incremental"]
-
 
     def get_arguments(self):
         self.parsed_arguments["verbose"] = self.verbose

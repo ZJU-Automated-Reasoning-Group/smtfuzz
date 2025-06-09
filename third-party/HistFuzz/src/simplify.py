@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import multiprocessing
 import random
 
@@ -77,10 +76,8 @@ def standardize_single_instance(file):
         os.remove(file)
 
 
-
 def check_ast_type(ast_type):
     if ast_type in [Define, DefineConst, DeclareConst, DeclareFun, FunDecl, Assert, Push, Pop, CheckSat]:
         return True
     else:
         return False
-

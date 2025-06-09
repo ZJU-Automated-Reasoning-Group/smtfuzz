@@ -2,9 +2,10 @@ import inspect
 from parser.smt_parser import *
 from analyzer.spc_analyzer import *
 
+
 def get_logic(logic):
     logic_ = 0
-    if "ALL"==logic:
+    if "ALL" == logic:
         logic_ = (logic_ | 127)
     if "S" in logic:
         logic_ = (logic_ | 4)
@@ -15,11 +16,11 @@ def get_logic(logic):
     return logic_
 
 
-def preprocess(formula,v_type,model,logic):
+def preprocess(formula, v_type, model, logic):
     C = {}
     try:
         ast = transform_smt_to_ast(formula)
-        analyzer = ConstraintAnalyzer(ast,v_type,model,get_logic(logic))
+        analyzer = ConstraintAnalyzer(ast, v_type, model, get_logic(logic))
         analyzer.generateSPC()
         C["var"] = analyzer.var
         C["const"] = analyzer.const
@@ -37,4 +38,3 @@ def preprocess(formula,v_type,model,logic):
         print("Runtime error at %s:%s" % (fn, lineno), flush=True)
         print("msg: " + str(e), flush=True)
         return None
-

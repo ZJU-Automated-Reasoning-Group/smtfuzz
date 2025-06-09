@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import random
 
 from src.parsing.Ast import Term, Expr
@@ -114,7 +113,6 @@ def get_basic_subterms(expr, index, rename_flag=False):
             basic_expr += new_av
             expr_types += new_type
     return basic_expr, expr_types
-
 
 
 def get_all_basic_subformula(formula, rename_flag=False):

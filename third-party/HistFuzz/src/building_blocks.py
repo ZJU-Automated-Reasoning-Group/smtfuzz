@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import os
 import random
 import re
@@ -358,7 +357,6 @@ def export_basic_formula(formula_list, output):
                         f.write(func.replace("(define-fun ", "(define-fun bug" + str(i) + "_") + "; ")
 
 
-
 def building_block_variables(building_blocks):
     subterms, typ = get_subterms(building_blocks)
     var_list = list()
@@ -611,4 +609,3 @@ def export_buggy_seed(file_path, output_path):
     simplify(output_path + "/real.txt")
     simplify(output_path + "/string.txt")
     simplify(output_path + "/array.txt")
-
