@@ -1,44 +1,36 @@
+#!/usr/bin/env python3
 """
-SMTFuzz CLI with multiple modes:
-- Generation: the current one (based on smtfuzz.py)
-- Mutation: use the code in mutators (bet/)
-- Inter-theory: new inter-theory mutation engine (inter/)
-- Seed-based: fuzzing using existing SMT files
-- Gen-based: fuzzing by generating new SMT formulas
+SMTFuzz Unified Command-Line Interface
+
+This script provides a unified interface for all SMTFuzz operations.
 """
 
 import sys
+import os
 import argparse
+
+# Add the parent directory to the path so we can import smtfuzz
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 
 def main():
-    """Main entry point for the smtfuzz command."""
     parser = argparse.ArgumentParser(
         description="SMTFuzz - SMT Solver Fuzzing Tool",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Available modes:
-  legacy    Run the legacy SMTFuzz generator (default)
-  seed      Run seed-based fuzzing using existing SMT files
-  gen       Run generation-based fuzzing creating new SMT formulas
+Available commands:
+  seed    Run seed-based fuzzing using existing SMT files
+  gen     Run generation-based fuzzing creating new SMT formulas
 
 Examples:
-  smtfuzz legacy --logic QF_BV --strategy cnf
   smtfuzz seed --seed /path/to/seeds --solver z3 --output /tmp/results
   smtfuzz gen --solver cvc5 --logicmode bv --count 100
-
-For more help on specific modes:
-  smtfuzz seed --help
-  smtfuzz gen --help
         """
     )
     
-    subparsers = parser.add_subparsers(dest='mode', help='Available modes')
+    subparsers = parser.add_subparsers(dest='command', help='Available commands')
     
-    # Legacy mode (default)
-    legacy_parser = subparsers.add_parser('legacy', help='Legacy SMTFuzz generator')
-    
-    # Seed mode
+    # Seed command
     seed_parser = subparsers.add_parser('seed', help='Seed-based fuzzing')
     seed_parser.add_argument('--seed', required=True, help='Path to seed directory')
     seed_parser.add_argument('--solver', default='z3', help='Target solver')
@@ -56,7 +48,7 @@ For more help on specific modes:
     seed_parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
     seed_parser.add_argument('-p', '--profile', action='store_true', help='Profile mutation speed')
     
-    # Gen mode
+    # Gen command
     gen_parser = subparsers.add_parser('gen', help='Generation-based fuzzing')
     gen_parser.add_argument('--solver', default='z3', help='Target solver')
     gen_parser.add_argument('--output', default='~/tmp/res/', help='Output directory')
@@ -71,18 +63,17 @@ For more help on specific modes:
     
     args = parser.parse_args()
     
-    if not args.mode or args.mode == 'legacy':
-        # Run legacy SMTFuzz
-        from .smtfuzz import main as legacy_main
-        legacy_main()
-        
-    elif args.mode == 'seed':
-        from .runner.seed_runner import SeedRunner
+    if not args.command:
+        parser.print_help()
+        return
+    
+    if args.command == 'seed':
+        from smtfuzz.runner.seed_runner import SeedRunner
         
         # Convert args to the format expected by SeedRunner
         sys.argv = ['smtfuzz-seed']
         for key, value in vars(args).items():
-            if key != 'mode' and value is not None:
+            if key != 'command' and value is not None:
                 if isinstance(value, bool) and value:
                     sys.argv.append(f'--{key}')
                 elif not isinstance(value, bool):
@@ -91,13 +82,13 @@ For more help on specific modes:
         runner = SeedRunner()
         runner.run()
         
-    elif args.mode == 'gen':
-        from .runner.gen_runner import GenRunner
+    elif args.command == 'gen':
+        from smtfuzz.runner.gen_runner import GenRunner
         
         # Convert args to the format expected by GenRunner
         sys.argv = ['smtfuzz-gen']
         for key, value in vars(args).items():
-            if key != 'mode' and value is not None:
+            if key != 'command' and value is not None:
                 if isinstance(value, bool) and value:
                     sys.argv.append(f'--{key}')
                 elif not isinstance(value, bool):
@@ -107,10 +98,5 @@ For more help on specific modes:
         runner.run()
 
 
-def cli_main():
-    """Entry point for the smtfuzz command."""
-    main()
-
-
-if __name__ == '__main__':
-    cli_main()
+if __name__ == "__main__":
+    main() 
