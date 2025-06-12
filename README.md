@@ -36,3 +36,25 @@ feedback.
 ## Detected Bugs
 
 https://smtfuzz.github.io/
+
+## Publications
+
+~~~~
+@inproceedings{fse21skeletal,
+  title={Skeletal Approximation Enumeration for SMT Solver Testing},
+  author={Yao, Peisen and Huang, Heqing and Tang, Wensheng and Shi, Qingkai and Wu, Rongxin and Zhang, Charles},
+  booktitle={Proceedings of the ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering},
+  series={ESEC/FSE 2021},
+  year={2021},
+  publisher={ACM}
+}
+
+@inproceedings{issta21opt,
+  title={Fuzzing SMT Solvers via Two-Dimensional Input Space Exploration},
+  author={Yao, Peisen and Huang, Heqing and Tang, Wensheng and Shi, Qingkai and Wu, Rongxin and Zhang, Charles},
+  booktitle={Proceedings of the 30th ACM SIGSOFT International Symposium on Software Testing and Analysis},
+  series={ISSTA 2021},
+  year={2021},
+  publisher={ACM}
+}
+~~~~
