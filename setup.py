@@ -14,11 +14,11 @@ URL = 'https://github.com/ZJU-Automated-Reasoning-Group/smtfuzz'
 EMAIL = 'rainoftime@gmail.com'
 AUTHOR = 'rainoftime'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.0.3'
+VERSION = '0.1.1'
 
 # Required packages with relaxed version constraints
 REQUIRED = [
-    'z3-solver==4.8.10',
+    'z3-solver~=4.8.10',
     'meson>=1.6.1',
     'tqdm>=4.65.0',
     #'antlr4-python3-runtime==4.9.2'

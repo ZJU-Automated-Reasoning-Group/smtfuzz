@@ -1,0 +1,54 @@
+name: ci 
+
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        pip install codespell
+        python -m pip install flake8
+        python -m pip install --upgrade pip 
+        python -m pip install antlr4-python3-runtime==4.9.2  
+    - name: Spell check 
+      run: |
+        codespell --skip="Solver.py,SMTLIBv2*,*.g4,*.tokens,*.interp,*.smt2"
+    - name: Run Unittests
+      run: |
+        python -m unittest tests/RunUnitTests.py
+    - name: Detection logic 
+      run: |
+        python tests/integration/detection/TestDetection.py
+        python tests/integration/detection/TestCrashes.py
+    - name: Misc
+      run: |
+        python tests/integration/misc/FileSizeLimit.py
+        python tests/integration/misc/NoSolvers.py
+        python tests/integration/misc/DirectoryMode.py
+    - name: typefuzz 
+      run: |
+        python tests/integration/typefuzz/SanityTypeFuzz.py
+        python tests/integration/typefuzz/BasicUsage.py
+    - name: opfuzz
+      run: |
+        python tests/integration/opfuzz/SanityOpFuzz.py
+        python tests/integration/misc/Usage.py
+    - name: semanticfusion
+      run: |
+        python tests/integration/semanticfusion/SanitySemanticFusion.py
+    - name: code style and static analysis with flake 
+      run: |
+        bin/checkstyle.sh
+    - name: pypi check  
+      run: |
+        tests/integration/misc/pypi.sh
