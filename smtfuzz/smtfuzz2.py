@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
 import itertools
 import math
+import copy
 
 
 class Theory(Enum):
@@ -73,6 +74,12 @@ class GenerationConfig:
     string_max_length: int = 10
     max_uninterpreted_functions: int = 5  # Maximum number of uninterpreted functions to generate
     max_uf_arity: int = 3  # Maximum arity for uninterpreted functions
+    # Incremental solving configuration
+    enable_incremental: bool = False
+    max_push_depth: int = 5  # Maximum nesting depth of push/pop
+    push_probability: float = 0.3  # Probability of generating push command
+    pop_probability: float = 0.4   # Probability of generating pop command when depth > 0
+    assertions_per_level: int = 3  # Average assertions per push level
     probability_weights: Dict[str, float] = field(default_factory=lambda: {
         'variable': 0.3,
         'constant': 0.2,
@@ -82,6 +89,21 @@ class GenerationConfig:
         'quantifier': 0.1  # Probability of generating quantifiers when enabled
     })
     complexity_bias: float = 0.7  # Higher values favor more complex expressions
+
+
+@dataclass
+class IncrementalContext:
+    """Represents a push/pop context level."""
+    level: int
+    variables: Dict[Sort, List['Variable']] = field(default_factory=lambda: {sort: [] for sort in Sort})
+    uninterpreted_functions: List['UninterpretedFunction'] = field(default_factory=list)
+    assertions: List[str] = field(default_factory=list)
+    
+    def copy_from(self, other: 'IncrementalContext'):
+        """Copy state from another context (for push operation)."""
+        self.variables = {sort: vars_list.copy() for sort, vars_list in other.variables.items()}
+        self.uninterpreted_functions = other.uninterpreted_functions.copy()
+        # Don't copy assertions - they belong to the previous level
 
 
 class SMTExpression(ABC):
@@ -239,6 +261,309 @@ class UninterpretedFunction:
             return "(_ BitVec 32)"  # Using 32-bit width
         else:
             return sort.value
+
+
+class IncrementalSMTGenerator:
+    """Generator for incremental SMT-LIB2 scripts with push/pop commands."""
+    
+    def __init__(self, config: GenerationConfig, seed: Optional[int] = None):
+        self.config = config
+        self.random = random.Random(seed)
+        self.context_stack: List[IncrementalContext] = []
+        self.current_level = 0
+        self.script_commands: List[str] = []
+        self.declared_variables: Set[str] = set()
+        self.declared_functions: Set[str] = set()
+        
+        # Initialize base context (level 0)
+        base_context = IncrementalContext(level=0)
+        self.context_stack.append(base_context)
+        
+        # Create base SMT generator for expression generation
+        self.base_generator = SMTFormulaGenerator(config, seed)
+    
+    def _get_current_context(self) -> IncrementalContext:
+        """Get the current context."""
+        return self.context_stack[-1]
+    
+    def _get_all_available_variables(self) -> Dict[Sort, List[Variable]]:
+        """Get all variables available in current scope (from all context levels)."""
+        all_vars = {sort: [] for sort in Sort}
+        for context in self.context_stack:
+            for sort, vars_list in context.variables.items():
+                all_vars[sort].extend(vars_list)
+        return all_vars
+    
+    def _get_all_available_functions(self) -> List[UninterpretedFunction]:
+        """Get all uninterpreted functions available in current scope."""
+        all_funcs = []
+        for context in self.context_stack:
+            all_funcs.extend(context.uninterpreted_functions)
+        return all_funcs
+    
+    def _should_push(self) -> bool:
+        """Decide whether to generate a push command."""
+        if not self.config.enable_incremental:
+            return False
+        if self.current_level >= self.config.max_push_depth:
+            return False
+        return self.random.random() < self.config.push_probability
+    
+    def _should_pop(self) -> bool:
+        """Decide whether to generate a pop command."""
+        if not self.config.enable_incremental:
+            return False
+        if self.current_level <= 0:
+            return False
+        return self.random.random() < self.config.pop_probability
+    
+    def _generate_push(self, levels: int = 1) -> List[str]:
+        """Generate push command(s) and update context stack."""
+        commands = []
+        
+        for _ in range(levels):
+            if self.current_level >= self.config.max_push_depth:
+                break
+                
+            # Create new context by copying current context
+            current_context = self._get_current_context()
+            new_context = IncrementalContext(level=self.current_level + 1)
+            new_context.copy_from(current_context)
+            
+            self.context_stack.append(new_context)
+            self.current_level += 1
+            commands.append("(push 1)")
+        
+        return commands
+    
+    def _generate_pop(self, levels: int = 1) -> List[str]:
+        """Generate pop command(s) and update context stack."""
+        commands = []
+        
+        actual_levels = min(levels, self.current_level)
+        if actual_levels > 0:
+            # Pop contexts from stack
+            for _ in range(actual_levels):
+                self.context_stack.pop()
+                self.current_level -= 1
+            
+            commands.append(f"(pop {actual_levels})")
+        
+        return commands
+    
+    def _generate_new_variable(self, sort: Sort) -> Variable:
+        """Generate a new variable and add it to current context."""
+        context = self._get_current_context()
+        var_count = sum(len(vars_list) for vars_list in context.variables.values())
+        var_name = f"v{context.level}_{var_count}"
+        
+        # Ensure unique name across all levels
+        while var_name in self.declared_variables:
+            var_count += 1
+            var_name = f"v{context.level}_{var_count}"
+        
+        var = Variable(var_name, sort)
+        context.variables[sort].append(var)
+        self.declared_variables.add(var_name)
+        
+        return var
+    
+    def _generate_new_function(self) -> UninterpretedFunction:
+        """Generate a new uninterpreted function and add it to current context."""
+        if not self._theory_supports_uf():
+            return None
+            
+        context = self._get_current_context()
+        func_count = len(context.uninterpreted_functions)
+        func_name = f"uf{context.level}_{func_count}"
+        
+        # Ensure unique name
+        while func_name in self.declared_functions:
+            func_count += 1
+            func_name = f"uf{context.level}_{func_count}"
+        
+        # Determine available sorts
+        available_sorts = self._get_available_sorts()
+        
+        # Generate function signature
+        arity = self.random.randint(0, self.config.max_uf_arity)
+        arg_sorts = [self.random.choice(available_sorts) for _ in range(arity)]
+        result_sort = self.random.choice(available_sorts)
+        
+        uf = UninterpretedFunction(func_name, arg_sorts, result_sort)
+        context.uninterpreted_functions.append(uf)
+        self.declared_functions.add(func_name)
+        
+        return uf
+    
+    def _theory_supports_uf(self) -> bool:
+        """Check if current theory supports uninterpreted functions."""
+        uf_theories = [Theory.QF_UF, Theory.QF_UFLIA, Theory.QF_UFNIA, Theory.QF_UFLRA, 
+                      Theory.QF_UFNRA, Theory.QF_UFBV, Theory.UF, Theory.UFLIA]
+        return self.config.theory in uf_theories
+    
+    def _get_available_sorts(self) -> List[Sort]:
+        """Get available sorts based on current theory."""
+        available_sorts = [Sort.BOOL]
+        
+        int_theories = [Theory.QF_LIA, Theory.QF_NIA, Theory.QF_AUFLIA, Theory.QF_UFLIA, 
+                       Theory.QF_UFNIA, Theory.LIA, Theory.NIA, Theory.UFLIA]
+        real_theories = [Theory.QF_LRA, Theory.QF_NRA, Theory.QF_UFLRA, Theory.QF_UFNRA,
+                        Theory.LRA, Theory.NRA]
+        bv_theories = [Theory.QF_BV, Theory.QF_ABV, Theory.QF_UFBV, Theory.BV, Theory.ABV]
+        
+        if self.config.theory in int_theories:
+            available_sorts.append(Sort.INT)
+        if self.config.theory in real_theories:
+            available_sorts.append(Sort.REAL)
+        if self.config.theory in bv_theories:
+            available_sorts.append(Sort.BITVEC)
+            
+        return available_sorts
+    
+    def _generate_assertion(self) -> str:
+        """Generate an assertion using available variables and functions."""
+        # Update base generator with current scope
+        self.base_generator.variables = self._get_all_available_variables()
+        self.base_generator.uninterpreted_functions = self._get_all_available_functions()
+        
+        # Generate boolean expression
+        expr = self.base_generator.generate_expression(Sort.BOOL)
+        assertion = f"(assert {expr.to_smtlib()})"
+        
+        # Add to current context
+        current_context = self._get_current_context()
+        current_context.assertions.append(assertion)
+        
+        return assertion
+    
+    def _generate_declarations_for_context(self, context: IncrementalContext) -> List[str]:
+        """Generate variable and function declarations for a context."""
+        declarations = []
+        
+        # Declare variables
+        for sort, vars_list in context.variables.items():
+            for var in vars_list:
+                if var.name not in self.declared_variables:
+                    continue  # Already handled in _generate_new_variable
+                    
+                if sort == Sort.BITVEC:
+                    decl = f"(declare-fun {var.name} () (_ BitVec {self.config.bitvector_width}))"
+                else:
+                    decl = f"(declare-fun {var.name} () {sort.value})"
+                declarations.append(decl)
+        
+        # Declare uninterpreted functions
+        for uf in context.uninterpreted_functions:
+            if uf.name not in self.declared_functions:
+                continue  # Already handled in _generate_new_function
+            declarations.append(uf.to_declaration())
+        
+        return declarations
+    
+    def generate_incremental_script(self, num_operations: int = 20) -> str:
+        """Generate a complete incremental SMT-LIB2 script."""
+        commands = []
+        
+        # Set logic
+        commands.append(f"(set-logic {self.config.theory.value})")
+        
+        # Generate some initial variables and functions
+        available_sorts = self._get_available_sorts()
+        for sort in available_sorts[:2]:  # Start with a couple of sorts
+            for _ in range(2):  # 2 variables per sort
+                var = self._generate_new_variable(sort)
+                if sort == Sort.BITVEC:
+                    commands.append(f"(declare-fun {var.name} () (_ BitVec {self.config.bitvector_width}))")
+                else:
+                    commands.append(f"(declare-fun {var.name} () {sort.value})")
+        
+        # Generate initial uninterpreted function if supported
+        if self._theory_supports_uf():
+            uf = self._generate_new_function()
+            if uf:
+                commands.append(uf.to_declaration())
+        
+        # Generate initial assertions
+        for _ in range(self.config.assertions_per_level):
+            assertion = self._generate_assertion()
+            commands.append(assertion)
+        
+        # Initial check-sat
+        commands.append("(check-sat)")
+        
+        # Generate incremental operations
+        for _ in range(num_operations):
+            operation_type = self.random.choices(
+                ['assertion', 'push', 'pop', 'check-sat', 'new_var', 'new_func'],
+                weights=[0.4, 0.15, 0.15, 0.2, 0.05, 0.05]
+            )[0]
+            
+            if operation_type == 'push' and self._should_push():
+                push_commands = self._generate_push()
+                commands.extend(push_commands)
+                
+                # Add some variables/functions to new context
+                if self.random.random() < 0.6:  # 60% chance
+                    sort = self.random.choice(available_sorts)
+                    var = self._generate_new_variable(sort)
+                    if sort == Sort.BITVEC:
+                        commands.append(f"(declare-fun {var.name} () (_ BitVec {self.config.bitvector_width}))")
+                    else:
+                        commands.append(f"(declare-fun {var.name} () {sort.value})")
+                
+                if self._theory_supports_uf() and self.random.random() < 0.3:  # 30% chance
+                    uf = self._generate_new_function()
+                    if uf:
+                        commands.append(uf.to_declaration())
+                
+            elif operation_type == 'pop' and self._should_pop():
+                pop_commands = self._generate_pop()
+                commands.extend(pop_commands)
+                
+            elif operation_type == 'assertion':
+                assertion = self._generate_assertion()
+                commands.append(assertion)
+                
+            elif operation_type == 'check-sat':
+                commands.append("(check-sat)")
+                
+            elif operation_type == 'new_var':
+                sort = self.random.choice(available_sorts)
+                var = self._generate_new_variable(sort)
+                if sort == Sort.BITVEC:
+                    commands.append(f"(declare-fun {var.name} () (_ BitVec {self.config.bitvector_width}))")
+                else:
+                    commands.append(f"(declare-fun {var.name} () {sort.value})")
+                    
+            elif operation_type == 'new_func' and self._theory_supports_uf():
+                uf = self._generate_new_function()
+                if uf:
+                    commands.append(uf.to_declaration())
+        
+        # Final check-sat
+        commands.append("(check-sat)")
+        
+        # Optional: add get-model or get-unsat-core
+        if self.random.random() < 0.3:
+            commands.append("(get-model)")
+        
+        return "\n".join(commands)
+    
+    def generate_multiple_incremental_scripts(self, count: int, operations_per_script: int = 20) -> List[str]:
+        """Generate multiple incremental scripts."""
+        scripts = []
+        for _ in range(count):
+            # Reset state for each script
+            self.context_stack = [IncrementalContext(level=0)]
+            self.current_level = 0
+            self.declared_variables.clear()
+            self.declared_functions.clear()
+            
+            script = self.generate_incremental_script(operations_per_script)
+            scripts.append(script)
+        
+        return scripts
 
 
 class SMTFormulaGenerator:
@@ -566,7 +891,7 @@ class SMTFormulaGenerator:
         int_theories = [Theory.QF_LIA, Theory.QF_NIA, Theory.QF_AUFLIA, Theory.QF_UFLIA, Theory.QF_UFNIA,
                        Theory.LIA, Theory.NIA, Theory.UFLIA]
         real_theories = [Theory.QF_LRA, Theory.QF_NRA, Theory.QF_UFLRA, Theory.QF_UFNRA,
-                        Theory.LRA, Theory.NRA, Theory.UFLRA]
+                        Theory.LRA, Theory.NRA]
         bv_theories = [Theory.QF_BV, Theory.QF_ABV, Theory.QF_UFBV, Theory.BV, Theory.ABV]
         
         if self.config.theory in int_theories:
@@ -953,6 +1278,7 @@ class SMTFuzzTester:
     def __init__(self, seed: Optional[int] = None):
         self.random = random.Random(seed)
         self.generators: Dict[Theory, SMTFormulaGenerator] = {}
+        self.incremental_generators: Dict[Theory, IncrementalSMTGenerator] = {}
         self.generated_formulas: List[str] = []
     
     def create_generator(self, theory: Theory, **config_kwargs) -> SMTFormulaGenerator:
@@ -960,6 +1286,13 @@ class SMTFuzzTester:
         config = GenerationConfig(theory=theory, **config_kwargs)
         generator = SMTFormulaGenerator(config, self.random.randint(0, 2**32))
         self.generators[theory] = generator
+        return generator
+    
+    def create_incremental_generator(self, theory: Theory, **config_kwargs) -> IncrementalSMTGenerator:
+        """Create an incremental generator for a specific theory."""
+        config = GenerationConfig(theory=theory, enable_incremental=True, **config_kwargs)
+        generator = IncrementalSMTGenerator(config, self.random.randint(0, 2**32))
+        self.incremental_generators[theory] = generator
         return generator
     
     def generate_test_suite(self, 
@@ -999,6 +1332,54 @@ class SMTFuzzTester:
         )
         
         return generator.generate_multiple_formulas(count)
+    
+    def generate_incremental_test_suite(self, 
+                                      theories: List[Theory], 
+                                      scripts_per_theory: int = 5,
+                                      operations_per_script: int = 20) -> Dict[Theory, List[str]]:
+        """Generate incremental test suite with push/pop commands."""
+        test_suite = {}
+        
+        for theory in theories:
+            scripts = []
+            
+            # Generate scripts with different push/pop patterns
+            patterns = [
+                {'max_push_depth': 2, 'push_probability': 0.2, 'pop_probability': 0.3},
+                {'max_push_depth': 3, 'push_probability': 0.3, 'pop_probability': 0.4},
+                {'max_push_depth': 5, 'push_probability': 0.4, 'pop_probability': 0.5},
+            ]
+            
+            for pattern in patterns:
+                generator = self.create_incremental_generator(
+                    theory,
+                    **pattern,
+                    assertions_per_level=3
+                )
+                
+                pattern_scripts = generator.generate_multiple_incremental_scripts(
+                    scripts_per_theory // len(patterns),
+                    operations_per_script
+                )
+                scripts.extend(pattern_scripts)
+            
+            test_suite[theory] = scripts
+        
+        return test_suite
+    
+    def generate_incremental_stress_test(self, theory: Theory, count: int = 10) -> List[str]:
+        """Generate stress test incremental scripts with deep push/pop nesting."""
+        generator = self.create_incremental_generator(
+            theory,
+            max_push_depth=8,
+            push_probability=0.5,
+            pop_probability=0.6,
+            max_depth=8,
+            max_formula_size=150,
+            assertions_per_level=4
+        )
+        
+        return generator.generate_multiple_incremental_scripts(count, operations_per_script=30)
     
     def generate_pattern_based_formulas(self, theory: Theory, patterns: List[str], count: int = 5) -> List[str]:
         """Generate formulas based on specific patterns."""
@@ -1100,7 +1481,7 @@ class SMTFuzzTester:
 
 
 def cli_interface():
-    """Simplified CLI interface - generates one SMT-LIB2 formula per run."""
+    """CLI interface for SMT-LIB2 formula generation."""
     import argparse
     
     parser = argparse.ArgumentParser(description="SMT-LIB2 Formula Generator")
@@ -1120,22 +1501,57 @@ def cli_interface():
                        help='Maximum variables per quantifier (default: 3)')
     parser.add_argument('--seed', type=int, help='Random seed')
     
+    # Incremental solving options
+    parser.add_argument('--incremental', action='store_true',
+                       help='Generate incremental script with push/pop commands')
+    parser.add_argument('--max-push-depth', type=int, default=3,
+                       help='Maximum push/pop nesting depth (default: 3)')
+    parser.add_argument('--push-probability', type=float, default=0.3,
+                       help='Probability of generating push command (default: 0.3)')
+    parser.add_argument('--pop-probability', type=float, default=0.4,
+                       help='Probability of generating pop command (default: 0.4)')
+    parser.add_argument('--operations', type=int, default=20,
+                       help='Number of operations in incremental script (default: 20)')
+    parser.add_argument('--assertions-per-level', type=int, default=3,
+                       help='Average assertions per push level (default: 3)')
+    
     args = parser.parse_args()
     
-    # Create generator
-    config = GenerationConfig(
-        theory=Theory(args.theory),
-        max_depth=args.depth,
-        complexity_bias=args.complexity,
-        enable_quantifiers=args.enable_quantifiers,
-        max_quantifier_depth=args.max_quantifier_depth,
-        max_quantified_vars=args.max_quantified_vars
-    )
-    generator = SMTFormulaGenerator(config, args.seed)
-    
-    # Generate and output one formula
-    formula = generator.generate_formula(args.assertions)
-    print(formula)
+    if args.incremental:
+        # Create incremental generator
+        config = GenerationConfig(
+            theory=Theory(args.theory),
+            max_depth=args.depth,
+            complexity_bias=args.complexity,
+            enable_quantifiers=args.enable_quantifiers,
+            max_quantifier_depth=args.max_quantifier_depth,
+            max_quantified_vars=args.max_quantified_vars,
+            enable_incremental=True,
+            max_push_depth=args.max_push_depth,
+            push_probability=args.push_probability,
+            pop_probability=args.pop_probability,
+            assertions_per_level=args.assertions_per_level
+        )
+        generator = IncrementalSMTGenerator(config, args.seed)
+        
+        # Generate and output incremental script
+        script = generator.generate_incremental_script(args.operations)
+        print(script)
+    else:
+        # Create regular generator
+        config = GenerationConfig(
+            theory=Theory(args.theory),
+            max_depth=args.depth,
+            complexity_bias=args.complexity,
+            enable_quantifiers=args.enable_quantifiers,
+            max_quantifier_depth=args.max_quantifier_depth,
+            max_quantified_vars=args.max_quantified_vars
+        )
+        generator = SMTFormulaGenerator(config, args.seed)
+        
+        # Generate and output one formula
+        formula = generator.generate_formula(args.assertions)
+        print(formula)
 
 
 if __name__ == "__main__":
