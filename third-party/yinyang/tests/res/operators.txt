@@ -1,6 +1,0 @@
-=,distinct
-exists,forall
-and,or,=>
-<=, >=,<,>
-+,-,*,/ :arity 2+
-div,mod
