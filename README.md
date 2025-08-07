@@ -3,7 +3,7 @@
 
 
 SMT solvers are automated tools that can determine the satisfiability of logical formulas in various theories, including arithmetic, bit-vectors, arrays, and more.
-smtfuzz is a random generator for SMT-LIB2 formulas. It is designed to help users generate test cases for SMT solvers and explore various SMT-LIB2 features.
+smtfuzz is a random generator for SMT-LIB2 formulas. 
 
 ## Installation
 
@@ -40,6 +40,14 @@ https://smtfuzz.github.io/
 ## Publications
 
 ~~~~
+
+@inproceedings{zheng2025bsd,
+  title={SAS 2025: Bounded-Exhaustive Subspace Diversification for SMT Solver Testing},
+  author={Zheng, Junda and Yao, Peisen},
+  booktitle={Proceedings of the 32nd Static Analysis Symposium},
+  year={2025}
+}
+
 @inproceedings{fse21skeletal,
   title={Skeletal Approximation Enumeration for SMT Solver Testing},
   author={Yao, Peisen and Huang, Heqing and Tang, Wensheng and Shi, Qingkai and Wu, Rongxin and Zhang, Charles},
