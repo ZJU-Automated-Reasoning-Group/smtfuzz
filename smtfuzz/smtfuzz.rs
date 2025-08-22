@@ -1,9 +1,11 @@
+// rand = "0.9" required
 use anyhow::Result;
 use clap::Parser;
 use env_logger::Env;
 use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
-use rand::{Rng, SeedableRng};
+use rand::{Rng, SeedableRng, rng};
+use rand::prelude::IndexedRandom;
 
 /// A lightweight Rust port of smtfuzz.py that emits random SMT-LIB problems.
 ///
@@ -122,7 +124,7 @@ fn main() -> Result<()> {
 
     let mut rng: StdRng = match args.seed {
         Some(s) => StdRng::seed_from_u64(s),
-        None => StdRng::from_entropy(),
+        None => StdRng::from_rng(&mut rng()),
     };
 
     let logic = choose_logic(&args, &mut rng);
@@ -134,7 +136,7 @@ fn main() -> Result<()> {
     let mut ctx = build_ctx(&args, &logic, &mut rng);
 
     match strategy.as_str() {
-        "bool" => gen_bool(&mut ctx, args.cntsize),
+        "bool" => random_bool(&mut ctx, args.cntsize),
         "cnf" => gen_cnf(&mut ctx, args.ratio, args.cntsize, false),
         "strictcnf" => gen_cnf(&mut ctx, args.ratio, args.cntsize, true),
         "ncnf" => gen_ncnf(&mut ctx, args.ratio, args.cntsize),
@@ -242,7 +244,7 @@ fn build_ctx<'a>(args: &Args, logic: &str, rng: &'a mut StdRng) -> Ctx<'a> {
     ctx
 }
 
-fn gen_bool(ctx: &mut Ctx, cntsize: usize) {
+fn random_bool(ctx: &mut Ctx, cntsize: usize) {
     let num_vars = (cntsize.max(3) / 2).clamp(3, 64);
     for i in 0..num_vars { println!("(declare-const b{} Bool)", i); }
 
@@ -256,12 +258,12 @@ fn gen_bool(ctx: &mut Ctx, cntsize: usize) {
 }
 
 fn random_bool_expr(num_vars: usize, depth: usize, rng: &mut StdRng) -> String {
-    if depth > 3 || rng.gen_bool(0.3) {
-        let v = rng.gen_range(0..num_vars);
-        let lit = if rng.gen_bool(0.5) { format!("b{}", v) } else { format!("(not b{})", v) };
+    if depth > 3 || rng.random_bool(0.3) {
+        let v = rng.random_range(0..num_vars);
+        let lit = if rng.random_bool(0.5) { format!("b{}", v) } else { format!("(not b{})", v) };
         return lit;
     }
-    let k = rng.gen_range(2..=3);
+    let k = rng.random_range(2..=3);
     let mut parts: Vec<String> = Vec::new();
     for _ in 0..k { parts.push(random_bool_expr(num_vars, depth + 1, rng)); }
     let op = ["and", "or", "xor"].choose(rng).unwrap();
@@ -275,12 +277,12 @@ fn gen_cnf(ctx: &mut Ctx, ratio: usize, cntsize: usize, strict: bool) {
     for i in 0..num_vars { println!("(declare-const p{} Bool)", i); }
 
     for _ in 0..num_clauses {
-        let k = if strict { 3 } else { ctx.rng.gen_range(2..=5) };
+        let k = if strict { 3 } else { ctx.rng.random_range(2..=5) };
         let mut lits: Vec<String> = Vec::new();
         for _ in 0..k {
-            let v = ctx.rng.gen_range(0..num_vars);
+            let v = ctx.rng.random_range(0..num_vars);
             let base = format!("p{}", v);
-            let lit = if ctx.rng.gen_bool(0.5) { base } else { format!("(not {})", base) };
+            let lit = if ctx.rng.random_bool(0.5) { base } else { format!("(not {})", base) };
             lits.push(lit);
         }
         emit_assert(ctx, &format!("(or {})", lits.join(" ")));
@@ -289,7 +291,7 @@ fn gen_cnf(ctx: &mut Ctx, ratio: usize, cntsize: usize, strict: bool) {
 
     // In non-BOOL logics, add a few irrelevant declarations to exercise parsers
     if ctx.logic.contains("BV") {
-        for i in 0..ctx.rng.gen_range(0..=3) { println!("(declare-const x{}_bv (_ BitVec 32))", i); }
+        for i in 0..ctx.rng.random_range(0..=3) { println!("(declare-const x{}_bv (_ BitVec 32))", i); }
     }
 }
 
@@ -315,7 +317,7 @@ fn gen_noinc(ctx: &mut Ctx, _ratio: usize, cntsize: usize) {
         gen_noinc_seplog(ctx, cntsize);
     } else {
         // Fallback to Bool no-inc
-        gen_bool(ctx, cntsize);
+        random_bool(ctx, cntsize);
     }
 }
 
@@ -323,8 +325,8 @@ fn gen_noinc_bv(ctx: &mut Ctx, cntsize: usize) {
     let num_vars = (cntsize / 3).clamp(2, 64);
     for i in 0..num_vars { println!("(declare-const x{} (_ BitVec 32))", i); }
     // maybe some arrays over BV
-    if ctx.rng.gen_bool(0.4) {
-        for a in 0..ctx.rng.gen_range(1..=2) { println!("(declare-const A{} (Array (_ BitVec 32) (_ BitVec 32)))", a); }
+    if ctx.rng.random_bool(0.4) {
+        for a in 0..ctx.rng.random_range(1..=2) { println!("(declare-const A{} (Array (_ BitVec 32) (_ BitVec 32)))", a); }
     }
 
     let mut left = cntsize;
@@ -334,17 +336,17 @@ fn gen_noinc_bv(ctx: &mut Ctx, cntsize: usize) {
         let cmp = ["=", "=", "=", "bvult", "bvule", "bvugt", "bvuge"].choose(ctx.rng).unwrap();
         emit_assert(ctx, &format!("({} {} {})", cmp, e1, e2));
         left -= 1;
-        if ctx.rng.gen_bool(0.2) && ctx.rng.gen_bool(0.5) {
+        if ctx.rng.random_bool(0.2) && ctx.rng.random_bool(0.5) {
             // exercise arrays
-            let i = ctx.rng.gen_range(0..num_vars);
-            let v = ctx.rng.gen_range(0..num_vars);
+            let i = ctx.rng.random_range(0..num_vars);
+            let v = ctx.rng.random_range(0..num_vars);
             println!("(assert (= (select A0 x{}) x{}))", i, v);
         }
         // Occasionally emit a quantified BV assertion when logic allows quantifiers
-        if ctx.prefer_quant_in_non_qf && !ctx.emitted_quant && ctx.rng.gen_bool(0.4) {
+        if ctx.prefer_quant_in_non_qf && !ctx.emitted_quant && ctx.rng.random_bool(0.4) {
             maybe_quantified_assert_bv(ctx);
             ctx.emitted_quant = true;
-        } else if ctx.rng.gen_bool(0.15) {
+        } else if ctx.rng.random_bool(0.15) {
             maybe_quantified_assert_bv(ctx);
         }
         maybe_midstream_check(ctx);
@@ -352,14 +354,14 @@ fn gen_noinc_bv(ctx: &mut Ctx, cntsize: usize) {
 }
 
 fn random_bv_expr(num_vars: usize, depth: usize, rng: &mut StdRng) -> String {
-    if depth > 3 || rng.gen_bool(0.25) {
-        if rng.gen_bool(0.4) {
+    if depth > 3 || rng.random_bool(0.25) {
+        if rng.random_bool(0.4) {
             // literal
-            let v: u32 = rng.gen();
+            let v: u32 = rng.random();
             format!("(_ bv{} 32)", v)
         } else {
             // variable
-            let i = rng.gen_range(0..num_vars);
+            let i = rng.random_range(0..num_vars);
             format!("x{}", i)
         }
     } else {
@@ -385,19 +387,19 @@ fn gen_noinc_sets_bags(ctx: &mut Ctx, cntsize: usize) {
     let mut left = cntsize;
     while left > 0 {
         // set ops: union, inter, subset, member
-        let expr = if ctx.rng.gen_bool(0.6) {
-            let a = ctx.rng.gen_range(0..num_sets);
-            let b = ctx.rng.gen_range(0..num_sets);
+        let expr = if ctx.rng.random_bool(0.6) {
+            let a = ctx.rng.random_range(0..num_sets);
+            let b = ctx.rng.random_range(0..num_sets);
             let op = ["union", "intersection", "subset", "="].choose(ctx.rng).unwrap();
             match *op {
-                "union" => format!("(= (set.union S{} S{}) S{})", a, b, ctx.rng.gen_range(0..num_sets)),
-                "intersection" => format!("(= (set.inter S{} S{}) S{})", a, b, ctx.rng.gen_range(0..num_sets)),
+                "union" => format!("(= (set.union S{} S{}) S{})", a, b, ctx.rng.random_range(0..num_sets)),
+                "intersection" => format!("(= (set.inter S{} S{}) S{})", a, b, ctx.rng.random_range(0..num_sets)),
                 "subset" => format!("(set.subset S{} S{})", a, b),
                 _ => format!("(= S{} S{})", a, b),
             }
         } else {
-            let a = ctx.rng.gen_range(0..num_sets);
-            format!("(set.member {} S{})", ctx.rng.gen_range(-5..=5), a)
+            let a = ctx.rng.random_range(0..num_sets);
+            format!("(set.member {} S{})", ctx.rng.random_range(-5..=5), a)
         };
         emit_assert(ctx, &expr);
         left -= 1;
@@ -413,19 +415,19 @@ fn gen_noinc_bvint(ctx: &mut Ctx, cntsize: usize) {
     let mut left = cntsize;
     while left > 0 {
         // mix casts and comparisons
-        let e = match ctx.rng.gen_range(0..3) {
+        let e = match ctx.rng.random_range(0..3) {
             0 => {
-                let a = ctx.rng.gen_range(0..num_bv);
-                let b = ctx.rng.gen_range(0..num_bv);
+                let a = ctx.rng.random_range(0..num_bv);
+                let b = ctx.rng.random_range(0..num_bv);
                 format!("(= (bv2int xb{}) (bv2int xb{}))", a, b)
             }
             1 => {
-                let a = ctx.rng.gen_range(0..num_int);
-                format!("(= (int2bv 32 xi{}) (_ bv{} 32))", a, ctx.rng.gen_range(0..=255))
+                let a = ctx.rng.random_range(0..num_int);
+                format!("(= (int2bv 32 xi{}) (_ bv{} 32))", a, ctx.rng.random_range(0..=255))
             }
             _ => {
-                let a = ctx.rng.gen_range(0..num_bv);
-                let b = ctx.rng.gen_range(0..num_int);
+                let a = ctx.rng.random_range(0..num_bv);
+                let b = ctx.rng.random_range(0..num_int);
                 format!("(= (bv2int xb{}) xi{})", a, b)
             }
         };
@@ -443,7 +445,7 @@ fn gen_noinc_arith(ctx: &mut Ctx, cntsize: usize) {
 
     let mut left = cntsize;
     while left > 0 {
-        if num_real > 0 && ctx.rng.gen_bool(0.3) {
+        if num_real > 0 && ctx.rng.random_bool(0.3) {
             let e1 = random_real_expr(num_real, 0, ctx.rng);
             let e2 = random_real_expr(num_real, 0, ctx.rng);
             let cmp = ["=", "<", "<=", ">", ">=", "="] .choose(ctx.rng).unwrap();
@@ -455,10 +457,10 @@ fn gen_noinc_arith(ctx: &mut Ctx, cntsize: usize) {
             emit_assert(ctx, &format!("({} {} {})", cmp, e1, e2));
         }
         left -= 1;
-        if ctx.prefer_quant_in_non_qf && !ctx.emitted_quant && ctx.rng.gen_bool(0.4) {
+        if ctx.prefer_quant_in_non_qf && !ctx.emitted_quant && ctx.rng.random_bool(0.4) {
             maybe_quantified_assert(ctx);
             ctx.emitted_quant = true;
-        } else if ctx.rng.gen_bool(0.15) {
+        } else if ctx.rng.random_bool(0.15) {
             maybe_quantified_assert(ctx);
         }
         maybe_midstream_check(ctx);
@@ -466,8 +468,8 @@ fn gen_noinc_arith(ctx: &mut Ctx, cntsize: usize) {
 }
 
 fn random_int_expr(num_vars: usize, depth: usize, rng: &mut StdRng) -> String {
-    if num_vars == 0 || depth > 3 || rng.gen_bool(0.3) {
-        if rng.gen_bool(0.5) { format!("{}", rng.gen_range(-10..=10)) } else { format!("i{}", rng.gen_range(0..num_vars)) }
+    if num_vars == 0 || depth > 3 || rng.random_bool(0.3) {
+        if rng.random_bool(0.5) { format!("{}", rng.random_range(-10..=10)) } else { format!("i{}", rng.random_range(0..num_vars)) }
     } else {
         let op = ["+", "-", "*"].choose(rng).unwrap();
         let a = random_int_expr(num_vars, depth + 1, rng);
@@ -477,8 +479,8 @@ fn random_int_expr(num_vars: usize, depth: usize, rng: &mut StdRng) -> String {
 }
 
 fn random_real_expr(num_vars: usize, depth: usize, rng: &mut StdRng) -> String {
-    if num_vars == 0 || depth > 3 || rng.gen_bool(0.3) {
-        if rng.gen_bool(0.5) { format!("{}.0", rng.gen_range(-10..=10)) } else { format!("r{}", rng.gen_range(0..num_vars)) }
+    if num_vars == 0 || depth > 3 || rng.random_bool(0.3) {
+        if rng.random_bool(0.5) { format!("{}.0", rng.random_range(-10..=10)) } else { format!("r{}", rng.random_range(0..num_vars)) }
     } else {
         let op = ["+", "-", "*"].choose(rng).unwrap();
         let a = random_real_expr(num_vars, depth + 1, rng);
@@ -493,30 +495,30 @@ fn gen_noinc_strings(ctx: &mut Ctx, cntsize: usize) {
     let mut left = cntsize;
     while left > 0 {
         // mix equality, contains, prefix/suffix, and length constraints
-        let choice = ctx.rng.gen_range(0..4);
+        let choice = ctx.rng.random_range(0..4);
         let expr = match choice {
             0 => {
-                let a = ctx.rng.gen_range(0..num_vars);
-                let b = ctx.rng.gen_range(0..num_vars);
-                format!("(= (str.++ s{} s{}) s{})", a, b, ctx.rng.gen_range(0..num_vars))
+                let a = ctx.rng.random_range(0..num_vars);
+                let b = ctx.rng.random_range(0..num_vars);
+                format!("(= (str.++ s{} s{}) s{})", a, b, ctx.rng.random_range(0..num_vars))
             }
             1 => {
-                let a = ctx.rng.gen_range(0..num_vars);
-                let b = ctx.rng.gen_range(0..num_vars);
+                let a = ctx.rng.random_range(0..num_vars);
+                let b = ctx.rng.random_range(0..num_vars);
                 format!("(str.contains s{} s{})", a, b)
             }
             2 => {
-                let a = ctx.rng.gen_range(0..num_vars);
-                format!("(= (str.len s{}) {})", a, ctx.rng.gen_range(0..=20))
+                let a = ctx.rng.random_range(0..num_vars);
+                format!("(= (str.len s{}) {})", a, ctx.rng.random_range(0..=20))
             }
             3 => {
-                let a = ctx.rng.gen_range(0..num_vars);
-                let b = ctx.rng.gen_range(0..num_vars);
+                let a = ctx.rng.random_range(0..num_vars);
+                let b = ctx.rng.random_range(0..num_vars);
                 format!("(= s{} (str.++ s{} \"lit\"))", a, b)
             }
             _ => {
-                let a = ctx.rng.gen_range(0..num_vars);
-                let b = ctx.rng.gen_range(0..num_vars);
+                let a = ctx.rng.random_range(0..num_vars);
+                let b = ctx.rng.random_range(0..num_vars);
                 if ctx.test_seq {
                     format!("(= (seq.len s{}) (seq.len s{}))", a, b)
                 } else {
@@ -536,9 +538,9 @@ fn gen_noinc_fp(ctx: &mut Ctx, cntsize: usize) {
     for i in 0..num_vars { println!("(declare-const f{} (_ FloatingPoint 8 24))", i); }
     let mut left = cntsize;
     while left > 0 {
-        let a = ctx.rng.gen_range(0..num_vars);
-        let b = ctx.rng.gen_range(0..num_vars);
-        let c = ctx.rng.gen_range(0..num_vars);
+        let a = ctx.rng.random_range(0..num_vars);
+        let b = ctx.rng.random_range(0..num_vars);
+        let c = ctx.rng.random_range(0..num_vars);
         let exprs = [
             format!("(= (fp.add RNE f{} f{}) f{})", a, b, c),
             format!("(fp.lt f{} f{})", a, b),
@@ -560,10 +562,10 @@ fn gen_noinc_seplog(ctx: &mut Ctx, cntsize: usize) {
     for i in 0..6 { println!("(declare-const r{} Int)", i); }
     let mut left = cntsize;
     while left > 0 {
-        let a = ctx.rng.gen_range(0..6);
-        let b = ctx.rng.gen_range(0..6);
-        let c = ctx.rng.gen_range(0..6);
-        let d = ctx.rng.gen_range(0..6);
+        let a = ctx.rng.random_range(0..6);
+        let b = ctx.rng.random_range(0..6);
+        let c = ctx.rng.random_range(0..6);
+        let d = ctx.rng.random_range(0..6);
         let exprs = [
             format!("(pt l{} r{})", a, b),
             format!("(disj l{} r{} l{} r{})", a, b, c, d),
@@ -578,10 +580,10 @@ fn gen_noinc_seplog(ctx: &mut Ctx, cntsize: usize) {
 
 fn emit_assert(ctx: &mut Ctx, body: &str) {
     // Decide soft/hard, and optionally name
-    let use_soft = ctx.test_max_sat || ctx.test_max_smt && ctx.rng.gen_bool(0.5);
+    let use_soft = ctx.test_max_sat || ctx.test_max_smt && ctx.rng.random_bool(0.5);
     let name_it = ctx.test_unsat_core || ctx.test_proof;
     if use_soft {
-        println!("(assert-soft {} :weight {})", body, ctx.rng.gen_range(1..=20));
+        println!("(assert-soft {} :weight {})", body, ctx.rng.random_range(1..=20));
     } else if name_it {
         ctx.assert_id += 1;
         let name = format!("IP_{}", ctx.assert_id);
@@ -593,12 +595,12 @@ fn emit_assert(ctx: &mut Ctx, body: &str) {
 }
 
 fn maybe_midstream_check(ctx: &mut Ctx) {
-    if ctx.rng.gen_bool(0.05) {
-        if ctx.rng.gen_bool(0.3) { println!("(push 1)"); }
+    if ctx.rng.random_bool(0.05) {
+        if ctx.rng.random_bool(0.3) { println!("(push 1)"); }
         println!("(check-sat)");
         if ctx.test_smt_opt { println!("(get-objectives)"); }
         if ctx.test_unsat_core { println!("(get-unsat-core)"); }
-        if ctx.rng.gen_bool(0.3) && !ctx.all_assertions.is_empty() && (ctx.test_unsat_core || ctx.test_proof) {
+        if ctx.rng.random_bool(0.3) && !ctx.all_assertions.is_empty() && (ctx.test_unsat_core || ctx.test_proof) {
             // try some check-sat-assuming with pairs
             let mut names = ctx.all_assertions.clone();
             names.shuffle(ctx.rng);
@@ -606,8 +608,8 @@ fn maybe_midstream_check(ctx: &mut Ctx) {
                 if pair.len() == 2 { println!("(check-sat-assuming ({} {}))", pair[0], pair[1]); }
             }
         }
-        if ctx.rng.gen_bool(0.3) { println!("(pop 1)"); }
-        if ctx.rng.gen_bool(0.1) { println!("(reset-assertions)"); }
+        if ctx.rng.random_bool(0.3) { println!("(pop 1)"); }
+        if ctx.rng.random_bool(0.1) { println!("(reset-assertions)"); }
     }
 }
 
@@ -625,11 +627,11 @@ fn gen_ncnf(ctx: &mut Ctx, ratio: usize, cntsize: usize) {
 }
 
 fn random_bool_struct(num_vars: usize, depth: usize, rng: &mut StdRng) -> String {
-    if depth > 3 || rng.gen_bool(0.25) {
-        let v = rng.gen_range(0..num_vars);
-        return if rng.gen_bool(0.5) { format!("b{}", v) } else { format!("(not b{})", v) };
+    if depth > 3 || rng.random_bool(0.25) {
+        let v = rng.random_range(0..num_vars);
+        return if rng.random_bool(0.5) { format!("b{}", v) } else { format!("(not b{})", v) };
     }
-    let choice = rng.gen_range(0..4);
+    let choice = rng.random_range(0..4);
     match choice {
         0 => format!("(=> {} {})", random_bool_struct(num_vars, depth + 1, rng), random_bool_struct(num_vars, depth + 1, rng)),
         1 => format!("(= {} {})", random_bool_struct(num_vars, depth + 1, rng), random_bool_struct(num_vars, depth + 1, rng)),
@@ -645,12 +647,12 @@ fn gen_cnfexp(ctx: &mut Ctx, ratio: usize, cntsize: usize) {
     for i in 0..num_vars { println!("(declare-const p{} Bool)", i); }
     let mut aux = 0usize;
     for _ in 0..num_clauses {
-        let k = ctx.rng.gen_range(2..=5);
+        let k = ctx.rng.random_range(2..=5);
         let mut lits: Vec<String> = Vec::new();
         for _ in 0..k {
-            let v = ctx.rng.gen_range(0..num_vars);
+            let v = ctx.rng.random_range(0..num_vars);
             let base = format!("p{}", v);
-            let lit = if ctx.rng.gen_bool(0.5) { base } else { format!("(not {})", base) };
+            let lit = if ctx.rng.random_bool(0.5) { base } else { format!("(not {})", base) };
             lits.push(lit);
         }
         // Introduce an aux var equivalent to this clause
@@ -693,7 +695,7 @@ fn gen_noinc_uf(ctx: &mut Ctx, cntsize: usize) {
         // build simple atoms using UF apps
         let app = random_uf_app(ctx);
         emit_assert(ctx, &app);
-        if ctx.rng.gen_bool(0.2) { maybe_quantified_assert(ctx); }
+        if ctx.rng.random_bool(0.2) { maybe_quantified_assert(ctx); }
         left -= 1;
         maybe_midstream_check(ctx);
     }
@@ -701,17 +703,17 @@ fn gen_noinc_uf(ctx: &mut Ctx, cntsize: usize) {
 
 fn random_uf_app(ctx: &mut Ctx) -> String {
     // choose fN
-    let upper = ctx.rng.gen_range(1..=6) + 1;
-    let f = ctx.rng.gen_range(0..upper);
-    let arity = ctx.rng.gen_range(0..=3);
+    let upper = ctx.rng.random_range(1..=6) + 1;
+    let f = ctx.rng.random_range(0..upper);
+    let arity = ctx.rng.random_range(0..=3);
     if arity == 0 { return format!("f{}", f); }
     let mut args = Vec::new();
     for _ in 0..arity {
-        let choice = ctx.rng.gen_range(0..3);
+        let choice = ctx.rng.random_range(0..3);
         let a = match choice {
-            0 => format!("i{}", ctx.rng.gen_range(0..6)),
-            1 => format!("x{}", ctx.rng.gen_range(0..6)),
-            _ => format!("b{}", ctx.rng.gen_range(0..6)),
+            0 => format!("i{}", ctx.rng.random_range(0..6)),
+            1 => format!("x{}", ctx.rng.random_range(0..6)),
+            _ => format!("b{}", ctx.rng.random_range(0..6)),
         };
         args.push(a);
     }
@@ -721,16 +723,16 @@ fn random_uf_app(ctx: &mut Ctx) -> String {
 fn maybe_quantified_assert(ctx: &mut Ctx) {
     // For QBF or non-QF logics, prefer quantifiers more often.
     let p = if ctx.test_qbf || ctx.prefer_quant_in_non_qf { 0.6 } else { 0.1 };
-    if ctx.rng.gen_bool(p) {
-        let use_real = ctx.has_real && ctx.rng.gen_bool(0.5);
+    if ctx.rng.random_bool(p) {
+        let use_real = ctx.has_real && ctx.rng.random_bool(0.5);
         let sort = if use_real { "Real" } else { "Int" };
-        let n = ctx.rng.gen_range(1..=2);
+        let n = ctx.rng.random_range(1..=2);
         let mut binders = Vec::new();
         for i in 0..n { binders.push(format!("(q{} {})", i, sort)); }
         let body = if use_real {
-            format!("(=> (> q0 0.0) (>= (+ q0 {}) 0.0))", ctx.rng.gen_range(-3..=3))
+            format!("(=> (> q0 0.0) (>= (+ q0 {}) 0.0))", ctx.rng.random_range(-3..=3))
         } else {
-            format!("(=> (> q0 0) (>= (+ q0 {}) 0))", ctx.rng.gen_range(-3..=3))
+            format!("(=> (> q0 0) (>= (+ q0 {}) 0))", ctx.rng.random_range(-3..=3))
         };
         emit_assert(ctx, &format!("(forall ({} ) {} )", binders.join(" "), body));
     }
@@ -740,13 +742,13 @@ fn maybe_quantified_assert_bv(ctx: &mut Ctx) {
     // Emit simple quantified BV constraints when non-QF logics are selected.
     // We stick to 32-bit since that's what BV variables use here.
     let p = if ctx.prefer_quant_in_non_qf { 0.6 } else { 0.1 };
-    if ctx.rng.gen_bool(p) {
+    if ctx.rng.random_bool(p) {
         let bw = 32usize;
-        let n = ctx.rng.gen_range(1..=2);
+        let n = ctx.rng.random_range(1..=2);
         let mut binders = Vec::new();
         for i in 0..n { binders.push(format!("(qb{} (_ BitVec {}))", i, bw)); }
         // Build a small BV implication as the body
-        let lit: u32 = ctx.rng.gen();
+        let lit: u32 = ctx.rng.random();
         let body = format!(
             "(=> (= (bvand qb0 (_ bv{} {})) (_ bv{} {})) (bvule (bvor qb0 (_ bv{} {})) (bvnot (_ bv0 {}))))",
             lit, bw, lit, bw, lit, bw, bw
@@ -764,15 +766,15 @@ fn gen_arrays(ctx: &mut Ctx, idx_bw: usize, elt_bw: usize, approx: usize) {
     for i in 0..n { println!("(declare-const A{} (Array {} {}))", i, idx_sort, elt_sort); }
     // helper to emit an index literal
     let emit_idx = |rng: &mut StdRng| -> String {
-        if idx_bw == 0 { format!("{}", rng.gen_range(-5..=5)) } else { format!("(_ bv{} {})", rng.gen::<u32>(), idx_bw) }
+        if idx_bw == 0 { format!("{}", rng.random_range(-5..=5)) } else { format!("(_ bv{} {})", rng.random::<u32>(), idx_bw) }
     };
     // element literal
     let emit_elt = |rng: &mut StdRng| -> String {
-        if elt_bw == 0 { format!("{}", rng.gen_range(-10..=10)) } else if elt_bw == 3 { "\"e\"".to_string() } else { format!("(_ bv{} {})", rng.gen::<u32>(), elt_bw) }
+        if elt_bw == 0 { format!("{}", rng.random_range(-10..=10)) } else if elt_bw == 3 { "\"e\"".to_string() } else { format!("(_ bv{} {})", rng.random::<u32>(), elt_bw) }
     };
     for _ in 0..(approx * 2).clamp(2, 24) {
-        let a = ctx.rng.gen_range(0..n);
-        if ctx.rng.gen_bool(0.5) {
+        let a = ctx.rng.random_range(0..n);
+        if ctx.rng.random_bool(0.5) {
             // select equals element
             let i = emit_idx(ctx.rng);
             let v = emit_elt(ctx.rng);
@@ -790,5 +792,3 @@ fn gen_arrays(ctx: &mut Ctx, idx_bw: usize, elt_bw: usize, approx: usize) {
         maybe_midstream_check(ctx);
     }
 }
-
-
